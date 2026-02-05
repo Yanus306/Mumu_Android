@@ -1,10 +1,11 @@
-package kr.ac.anu.mumu
+package kr.ac.anu.mumu.presentation.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kr.ac.anu.mumu.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
