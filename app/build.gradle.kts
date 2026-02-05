@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "kr.ac.anu.mumu"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "kr.ac.anu.mumu"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
