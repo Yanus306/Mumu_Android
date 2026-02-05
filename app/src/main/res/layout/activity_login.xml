@@ -7,4 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".presentation.login.LoginActivity">
 
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="117dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="소리없는 목소리에 귀 기울이다 \nMumu에 오신것을 환영합니다!"
+        android:textColor="@color/mumublack"
+        android:textSize="@dimen/body_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
