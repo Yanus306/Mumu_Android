@@ -52,4 +52,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_id" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/btn_selector"
+        android:enabled="false"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="로그인"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/et_id"
+        app:layout_constraintStart_toStartOf="@id/et_id"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
