@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -114,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                         is LoginUiState.Error -> {
                             // 로그인 실패 처리
                             binding.tvError.visibility = View.VISIBLE
-                            binding.tvError.text = state.message
+                            Log.e("에러 로그 : ", state.message)
                             binding.btnLogin.isEnabled = true
                         }
                         else -> {}
