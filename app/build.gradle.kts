@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android") version "2.48"
+    alias(libs.plugins.hilt.android)
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
 }
 
