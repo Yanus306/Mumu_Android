@@ -1,6 +1,8 @@
 package kr.ac.anu.mumu.domain.model
 
 data class User(
-    val id: String,
-    val password: String,
+    val name: String,
+    val token: String,
+    val profileImage: String?,
+    val role: String
 )
