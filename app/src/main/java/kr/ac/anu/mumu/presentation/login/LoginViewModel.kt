@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.domain.usecase.LoginUseCase
 import javax.inject.Inject
 
-@HiltViewModel
 // 화면 상태
 sealed class LoginUiState {
     object Idle : LoginUiState() // 대기
@@ -19,6 +18,7 @@ sealed class LoginUiState {
     data class Error(val message: String) : LoginUiState() // 실패
 }
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
