@@ -5,6 +5,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -15,6 +16,7 @@ import kr.ac.anu.mumu.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewSet()
+
+        binding.btnLogin.setOnClickListener {
+            val id = binding.etId.text.toString()
+            val pw = binding.etPw.text.toString()
+            viewModel.do_login(id, pw)
+        }
+
+        binding.btnJoin.setOnClickListener {
+            //TODO Move 회원가입
+
+        }
     }
 
     private fun viewSet() {
