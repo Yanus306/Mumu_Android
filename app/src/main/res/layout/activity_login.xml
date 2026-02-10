@@ -54,6 +54,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_id" />
 
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="아이디 또는 비밀번호를 한 번 더 확인해 주세요"
+        android:textColor="@color/mumured"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_pw"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"

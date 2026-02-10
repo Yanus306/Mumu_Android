@@ -11,32 +11,32 @@ import kr.ac.anu.mumu.domain.usecase.LoginUseCase
 import javax.inject.Inject
 
 @HiltViewModel
+// 화면 상태
+sealed class LoginUiState {
+    object Idle : LoginUiState() // 대기
+    object Loading : LoginUiState() // 로딩
+    object Success : LoginUiState() // 로그인 성공
+    data class Error(val message: String) : LoginUiState() // 실패
+}
+
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    // 화면 상태
-    sealed class UiState {
-        object Idle : UiState() // 대기
-        object Loading : UiState() // 로딩
-        object Success : UiState() // 로그인 성공
-        data class Error(val message: String) : UiState() // 실패
-    }
-
-    private val _loginState = MutableStateFlow<UiState>(UiState.Idle)
-    val loginState: StateFlow<UiState> = _loginState.asStateFlow()
+    private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
+    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     // 로그인 함수
     fun login(id: String, pw: String) {
         viewModelScope.launch {
-            _loginState.value = UiState.Loading
+            _uiState.value = LoginUiState.Loading
 
             loginUseCase(id, pw)
                 .onSuccess {
-                    _loginState.value = UiState.Success
+                    _uiState.value = LoginUiState.Success
                 }
                 .onFailure { error ->
-                    _loginState.value = UiState.Error(error.message ?: "로그인 실패")
+                    _uiState.value = LoginUiState.Error(error.message ?: "로그인 실패")
                 }
 
         }

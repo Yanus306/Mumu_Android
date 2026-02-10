@@ -1,17 +1,26 @@
 package kr.ac.anu.mumu.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.ActivityLoginBinding
+import kr.ac.anu.mumu.presentation.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,16 +40,8 @@ class LoginActivity : AppCompatActivity() {
 
         viewSet()
 
-        binding.btnLogin.setOnClickListener {
-            val id = binding.etId.text.toString()
-            val pw = binding.etPw.text.toString()
-            viewModel.do_login(id, pw)
-        }
-
-        binding.btnJoin.setOnClickListener {
-            //TODO Move 회원가입
-
-        }
+        initInputListener()
+        initObserver()
     }
 
     private fun viewSet() {
@@ -63,5 +64,61 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvTitle.text = spannable
+    }
+
+    private fun initInputListener() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                val id = binding.etId.text.toString()
+                val pw = binding.etPw.text.toString()
+
+                binding.btnLogin.isEnabled = id.isNotEmpty() && pw.isNotEmpty()
+
+                binding.tvError.visibility = View.GONE
+            }
+        }
+
+        binding.etId.addTextChangedListener(textWatcher)
+        binding.etPw.addTextChangedListener(textWatcher)
+
+        // 버튼 클릭 시 로그인 요청
+        binding.btnLogin.setOnClickListener {
+            val id = binding.etId.text.toString()
+            val pw = binding.etPw.text.toString()
+
+            viewModel.login(id, pw)
+        }
+    }
+
+    // 로그인 결과 -> UI 업데이트
+    private fun initObserver() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    when (state) {
+                        is LoginUiState.Loading -> {
+                            // 로딩 상태 처리
+                            binding.btnLogin.isEnabled = false
+                        }
+                        is LoginUiState.Success -> {
+                            // 로그인 성공 처리
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        is LoginUiState.Error -> {
+                            // 로그인 실패 처리
+                            binding.tvError.visibility = View.VISIBLE
+                            binding.tvError.text = state.message
+                            binding.btnLogin.isEnabled = true
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 }
