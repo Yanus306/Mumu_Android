@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android") version "2.48"
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
 }
 
 android {
@@ -48,4 +51,23 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Retrofit & GSON
+    implementation(libs.retrofit2)
+    implementation(libs.converter.gson)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // ViewModel & LifeCycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // UI 확장
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 }
