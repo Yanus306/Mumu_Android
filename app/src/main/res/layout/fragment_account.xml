@@ -120,14 +120,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="et_pw, tv_pw_error" />
+        app:constraint_referenced_ids="et_pw" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_step_pw_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="et_pw_check, tv_pwCheck_error" />
+        app:constraint_referenced_ids="et_pw_check" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
