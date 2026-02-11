@@ -37,8 +37,13 @@ class JoinActivity : AppCompatActivity() {
 
         // 뒤로 가기
         binding.ibBack.setOnClickListener {
-            navController.popBackStack()
-            finish()
+            val currentDest = navController.currentDestination?.id
+
+            if (currentDest == R.id.accountFragment) {
+                finish()
+            } else {
+                navController.popBackStack()
+            }
         }
 
         // 다음 버튼
