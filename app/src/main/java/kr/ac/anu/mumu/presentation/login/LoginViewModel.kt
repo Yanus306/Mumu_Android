@@ -38,7 +38,6 @@ class LoginViewModel @Inject constructor(
                 .onFailure { error ->
                     _uiState.value = LoginUiState.Error(error.message ?: "로그인 실패")
                 }
-
         }
     }
 }
