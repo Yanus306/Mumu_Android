@@ -70,4 +70,8 @@ dependencies {
     // UI 확장
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
+
+    // 네비게이션
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 }
