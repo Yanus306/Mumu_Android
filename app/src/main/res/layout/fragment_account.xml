@@ -1,6 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="1 / 4"
+        android:textColor="@color/mumugray_200"
+        android:textSize="@dimen/body_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="Mumu에서 사용하실\n아이디와 비밀번호를 입력해 주세요!"
+        android:textColor="@color/mumublack"
+        android:textSize="@dimen/body_2"
+        app:layout_constraintStart_toStartOf="@id/tv_step"
+        app:layout_constraintTop_toBottomOf="@id/tv_step" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:hint="아이디"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_350"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_id_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="아이디는 7~12자 사이어야 해요!"
+        android:textColor="@color/mumured"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_id"
+        app:layout_constraintTop_toBottomOf="@id/et_id" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:hint="비밀번호"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_350"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/et_id"
+        app:layout_constraintStart_toStartOf="@id/et_id"
+        app:layout_constraintTop_toBottomOf="@id/et_id" />
+
+    <TextView
+        android:id="@+id/tv_pw_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="비밀번호는 특수 문자 포함 8~16자 사이어야 해요!"
+        android:textColor="@color/mumured"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_pw"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+    <EditText
+        android:id="@+id/et_pw_check"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:hint="비밀번호 재확인"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_350"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/et_id"
+        app:layout_constraintStart_toStartOf="@id/et_id"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+    <TextView
+        android:id="@+id/tv_pwCheck_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="비밀번호가 서로 달라요!"
+        android:textColor="@color/mumured"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_pw_check"
+        app:layout_constraintTop_toBottomOf="@id/et_pw_check" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_step_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="et_pw, tv_pw_error" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_step_pw_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="et_pw_check, tv_pwCheck_error" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
