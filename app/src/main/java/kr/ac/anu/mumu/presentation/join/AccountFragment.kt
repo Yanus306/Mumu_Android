@@ -58,10 +58,9 @@ class AccountFragment : Fragment() {
         // 단계별 UI 오픈
         viewModel.accountStep.observe(viewLifecycleOwner) { step ->
             TransitionManager.beginDelayedTransition(binding.root as ViewGroup)
-            when (step) {
-                1 -> binding.groupStepPw.visibility = View.VISIBLE
-                2 -> binding.groupStepPwCheck.visibility = View.VISIBLE
-            }
+            binding.groupStepPw.visibility = if (step >= 1) View.VISIBLE else View.GONE
+
+            binding.groupStepPwCheck.visibility = if (step >= 2) View.VISIBLE else View.GONE
 
             viewModel.checkButtonEnabled()
         }
