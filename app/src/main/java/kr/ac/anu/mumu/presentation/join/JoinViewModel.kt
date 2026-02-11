@@ -1,4 +1,76 @@
 package kr.ac.anu.mumu.presentation.join
 
-class JoinViewModel {
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
+class JoinViewModel : ViewModel() {
+
+    // 입력 데이터
+    val inputId = MutableLiveData("")
+    val inputPw = MutableLiveData("")
+    val inputPwCheck = MutableLiveData("")
+
+    // 화면 상태
+    private val _accountStep = MutableLiveData(0)
+    val accountStep: LiveData<Int> get() = _accountStep
+
+    // 에러 메시지 표시 여부
+    val isIdErrorVisible = MutableLiveData(false)
+    val isPwErrorVisible = MutableLiveData(false)
+    val isPwCheckErrorVisible = MutableLiveData(false)
+
+    // 페이지 이동 이벤트
+    private val _moveToNextPage = MutableLiveData<Boolean>()
+    val moveToNextPage: LiveData<Boolean> get() = _moveToNextPage
+
+    // 정규식
+    private val ID_REGEX = Regex("^[a-zA-Z0-9]{7,12}\$")
+    private val PW_REGEX = Regex("^(?=.*[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).{8,16}\$")
+
+    // 다음 버튼 클릭시 호출
+    fun onNextClick() {
+        when (_accountStep.value) {
+            0 -> checkIdStep()
+            1 -> checkPwStep()
+            2 -> checkPwCheckStep()
+        }
+    }
+
+    private fun checkIdStep() {
+        val id = inputId.value ?: ""
+
+        if (ID_REGEX.matches(id)) {
+            isIdErrorVisible.value = false
+            _accountStep.value = 1
+        } else {
+            isIdErrorVisible.value = true
+        }
+    }
+
+    private fun checkPwStep() {
+        val pw = inputPw.value ?: ""
+
+        if (PW_REGEX.matches(pw)) {
+            isPwErrorVisible.value = false
+            _accountStep.value = 2
+        } else {
+            isPwErrorVisible.value = true
+        }
+    }
+
+    private fun checkPwCheckStep() {
+        val pw = inputPw.value ?: ""
+        val pwCheck = inputPwCheck.value ?: ""
+
+        if (pw == pwCheck && pw.isNotBlank()) {
+            isPwCheckErrorVisible.value = false
+            _moveToNextPage.value = true
+        } else {
+            isPwCheckErrorVisible.value = true
+        }
+    }
+
+    // 네비게이션 완료 후 이벤트 초기화
+    fun doneNavigation() { _moveToNextPage.value = false }
 }
