@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".presentation.join.JoinActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,10 +34,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_next"
-        app:layout_constraintTop_toBottomOf="@id/layout_header" />
+        app:layout_constraintTop_toBottomOf="@id/layout_header"
+        app:navGraph="@navigation/nav_graph_join" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
