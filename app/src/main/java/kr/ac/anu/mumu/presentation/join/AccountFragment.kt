@@ -39,9 +39,21 @@ class AccountFragment : Fragment() {
         viewSet()
 
         // 입력값 리스너
-        binding.etId.addTextChangedListener { viewModel.inputId.value = it.toString() }
-        binding.etPw.addTextChangedListener { viewModel.inputPw.value = it.toString() }
-        binding.etPwCheck.addTextChangedListener { viewModel.inputPwCheck.value = it.toString() }
+        binding.etId.addTextChangedListener {
+            viewModel.inputId.value = it.toString()
+            viewModel.checkButtonEnabled()
+            viewModel.isIdErrorVisible.value = false
+        }
+        binding.etPw.addTextChangedListener {
+            viewModel.inputPw.value = it.toString()
+            viewModel.checkButtonEnabled()
+            viewModel.isPwErrorVisible.value = false
+        }
+        binding.etPwCheck.addTextChangedListener {
+            viewModel.inputPwCheck.value = it.toString()
+            viewModel.checkButtonEnabled()
+            viewModel.isPwCheckErrorVisible.value = false
+        }
 
         // 단계별 UI 오픈
         viewModel.accountStep.observe(viewLifecycleOwner) { step ->
@@ -50,9 +62,11 @@ class AccountFragment : Fragment() {
                 1 -> binding.groupStepPw.visibility = View.VISIBLE
                 2 -> binding.groupStepPwCheck.visibility = View.VISIBLE
             }
+
+            viewModel.checkButtonEnabled()
         }
 
-        // 에러 메시지 보이기 / 숨기기
+        // 에러 메시지 UI 반영
         viewModel.isIdErrorVisible.observe(viewLifecycleOwner) { isVisible ->
             binding.tvIdError.visibility = if (isVisible) View.VISIBLE else View.GONE
         }

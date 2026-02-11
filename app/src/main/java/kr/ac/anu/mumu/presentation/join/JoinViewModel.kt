@@ -24,9 +24,24 @@ class JoinViewModel : ViewModel() {
     private val _moveToNextPage = MutableLiveData<Boolean>()
     val moveToNextPage: LiveData<Boolean> get() = _moveToNextPage
 
+    // 버튼 활성화 여부
+    private val _isButtonEnabled = MutableLiveData(false)
+    val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
+
     // 정규식
     private val ID_REGEX = Regex("^[a-zA-Z0-9]{7,12}\$")
     private val PW_REGEX = Regex("^(?=.*[!@#\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).{8,16}\$")
+
+    fun checkButtonEnabled() {
+        val step = _accountStep.value ?: 0
+        val hasInput = when (step) {
+            0 -> !inputId.value.isNullOrBlank() // ID 칸에 뭐라도 썼니?
+            1 -> !inputPw.value.isNullOrBlank() // PW 칸에 뭐라도 썼니?
+            2 -> !inputPwCheck.value.isNullOrBlank() // 확인 칸에 뭐라도 썼니?
+            else -> false
+        }
+        _isButtonEnabled.value = hasInput
+    }
 
     // 다음 버튼 클릭시 호출
     fun onNextClick() {
@@ -43,6 +58,7 @@ class JoinViewModel : ViewModel() {
         if (ID_REGEX.matches(id)) {
             isIdErrorVisible.value = false
             _accountStep.value = 1
+            checkButtonEnabled()
         } else {
             isIdErrorVisible.value = true
         }
@@ -54,6 +70,7 @@ class JoinViewModel : ViewModel() {
         if (PW_REGEX.matches(pw)) {
             isPwErrorVisible.value = false
             _accountStep.value = 2
+            checkButtonEnabled()
         } else {
             isPwErrorVisible.value = true
         }

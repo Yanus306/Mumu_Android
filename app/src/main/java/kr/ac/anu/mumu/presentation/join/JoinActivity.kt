@@ -31,10 +31,14 @@ class JoinActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        viewModel.isButtonEnabled.observe(this) { isEnabled ->
+            binding.btnNext.isEnabled = isEnabled
+        }
 
         // 뒤로 가기
         binding.ibBack.setOnClickListener {
             navController.popBackStack()
+            finish()
         }
 
         // 다음 버튼
