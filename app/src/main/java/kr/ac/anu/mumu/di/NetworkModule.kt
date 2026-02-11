@@ -16,7 +16,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost/") //서버 주소
+            .baseUrl("https://keagan-slipperier-bewilderedly.ngrok-free.dev") //서버 주소
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

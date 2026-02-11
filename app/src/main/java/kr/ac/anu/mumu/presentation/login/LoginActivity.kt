@@ -115,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                         is LoginUiState.Error -> {
                             // 로그인 실패 처리
                             binding.tvError.visibility = View.VISIBLE
-                            Log.e("에러 로그 : ", state.message)
+                            Log.e("emumu : ", state.message)
                             binding.btnLogin.isEnabled = true
                         }
                         else -> {}
