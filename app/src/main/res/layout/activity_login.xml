@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.login.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="117dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="소리없는 목소리에 귀 기울이다 \nMumu에 오신것을 환영합니다!"
+        android:textColor="@color/mumublack"
+        android:textSize="@dimen/body_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/gray_edit_box"
+        android:hint="아이디"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_350"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gray_edit_box"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumublack"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_id" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="아이디 또는 비밀번호를 한 번 더 확인해 주세요"
+        android:textColor="@color/mumured"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_pw"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/btn_selector"
+        android:enabled="false"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="로그인"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/et_id"
+        app:layout_constraintStart_toStartOf="@id/et_id"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_join"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/btn_join_background"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="회원가입"
+        android:textColor="@color/mumumint_250"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/btn_login"
+        app:layout_constraintStart_toStartOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    <TextView
+        android:id="@+id/tv_find_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="비밀번호를 잊으셨나요?"
+        android:textColor="@color/mumugray_250"
+        android:textSize="@dimen/body_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_join"
+        app:layout_constraintStart_toStartOf="@id/btn_join" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
