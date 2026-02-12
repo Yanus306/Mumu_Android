@@ -10,6 +10,7 @@ class JoinViewModel : ViewModel() {
     val inputId = MutableLiveData("")
     val inputPw = MutableLiveData("")
     val inputPwCheck = MutableLiveData("")
+    val inputName = MutableLiveData("")
 
     // 화면 상태
     private val _accountStep = MutableLiveData(0)
@@ -86,6 +87,11 @@ class JoinViewModel : ViewModel() {
         } else {
             isPwCheckErrorVisible.value = true
         }
+    }
+
+    fun checkNameStep() {
+        val hasName = !inputName.value.isNullOrBlank()
+        _isButtonEnabled.value = hasName
     }
 
     // 네비게이션 완료 후 이벤트 초기화
