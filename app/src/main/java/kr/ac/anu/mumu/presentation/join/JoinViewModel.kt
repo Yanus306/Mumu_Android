@@ -25,6 +25,7 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     val isIdErrorVisible = MutableLiveData(false)
     val isPwErrorVisible = MutableLiveData(false)
     val isPwCheckErrorVisible = MutableLiveData(false)
+    val isCheckNumErrorVisible = MutableLiveData(false)
 
     // 페이지 이동 이벤트
     private val _moveToNextPage = MutableLiveData<Boolean>()
@@ -133,10 +134,15 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     fun onPhoneCheckClick() {
         val phoneLength = inputPhoneNum.value?.length ?: 0
         val isPhoneValid = phoneLength == 10 || phoneLength == 11
-        val isCodeValid = !inputCheckNum.value.isNullOrBlank()
+        val currentCode = inputCheckNum.value ?: ""
 
-        if (isPhoneValid && isCodeValid) {
-            _moveToNextPage.value = true
+        if (isPhoneValid) {
+            if (currentCode == "123456") {
+                isCheckNumErrorVisible.value = false
+                _moveToNextPage.value = true
+            } else {
+                isCheckNumErrorVisible.value = true
+            }
         }
     }
 

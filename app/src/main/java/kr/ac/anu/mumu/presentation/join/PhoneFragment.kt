@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentPhoneBinding
 
 class PhoneFragment : Fragment() {
@@ -63,6 +64,14 @@ class PhoneFragment : Fragment() {
             }
         })
 
+        viewModel.isCheckNumErrorVisible.observe(viewLifecycleOwner) { isError ->
+            if (isError) {
+                binding.etCheckNum.setBackgroundResource(R.drawable.bg_edit_error_underline)
+            } else {
+                binding.etCheckNum.setBackgroundResource(R.drawable.bg_edit_underline)
+            }
+        }
+
         binding.etCheckNum.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -70,6 +79,8 @@ class PhoneFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 viewModel.inputCheckNum.value = s?.toString() ?: ""
+
+                viewModel.isCheckNumErrorVisible.value = false
 
                 viewModel.checkPhoneButtonEnabled()
             }
