@@ -29,6 +29,11 @@ class PhoneFragment : Fragment() {
 
         viewModel.checkPhoneStep()
 
+        viewModel.isVerificationVisible.observe(viewLifecycleOwner) { isVisible ->
+            android.transition.TransitionManager.beginDelayedTransition(binding.root as ViewGroup)
+            binding.groupStepCheckNum.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
+
         binding.etPhoneNum.addTextChangedListener(object : TextWatcher {
 
             private var isFormatting = false // 무한 루프 방지용 플래그
@@ -49,13 +54,24 @@ class PhoneFragment : Fragment() {
 
                 // 화면에 보여줄 하이픈 포맷 만들기
                 val formattedNumber = formatPhoneNumber(phoneNumber)
-
                 s.replace(0, s.length, formattedNumber)
 
                 viewModel.checkPhoneStep()
 
                 isFormatting = false
 
+            }
+        })
+
+        binding.etCheckNum.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.inputCheckNum.value = s?.toString() ?: ""
+
+                viewModel.checkPhoneButtonEnabled()
             }
         })
     }

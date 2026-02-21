@@ -3,8 +3,11 @@ package kr.ac.anu.mumu.presentation.join
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class JoinViewModel : ViewModel() {
+@HiltViewModel
+class JoinViewModel @Inject constructor() : ViewModel() {
 
     // 입력 데이터
     val inputId = MutableLiveData("")
@@ -104,9 +107,37 @@ class JoinViewModel : ViewModel() {
     }
 
     // Phone Code
+    // 인증번호 visiable 여부 결정하는 LiveData
+    private val _isVerificationVisible = MutableLiveData(false)
+    val isVerificationVisible: LiveData<Boolean> get() = _isVerificationVisible
+
     fun checkPhoneStep() {
-        val hasPhone = !inputPhoneNum.value.isNullOrBlank()
-        _isButtonEnabled.value = hasPhone
+        val phoneLength = inputPhoneNum.value?.length ?: 0
+        val isPhoneValid = phoneLength == 10 || phoneLength == 11
+
+        _isVerificationVisible.value = isPhoneValid
+
+        checkPhoneButtonEnabled()
+    }
+
+    fun checkPhoneButtonEnabled() {
+        val phoneLength = inputPhoneNum.value?.length ?: 0
+        val isPhoneValid = phoneLength == 10 || phoneLength == 11
+
+        val isCodeValid = !inputCheckNum.value.isNullOrBlank()
+
+        // 전화번호도 맞고 인증번호도 쳤을 때만 최종 버튼 켜기
+        _isButtonEnabled.value = isPhoneValid && isCodeValid
+    }
+
+    fun onPhoneCheckClick() {
+        val phoneLength = inputPhoneNum.value?.length ?: 0
+        val isPhoneValid = phoneLength == 10 || phoneLength == 11
+        val isCodeValid = !inputCheckNum.value.isNullOrBlank()
+
+        if (isPhoneValid && isCodeValid) {
+            _moveToNextPage.value = true
+        }
     }
 
     // 네비게이션 완료 후 이벤트 초기화

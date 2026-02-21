@@ -8,9 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.ActivityJoinBinding
 
+@AndroidEntryPoint
 class JoinActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJoinBinding
@@ -54,6 +56,8 @@ class JoinActivity : AppCompatActivity() {
                 viewModel.onNextClick()
             } else if (currentDest == R.id.nameFragment) {
                 viewModel.onNameCheckClick()
+            } else if (currentDest == R.id.phoneFragment) {
+                viewModel.onPhoneCheckClick()
             }
         }
 
