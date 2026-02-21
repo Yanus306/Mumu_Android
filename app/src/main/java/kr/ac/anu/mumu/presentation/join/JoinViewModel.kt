@@ -11,6 +11,8 @@ class JoinViewModel : ViewModel() {
     val inputPw = MutableLiveData("")
     val inputPwCheck = MutableLiveData("")
     val inputName = MutableLiveData("")
+    val inputPhoneNum = MutableLiveData("")
+    val inputCheckNum = MutableLiveData("")
 
     // 화면 상태
     private val _accountStep = MutableLiveData(0)
@@ -89,9 +91,22 @@ class JoinViewModel : ViewModel() {
         }
     }
 
+    // Name Code
     fun checkNameStep() {
         val hasName = !inputName.value.isNullOrBlank()
         _isButtonEnabled.value = hasName
+    }
+
+    fun onNameCheckClick() {
+        if (!inputName.value.isNullOrBlank()) {
+            _moveToNextPage.value = true
+        }
+    }
+
+    // Phone Code
+    fun checkPhoneStep() {
+        val hasPhone = !inputPhoneNum.value.isNullOrBlank()
+        _isButtonEnabled.value = hasPhone
     }
 
     // 네비게이션 완료 후 이벤트 초기화

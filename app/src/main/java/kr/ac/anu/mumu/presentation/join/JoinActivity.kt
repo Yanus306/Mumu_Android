@@ -48,15 +48,26 @@ class JoinActivity : AppCompatActivity() {
 
         // 다음 버튼
         binding.btnNext.setOnClickListener {
-            viewModel.onNextClick()
+            val currentDest = navController.currentDestination?.id
+
+            if (currentDest == R.id.accountFragment) {
+                viewModel.onNextClick()
+            } else if (currentDest == R.id.nameFragment) {
+                viewModel.onNameCheckClick()
+            }
         }
 
         // 페이지 이동 신호 감지
         viewModel.moveToNextPage.observe(this) { move ->
             if (move) {
-                if (navController.currentDestination?.id == R.id.accountFragment) {
+                val currentDest = navController.currentDestination?.id
+
+                if (currentDest == R.id.accountFragment) {
                     navController.navigate(R.id.action_accountFragment_to_nameFragment)
+                } else if (currentDest == R.id.nameFragment) {
+                    navController.navigate(R.id.action_nameFragment_to_phoneFragment)
                 }
+
                 viewModel.doneNavigation()
             }
 
