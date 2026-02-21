@@ -38,6 +38,8 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/gray_edit_box"
         android:hint="이름"
+        android:imeOptions="actionDone"
+        android:inputType="text"
         android:paddingHorizontal="20dp"
         android:textColor="@color/mumugray_350"
         android:textColorHint="@color/mumugray_150"
