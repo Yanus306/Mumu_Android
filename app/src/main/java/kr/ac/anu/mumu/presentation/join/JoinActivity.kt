@@ -70,6 +70,8 @@ class JoinActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_accountFragment_to_nameFragment)
                 } else if (currentDest == R.id.nameFragment) {
                     navController.navigate(R.id.action_nameFragment_to_phoneFragment)
+                } else if (currentDest == R.id.phoneFragment) {
+                    navController.navigate(R.id.action_phoneFragment_to_addressFragment)
                 }
 
                 viewModel.doneNavigation()

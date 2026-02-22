@@ -23,7 +23,7 @@
         android:id="@+id/nameFragment"
         android:name="kr.ac.anu.mumu.presentation.join.NameFragment"
         android:label="NameFragment"
-        tools:layout="@layout/fragment_name" >
+        tools:layout="@layout/fragment_name">
         <action
             android:id="@+id/action_nameFragment_to_phoneFragment"
             app:destination="@id/phoneFragment"
@@ -37,6 +37,20 @@
         android:id="@+id/phoneFragment"
         android:name="kr.ac.anu.mumu.presentation.join.PhoneFragment"
         android:label="PhoneFragment"
-        tools:layout="@layout/fragment_phone" />
+        tools:layout="@layout/fragment_phone">
+        <action
+            android:id="@+id/action_phoneFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="kr.ac.anu.mumu.presentation.join.AddressFragment"
+        android:label="AddressFragment"
+        tools:layout="@layout/fragment_address" />
 
 </navigation>
