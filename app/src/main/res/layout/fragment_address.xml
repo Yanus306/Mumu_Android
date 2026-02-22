@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="4 / 4"
+        android:textColor="@color/mumugray_200"
+        android:textSize="@dimen/body_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:text="현재 거주 중인\n주소를 입력해 주세요!"
+        android:textColor="@color/mumublack"
+        android:textSize="@dimen/body_2"
+        app:layout_constraintStart_toStartOf="@id/tv_step"
+        app:layout_constraintTop_toBottomOf="@id/tv_step" />
+
+    <TextView
+        android:id="@+id/tv_subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="주변 병원 정보를 위해 필요해요!"
+        android:textColor="@color/mumugray_250"
+        android:textSize="@dimen/body_6"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_postal_code"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:gravity="center_vertical"
+        android:hint="우편 번호"
+        android:paddingStart="16sp"
+        android:textColor="@color/mumugray_400"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toStartOf="@id/btn_search"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_subTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_search"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_selector"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="검색"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_postal_code"
+        app:layout_constraintTop_toTopOf="@id/tv_postal_code" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:gravity="center_vertical"
+        android:hint="도로명, 건물 번호"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_400"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/btn_search"
+        app:layout_constraintStart_toStartOf="@id/tv_postal_code"
+        app:layout_constraintTop_toBottomOf="@id/tv_postal_code" />
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/gray_edit_box"
+        android:fontFamily="@font/pretendard_medium"
+        android:hint="상세 주소"
+        android:inputType="text"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/mumugray_400"
+        android:textColorHint="@color/mumugray_150"
+        android:textSize="@dimen/body_4"
+        app:layout_constraintEnd_toEndOf="@id/btn_search"
+        app:layout_constraintStart_toStartOf="@id/tv_postal_code"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
