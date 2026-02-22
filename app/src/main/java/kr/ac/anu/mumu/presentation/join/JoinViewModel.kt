@@ -16,6 +16,9 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     val inputName = MutableLiveData("")
     val inputPhoneNum = MutableLiveData("")
     val inputCheckNum = MutableLiveData("")
+    val inputPostalCode = MutableLiveData("")
+    val inputAddress = MutableLiveData("")
+    val inputDetailAddress = MutableLiveData("")
 
     // 화면 상태
     private val _accountStep = MutableLiveData(0)
@@ -144,6 +147,13 @@ class JoinViewModel @Inject constructor() : ViewModel() {
                 isCheckNumErrorVisible.value = true
             }
         }
+    }
+
+    // Address
+    fun checkAddressStep() {
+        //TODO 우편번호랑 도로명은 주소 API 사용하면서 작성
+        val hasDetail = !inputDetailAddress.value.isNullOrBlank()
+        _isButtonEnabled.value = hasDetail
     }
 
     // 네비게이션 완료 후 이벤트 초기화
