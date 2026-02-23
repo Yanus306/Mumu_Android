@@ -50,16 +50,20 @@ class JoinActivity : AppCompatActivity() {
 
         // 다음 버튼
         binding.btnNext.setOnClickListener {
-            val currentDest = navController.currentDestination?.id
+            viewModel.onNextClick()
+        }
 
-            if (currentDest == R.id.accountFragment) {
-                viewModel.onNextClick()
-            } else if (currentDest == R.id.nameFragment) {
-                viewModel.onNameCheckClick()
-            } else if (currentDest == R.id.phoneFragment) {
-                viewModel.onPhoneCheckClick()
-            } else if (currentDest == R.id.addressFragment) {
-                viewModel.onAddressCheckClick()
+        viewModel.accountStep.observe(this) { currentStep ->
+            if (currentStep == 7) {
+                binding.btnNext.text = "완료"
+            } else {
+                binding.btnNext.text = "다음"
+            }
+        }
+
+        viewModel.finishJoinFlow.observe(this) { isFinished ->
+            if (isFinished) {
+                finish()
             }
         }
 

@@ -38,6 +38,9 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     private val _moveToNextPage = MutableLiveData<Boolean>()
     val moveToNextPage: LiveData<Boolean> get() = _moveToNextPage
 
+    private val _finishJoinFlow = MutableLiveData<Boolean>()
+    val finishJoinFlow: LiveData<Boolean> get() = _finishJoinFlow
+
     // 버튼 활성화 여부
     private val _isButtonEnabled = MutableLiveData(false)
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
@@ -63,6 +66,15 @@ class JoinViewModel @Inject constructor() : ViewModel() {
             0 -> checkIdStep()
             1 -> checkPwStep()
             2 -> checkPwCheckStep()
+            3 -> {
+                if (!inputName.value.isNullOrBlank()) _moveToNextPage.value = true
+            }
+            4 -> onPhoneCheckClick()
+            5 -> {
+                if (!inputDetailAddress.value.isNullOrBlank()) _moveToNextPage.value = true
+            }
+            6 -> onTermsNextClick()
+            7 -> _finishJoinFlow.value = true
         }
     }
 
@@ -178,6 +190,7 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         isAllAgreed.value = isChecked
         isTermsAgreed.value = isChecked
         isPrivacyAgreed.value = isChecked
+        isMarketingAgreed.value = isChecked
 
         checkAgreementStep()
     }
@@ -192,12 +205,15 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         checkAgreementStep()
     }
 
-    fun onFinalRegisterClick() {
-        val terms = isTermsAgreed.value ?: false
-        val privacy = isPrivacyAgreed.value ?: false
-        val marketing = isMarketingAgreed.value ?: false
-
+    fun onTermsNextClick() {
         // viewModelScop.launch { registerUserUseCase() } -> useCase 연결
+
+        _moveToNextPage.value = true
+    }
+
+    // Finish
+    fun onFinishClick() {
+        _finishJoinFlow.value = true
     }
 
     // 네비게이션 완료 후 이벤트 초기화
