@@ -19,6 +19,10 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     val inputPostalCode = MutableLiveData("")
     val inputAddress = MutableLiveData("")
     val inputDetailAddress = MutableLiveData("")
+    val isAllAgreed = MutableLiveData(false)
+    val isTermsAgreed = MutableLiveData(false)
+    val isPrivacyAgreed = MutableLiveData(false)
+    val isMarketingAgreed = MutableLiveData(false)
 
     // 화면 상태
     private val _accountStep = MutableLiveData(0)
@@ -154,6 +158,46 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         //TODO 우편번호랑 도로명은 주소 API 사용하면서 작성
         val hasDetail = !inputDetailAddress.value.isNullOrBlank()
         _isButtonEnabled.value = hasDetail
+    }
+
+    fun onAddressCheckClick() {
+        if (!inputDetailAddress.value.isNullOrBlank()) {
+            _moveToNextPage.value = true
+        }
+    }
+
+    // Terms
+    fun checkAgreementStep() {
+        val terms = isTermsAgreed.value ?: false
+        val privacy = isPrivacyAgreed.value ?: false
+
+        _isButtonEnabled.value = terms && privacy
+    }
+
+    fun onAllAgreeClicked(isChecked: Boolean) {
+        isAllAgreed.value = isChecked
+        isTermsAgreed.value = isChecked
+        isPrivacyAgreed.value = isChecked
+
+        checkAgreementStep()
+    }
+
+    fun onSingleAgreeClicked() {
+        val terms = isTermsAgreed.value ?: false
+        val privacy = isPrivacyAgreed.value ?: false
+        val marketing = isMarketingAgreed.value ?: false
+
+        isAllAgreed.value = terms && privacy && marketing
+
+        checkAgreementStep()
+    }
+
+    fun onFinalRegisterClick() {
+        val terms = isTermsAgreed.value ?: false
+        val privacy = isPrivacyAgreed.value ?: false
+        val marketing = isMarketingAgreed.value ?: false
+
+        // viewModelScop.launch { registerUserUseCase() } -> useCase 연결
     }
 
     // 네비게이션 완료 후 이벤트 초기화
