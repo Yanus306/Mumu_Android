@@ -65,6 +65,20 @@
         android:id="@+id/TermsFragment"
         android:name="kr.ac.anu.mumu.presentation.join.TermsFragment"
         android:label="TermsFragment"
-        tools:layout="@layout/fragment_terms" />
+        tools:layout="@layout/fragment_terms">
+        <action
+            android:id="@+id/action_TermsFragment_to_FinishFragment"
+            app:destination="@id/FinishFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FinishFragment"
+        android:name="kr.ac.anu.mumu.presentation.join.FinishFragment"
+        android:label="FinishFragment"
+        tools:layout="@layout/fragment_finish" />
 
 </navigation>

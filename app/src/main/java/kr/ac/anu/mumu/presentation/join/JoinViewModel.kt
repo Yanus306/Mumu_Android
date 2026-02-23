@@ -211,11 +211,6 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         _moveToNextPage.value = true
     }
 
-    // Finish
-    fun onFinishClick() {
-        _finishJoinFlow.value = true
-    }
-
     // 네비게이션 완료 후 이벤트 초기화
     fun doneNavigation() { _moveToNextPage.value = false }
 }
