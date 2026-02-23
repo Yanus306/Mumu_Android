@@ -58,6 +58,8 @@ class JoinActivity : AppCompatActivity() {
                 viewModel.onNameCheckClick()
             } else if (currentDest == R.id.phoneFragment) {
                 viewModel.onPhoneCheckClick()
+            } else if (currentDest == R.id.addressFragment) {
+                viewModel.onAddressCheckClick()
             }
         }
 
@@ -72,6 +74,8 @@ class JoinActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_nameFragment_to_phoneFragment)
                 } else if (currentDest == R.id.phoneFragment) {
                     navController.navigate(R.id.action_phoneFragment_to_addressFragment)
+                } else if (currentDest == R.id.addressFragment) {
+                    navController.navigate(R.id.action_addressFragment_to_TermsFragment)
                 }
 
                 viewModel.doneNavigation()
