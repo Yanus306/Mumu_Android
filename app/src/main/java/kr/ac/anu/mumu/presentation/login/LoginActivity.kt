@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.ActivityLoginBinding
+import kr.ac.anu.mumu.presentation.join.JoinActivity
 import kr.ac.anu.mumu.presentation.main.MainActivity
 
 @AndroidEntryPoint
@@ -93,6 +94,10 @@ class LoginActivity : AppCompatActivity() {
             val pw = binding.etPw.text.toString()
 
             viewModel.login(id, pw)
+        }
+        binding.btnJoin.setOnClickListener {
+            val intent = Intent(this, JoinActivity::class.java)
+            startActivity(intent)
         }
     }
 
