@@ -120,12 +120,6 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         _isButtonEnabled.value = hasName
     }
 
-    fun onNameCheckClick() {
-        if (!inputName.value.isNullOrBlank()) {
-            _moveToNextPage.value = true
-        }
-    }
-
     // Phone Code
     // 인증번호 visiable 여부 결정하는 LiveData
     private val _isVerificationVisible = MutableLiveData(false)
@@ -172,12 +166,6 @@ class JoinViewModel @Inject constructor() : ViewModel() {
         _isButtonEnabled.value = hasDetail
     }
 
-    fun onAddressCheckClick() {
-        if (!inputDetailAddress.value.isNullOrBlank()) {
-            _moveToNextPage.value = true
-        }
-    }
-
     // Terms
     fun checkAgreementStep() {
         val terms = isTermsAgreed.value ?: false
@@ -213,4 +201,8 @@ class JoinViewModel @Inject constructor() : ViewModel() {
 
     // 네비게이션 완료 후 이벤트 초기화
     fun doneNavigation() { _moveToNextPage.value = false }
+
+    fun setStep(step: Int) {
+        _accountStep.value = step
+    }
 }

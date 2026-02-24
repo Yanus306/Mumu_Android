@@ -33,6 +33,19 @@ class JoinActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nameFragment -> viewModel.setStep(3)
+                R.id.phoneFragment -> viewModel.setStep(4)
+                R.id.addressFragment -> viewModel.setStep(5)
+                R.id.TermsFragment -> viewModel.setStep(6)
+                R.id.FinishFragment -> {
+                    viewModel.setStep(7)
+                    binding.btnNext.isEnabled = true
+                }
+            }
+        }
+
         viewModel.isButtonEnabled.observe(this) { isEnabled ->
             binding.btnNext.isEnabled = isEnabled
         }
