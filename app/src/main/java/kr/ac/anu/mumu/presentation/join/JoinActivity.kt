@@ -1,6 +1,7 @@
 package kr.ac.anu.mumu.presentation.join
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -100,6 +101,10 @@ class JoinActivity : AppCompatActivity() {
                 viewModel.doneNavigation()
             }
 
+        }
+
+        viewModel.joinErrorMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 }

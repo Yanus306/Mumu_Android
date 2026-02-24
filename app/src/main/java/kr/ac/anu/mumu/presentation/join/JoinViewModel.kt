@@ -3,11 +3,17 @@ package kr.ac.anu.mumu.presentation.join
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import kr.ac.anu.mumu.data.model.JoinRequest
+import kr.ac.anu.mumu.domain.usecase.JoinUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class JoinViewModel @Inject constructor() : ViewModel() {
+class JoinViewModel @Inject constructor(
+    private val joinUseCase: JoinUseCase
+) : ViewModel() {
 
     // 입력 데이터
     val inputId = MutableLiveData("")
@@ -44,6 +50,9 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     // 버튼 활성화 여부
     private val _isButtonEnabled = MutableLiveData(false)
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
+
+    private val _joinErrorMessage = MutableLiveData<String>()
+    val joinErrorMessage: LiveData<String> get() = _joinErrorMessage
 
     // 정규식
     private val ID_REGEX = Regex("^[a-zA-Z0-9]{7,12}\$")
@@ -194,9 +203,34 @@ class JoinViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onTermsNextClick() {
-        // viewModelScop.launch { registerUserUseCase() } -> useCase 연결
+        _isButtonEnabled.value = false
 
-        _moveToNextPage.value = true
+        viewModelScope.launch {
+            val request = JoinRequest(
+                id = inputId.value ?: "",
+                password = inputPw.value ?: "",
+                name = inputName.value ?: "",
+                phone = inputPhoneNum.value ?: "",
+                address = inputAddress.value ?: "",
+                detailAddress = inputDetailAddress.value ?: "",
+                postalCode = inputPostalCode.value ?: "",
+                termsAgreed = isTermsAgreed.value ?: false,
+                privacyAgreed = isPrivacyAgreed.value ?: false,
+                marketingAgreed = isMarketingAgreed.value ?: false
+            )
+
+            val result = joinUseCase(request)
+
+            result.fold(
+                onSuccess = {
+                    _moveToNextPage.value = true
+                },
+                onFailure = { error ->
+                    _joinErrorMessage.value = error.message ?: "네트워크 오류가 발생했습니다."
+                    _isButtonEnabled.value = true
+                }
+            )
+        }
     }
 
     // 네비게이션 완료 후 이벤트 초기화
