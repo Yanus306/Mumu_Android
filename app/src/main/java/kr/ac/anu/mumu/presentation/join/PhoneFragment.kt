@@ -60,7 +60,6 @@ class PhoneFragment : Fragment() {
                 viewModel.checkPhoneStep()
 
                 isFormatting = false
-
             }
         })
 
@@ -102,5 +101,4 @@ class PhoneFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

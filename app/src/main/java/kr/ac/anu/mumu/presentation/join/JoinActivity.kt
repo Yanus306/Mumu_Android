@@ -100,7 +100,6 @@ class JoinActivity : AppCompatActivity() {
 
                 viewModel.doneNavigation()
             }
-
         }
 
         viewModel.joinErrorMessage.observe(this) { message ->

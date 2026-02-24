@@ -14,7 +14,6 @@ class NameFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: JoinViewModel by activityViewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,5 +38,4 @@ class NameFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

@@ -44,7 +44,7 @@ class AddressFragment : Fragment() {
         }
 
         binding.btnSearch.setOnClickListener {
-            //TODO 카카오 API
+            // TODO 카카오 API
             viewModel.inputPostalCode.value = "36729"
             viewModel.inputAddress.value = "경상북도 안동시 경동로 1375"
         }

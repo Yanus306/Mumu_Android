@@ -75,7 +75,6 @@ class AccountFragment : Fragment() {
         viewModel.isPwCheckErrorVisible.observe(viewLifecycleOwner) { isVisible ->
             binding.tvPwCheckError.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
-
     }
 
     private fun viewSet() {

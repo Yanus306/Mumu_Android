@@ -170,7 +170,7 @@ class JoinViewModel @Inject constructor(
 
     // Address
     fun checkAddressStep() {
-        //TODO 우편번호랑 도로명은 주소 API 사용하면서 작성
+        // TODO 우편번호랑 도로명은 주소 API 사용하면서 작성
         val hasDetail = !inputDetailAddress.value.isNullOrBlank()
         _isButtonEnabled.value = hasDetail
     }
