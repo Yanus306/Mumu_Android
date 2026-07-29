@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.my.MyActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_mumu_logo"
+            android:layout_width="36dp"
+            android:layout_height="20.14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="23.86dp"
+            android:src="@drawable/mumu_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_topba"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Mumu"
+            android:textColor="@color/mumuyellow_300"
+            android:textSize="@dimen/title"
+            app:layout_constraintStart_toEndOf="@id/iv_mumu_logo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_yellow100_solid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_topbar">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_picture"
+            android:layout_width="127dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="63dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_background">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="104dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_yellow300_stroke"
+            android:gravity="center"
+            android:text="홍길동"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5"
+            app:layout_constraintTop_toBottomOf="@id/cv_picture" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_activity_history"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_yellow150_solid"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_6"
+            android:text="활동내역"
+            app:layout_constraintEnd_toStartOf="@id/tv_like_number"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_like_number"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_yellow150_solid"
+            android:gravity="center"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_6"
+            android:text="좋아요 수"
+            app:layout_constraintEnd_toEndOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_activity_history"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_information"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_white_solid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_like_number">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_modify_information"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="25dp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/tv_modify_information"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="정보수정"
+                    android:textColor="@color/mumublack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_hint_modify_information"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="ID/이름/전화번호/주소/새 비밀번호"
+                    android:paddingTop="7dp"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@id/tv_modify_information"
+                    app:layout_constraintStart_toStartOf="@id/tv_modify_information"
+                    app:layout_constraintTop_toBottomOf="@id/tv_modify_information" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_animal_administer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="@id/layout_modify_information"
+                app:layout_constraintStart_toStartOf="@id/layout_modify_information"
+                app:layout_constraintTop_toBottomOf="@id/layout_modify_information">
+
+                <TextView
+                    android:id="@+id/tv_animal_administer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="동물 프로필 관리"
+                    android:textColor="@color/mumublack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_hint_animal_administer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="동물 프로필 리스트 / 동물 프로필 등록"
+                    android:paddingTop="7dp"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal_administer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_information_administer1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="@id/layout_modify_information"
+                app:layout_constraintStart_toStartOf="@id/layout_modify_information"
+                app:layout_constraintTop_toBottomOf="@id/layout_animal_administer">
+
+                <TextView
+                    android:id="@+id/tv_my_information_administer1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="내 정보 관리"
+                    android:textColor="@color/mumublack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_hint_my_information_administer1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="이름 / 성별 / 나이 / 종류"
+                    android:paddingTop="7dp"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_my_information_administer1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_information_administer2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="@id/layout_modify_information"
+                app:layout_constraintStart_toStartOf="@id/layout_modify_information"
+                app:layout_constraintTop_toBottomOf="@id/layout_my_information_administer1">
+
+                <TextView
+                    android:id="@+id/tv_my_information_administer2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="내 정보 관리"
+                    android:textColor="@color/mumublack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_hint_my_information_administer2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="이름 / 성별 / 나이 / 종류"
+                    android:paddingTop="7dp"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_my_information_administer2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--<TextView
+        android:id="@+id/et_btn"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#FFFFFF"
+        android:paddingTop="30dp"
+        android:text="        병원            일기                홈              커뮤            마이"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="25dp"
+        android:paddingEnd="320dp"
+        android:src="@drawable/ic_hosp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="25dp"
+        android:paddingStart="297dp"
+        android:src="@drawable/ic_person"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="25dp"
+        android:paddingEnd="170dp"
+        android:src="@drawable/ic_diary"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="25dp"
+        android:paddingEnd="3dp"
+        android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="25dp"
+        android:paddingStart="150dp"
+        android:src="@drawable/ic_comm"
+        app:layout_constraintBottom_toBottomOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

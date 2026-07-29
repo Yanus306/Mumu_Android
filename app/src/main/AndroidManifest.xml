@@ -31,6 +31,10 @@
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".presentation.my.MyActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

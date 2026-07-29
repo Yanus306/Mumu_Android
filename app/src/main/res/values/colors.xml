@@ -19,6 +19,13 @@
     <color name="mumugray_350">#797979</color>
     <color name="mumugray_400">#404040</color>
 
+    <color name="mumuyellow_300">#FFC13B</color>
+    <color name="mumuyellow_250">#FDCB60</color>
+    <color name="mumuyellow_200">#FBD685</color>
+    <color name="mumuyellow_150">#F9E0AB</color>
+    <color name="mumuyellow_100">#F7EBD0</color>
+    <color name="mumuyellow_50">#F6EFE2</color>
+
     <color name="mumured">#F44355</color>
     <color name="mumublue">#4B88FF</color>
 </resources>
