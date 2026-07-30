@@ -16,17 +16,17 @@
         <ImageView
             android:id="@+id/iv_mumu_logo"
             android:layout_width="36dp"
-            android:layout_height="20.14dp"
+            android:layout_height="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="23.86dp"
+            android:layout_marginBottom="24dp"
             android:src="@drawable/mumu_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_topba"
+            android:id="@+id/tv_topbar"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
