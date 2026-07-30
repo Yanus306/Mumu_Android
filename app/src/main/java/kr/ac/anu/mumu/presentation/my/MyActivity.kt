@@ -30,5 +30,9 @@ class MyActivity : AppCompatActivity() {
             val intent = Intent(this, ModifyInformationActivity::class.java)
             startActivity(intent)
         }
+        binding.layoutAnimalAdminister.setOnClickListener {
+            val intent = Intent(this, AnimalAdministerActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

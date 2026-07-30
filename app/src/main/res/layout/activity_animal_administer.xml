@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.my.AnimalAdministerActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_mumu_logo"
+            android:layout_width="36dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/mumu_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_topbar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Mumu"
+            android:textColor="@color/mumuyellow_300"
+            android:textSize="@dimen/title"
+            app:layout_constraintStart_toEndOf="@id/iv_mumu_logo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/bg_yellow100_solid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_topbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_animal1"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_gray200_stroke"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_animal1"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="16dp"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_animal1_information"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="27dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_animal1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_animal1_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/bg_yellow300_stroke"
+                    android:gravity="center"
+                    android:text="우츠동"
+                    android:textSize="@dimen/body_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_gender1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_gender_man"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_animal1_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_animal1_name"
+                    app:layout_constraintTop_toTopOf="@id/tv_animal1_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal1_age"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="5살"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_animal1_kind"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal1_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal1_kind"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="강아지"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_animal1_age"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal1_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_animal2"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_gray200_stroke"
+            app:layout_constraintEnd_toEndOf="@id/layout_animal1"
+            app:layout_constraintStart_toStartOf="@id/layout_animal1"
+            app:layout_constraintTop_toBottomOf="@id/layout_animal1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_animal2"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="16dp"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_animal_information"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="27dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_animal2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_animal2_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/bg_yellow300_stroke"
+                    android:gravity="center"
+                    android:text="우"
+                    android:textSize="@dimen/body_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_gender2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_gender_man"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_animal2_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_animal2_name"
+                    app:layout_constraintTop_toTopOf="@id/tv_animal2_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal2_age"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="2살"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_animal2_kind"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal2_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal2_kind"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="고양이"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_animal2_age"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal2_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_animal3"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_gray200_stroke"
+            app:layout_constraintEnd_toEndOf="@id/layout_animal1"
+            app:layout_constraintStart_toStartOf="@id/layout_animal1"
+            app:layout_constraintTop_toBottomOf="@id/layout_animal2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_animal3"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="16dp"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_animal3_information"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="27dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_animal3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_animal3_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/bg_yellow300_stroke"
+                    android:gravity="center"
+                    android:text="우츠동"
+                    android:textSize="@dimen/body_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_gender3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_gender_man"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_animal3_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_animal3_name"
+                    app:layout_constraintTop_toTopOf="@id/tv_animal3_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal3_age"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="5살"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_animal3_kind"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal3_name" />
+
+                <TextView
+                    android:id="@+id/tv_animal3_kind"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_yellow150_solid"
+                    android:gravity="center"
+                    android:text="강아지"
+                    android:textSize="@dimen/body_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/tv_animal3_age"
+                    app:layout_constraintTop_toBottomOf="@id/tv_animal3_name" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_animal"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/bg_yellow300_solid"
+            android:gravity="center"
+            android:text="추가하기"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/body_4"
+            app:layout_constraintEnd_toEndOf="@id/layout_animal1"
+            app:layout_constraintStart_toStartOf="@id/layout_animal1"
+            app:layout_constraintTop_toBottomOf="@id/layout_animal3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_admin_save"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_yellow300_solid"
+            android:gravity="center"
+            android:text="저장하기"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/body_4"
+            app:layout_constraintEnd_toEndOf="@id/layout_animal1"
+            app:layout_constraintStart_toStartOf="@id/layout_animal1"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_animal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pfl_change"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_gray350_stroke"
+            android:gravity="center"
+            android:text="프로필 교체"
+            android:textColor="#797979"
+            android:textSize="@dimen/body_4"
+            app:layout_constraintEnd_toEndOf="@id/layout_animal1"
+            app:layout_constraintStart_toStartOf="@id/layout_animal1"
+            app:layout_constraintTop_toBottomOf="@id/tv_admin_save" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
