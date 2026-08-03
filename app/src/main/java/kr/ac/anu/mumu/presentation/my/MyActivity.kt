@@ -34,5 +34,9 @@ class MyActivity : AppCompatActivity() {
             val intent = Intent(this, AnimalAdministerActivity::class.java)
             startActivity(intent)
         }
+        binding.tvMyInformationAdminister1.setOnClickListener {
+            val intent = Intent(this, MyInformationAdministerActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

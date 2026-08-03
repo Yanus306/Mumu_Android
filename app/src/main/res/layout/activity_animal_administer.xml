@@ -366,7 +366,7 @@
             android:background="@drawable/bg_gray350_stroke"
             android:gravity="center"
             android:text="프로필 교체"
-            android:textColor="#797979"
+            android:textColor="@color/mumugray_350"
             android:textSize="@dimen/body_4"
             app:layout_constraintEnd_toEndOf="@id/layout_animal1"
             app:layout_constraintStart_toStartOf="@id/layout_animal1"

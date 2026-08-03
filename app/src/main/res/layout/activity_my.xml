@@ -65,7 +65,7 @@
         </androidx.cardview.widget.CardView>
 
         <EditText
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_gender"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginHorizontal="104dp"
@@ -87,8 +87,8 @@
             android:textSize="@dimen/body_6"
             android:text="활동내역"
             app:layout_constraintEnd_toStartOf="@id/tv_like_number"
-            app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+            app:layout_constraintStart_toStartOf="@id/tv_gender"
+            app:layout_constraintTop_toBottomOf="@id/tv_gender" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_like_number"
@@ -101,9 +101,9 @@
             android:textColor="@color/mumugray_400"
             android:textSize="@dimen/body_6"
             android:text="좋아요 수"
-            app:layout_constraintEnd_toEndOf="@id/tv_name"
+            app:layout_constraintEnd_toEndOf="@id/tv_gender"
             app:layout_constraintStart_toEndOf="@id/tv_activity_history"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_gender" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
