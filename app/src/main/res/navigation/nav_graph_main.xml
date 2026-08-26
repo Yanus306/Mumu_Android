@@ -11,6 +11,12 @@
         tools:layout="@layout/fragment_hospital" />
 
     <fragment
+        android:id="@+id/diaryFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.DiaryFragment"
+        tools:layout="@layout/fragment_diary" />
+
+
+    <fragment
         android:id="@+id/homeFragment"
         android:name="kr.ac.anu.mumu.presentation.main.HomeFragment"
         tools:layout="@layout/fragment_home" />
