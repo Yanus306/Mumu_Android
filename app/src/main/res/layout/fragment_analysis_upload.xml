@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/layout_upload_panel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_analysis_panel"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_analysis_header"
+            android:fontFamily="@font/pretendard_bold"
+            android:gravity="center"
+            android:text="영상 파일 업로드"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:text="파일 목록에서 분석할 영상을 선택해 주세요."
+            android:textColor="@color/mumugray_350"
+            android:textSize="@dimen/body_5" />
+
+        <VideoView
+            android:id="@+id/video_preview"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_analysis_video"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_selected_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="middle"
+            android:fontFamily="@font/pretendard_medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="선택된 영상이 없습니다."
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_select_video"
+                android:layout_width="128dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_analysis_item"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="영상 선택"
+                android:textAllCaps="false"
+                android:textColor="@color/mumugray_400"
+                android:textSize="@dimen/body_5"
+                app:backgroundTint="@null" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_analyze_video"
+                android:layout_width="128dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_analysis_primary"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="분석 시작"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/body_5"
+                android:visibility="gone"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,21 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentHistoryBinding
-import kr.ac.anu.mumu.domain.model.AnalysisHistory
 import kr.ac.anu.mumu.presentation.main.adapter.HistoryAdapter
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
-    // 어댑터 전역 변수 선언
     private lateinit var historyAdapter: HistoryAdapter
+    private val viewModel: HistoryViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
@@ -29,38 +38,56 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. 리사이클러뷰와 어댑터 연결
         setupRecyclerView()
-
-        // 2. 데이터 불러오기 (테스트용)
-        // 실제로는 ViewModel에서 서버 데이터를 관찰(observe)하고 변경될 때 submitList를 호출합니다.
-        loadDummyData()
+        observeHistory()
+        binding.btnRetry.setOnClickListener { viewModel.loadHistory() }
     }
 
     private fun setupRecyclerView() {
-        historyAdapter = HistoryAdapter()
+        historyAdapter = HistoryAdapter { item ->
+            findNavController().navigate(
+                R.id.analysisHistoryDetailFragment,
+                Bundle().apply { putLong("analysisId", item.id) }
+            )
+        }
         binding.rvHistory.apply {
             adapter = historyAdapter
-            // XML에 app:layoutManager를 설정해 두었다면 아래 줄은 생략해도 됩니다.
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun loadDummyData() {
-        // 방금 만든 도메인 모델 형태에 맞춰 임시 데이터를 만듭니다.
-        val dummyData = listOf(
-            AnalysisHistory(id = 1L, isNormal = false, behaviorText = "자세 비정상, 발바닥 이상", probability = 72, date = "2026.04.15"),
-            AnalysisHistory(id = 2L, isNormal = true, behaviorText = "자세 비정상, 절뚝거림", probability = 72, date = "2026.04.15"),
-            AnalysisHistory(id = 3L, isNormal = true, behaviorText = "자세 비정상, 절뚝거림", probability = 72, date = "2026.04.15")
-        )
+    private fun observeHistory() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state -> render(state) }
+            }
+        }
+    }
 
-        // 생성한 데이터를 어댑터에 넘겨서 화면에 그려지게 합니다.
-        historyAdapter.submitList(dummyData)
+    private fun render(state: HistoryUiState) {
+        binding.progressHistory.visibility = if (state is HistoryUiState.Loading) View.VISIBLE else View.GONE
+        binding.layoutError.visibility = if (state is HistoryUiState.Error) View.VISIBLE else View.GONE
+
+        when (state) {
+            HistoryUiState.Loading -> {
+                binding.rvHistory.visibility = View.GONE
+                binding.tvEmpty.visibility = View.GONE
+            }
+            is HistoryUiState.Success -> {
+                historyAdapter.submitList(state.items)
+                binding.rvHistory.visibility = if (state.items.isEmpty()) View.GONE else View.VISIBLE
+                binding.tvEmpty.visibility = if (state.items.isEmpty()) View.VISIBLE else View.GONE
+            }
+            is HistoryUiState.Error -> {
+                binding.rvHistory.visibility = View.GONE
+                binding.tvEmpty.visibility = View.GONE
+                binding.tvError.text = state.message
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // 메모리 누수 방지
         _binding = null
     }
 }

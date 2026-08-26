@@ -1,6 +1,7 @@
 package kr.ac.anu.mumu.presentation.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,6 +33,28 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         binding.bottomNav.setupWithNavController(navController)
+
+        val analysisDestinations = setOf(
+            R.id.analysisStartFragment,
+            R.id.analysisCaptureFragment,
+            R.id.analysisUploadFragment,
+            R.id.analysisLoadingFragment,
+            R.id.analysisResultFragment,
+            R.id.analysisHistoryDetailFragment
+        )
+
+        binding.btnBack.setOnClickListener {
+            navController.navigateUp()
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val isAnalysisDestination = destination.id in analysisDestinations
+            binding.btnBack.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
+            binding.ivLogo.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
+            binding.tvMumu.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
+            binding.tvAnalysisMumu.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
+            binding.bottomNav.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNav) { view, windowInsets ->
             view.updatePadding(bottom = 0)

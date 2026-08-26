@@ -8,12 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +44,10 @@ class HomeFragment: Fragment() {
         binding.btnHistory.setOnClickListener {
             setTabActive(isPeedActive = false)
             replaceFragment(HistoryFragment())
+        }
+
+        binding.btnAnalyze.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_analysisStartFragment)
         }
     }
 
@@ -80,6 +85,4 @@ class HomeFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

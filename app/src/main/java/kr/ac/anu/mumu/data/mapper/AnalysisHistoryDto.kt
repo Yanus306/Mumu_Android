@@ -2,32 +2,34 @@ package kr.ac.anu.mumu.data.mapper
 
 import kr.ac.anu.mumu.data.model.AnalysisHistoryDto
 import kr.ac.anu.mumu.domain.model.AnalysisHistory
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 fun AnalysisHistoryDto.toDomain(): AnalysisHistory {
-    val formattedDate = try {
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-        val formatter = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-        val parsedDate = parser.parse(this.analyzedAt)
-        parsedDate?.let { formatter.format(it) } ?: this.analyzedAt
-    } catch (e: Exception) {
-        this.analyzedAt
-    }
+    val formattedDate = analyzedAt?.let { value ->
+        runCatching {
+            OffsetDateTime.parse(value).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        }.getOrDefault(value.take(10).replace('-', '.'))
+    } ?: "-"
 
-    val isNormal = this.status == "정상" || this.resultLabel?.uppercase() == "NORMAL"
+    val probability = confidence?.roundToInt()?.coerceIn(0, 100) ?: 0
+    val isNormal = resultLabel.equals("NORMAL", ignoreCase = true) ||
+        resultLabel == "정상" ||
+        (suspectedItems.isNullOrEmpty() && probability < 50)
 
-    val joinedBehavior = if (this.suspectedItems.isNullOrEmpty()) {
-        "없음"
+    val joinedBehavior = if (suspectedItems.isNullOrEmpty()) {
+        if (isNormal) "특이 행동 없음" else resultLabel ?: "분석 결과 확인"
     } else {
-        this.suspectedItems.joinToString(", ")
+        suspectedItems.joinToString(", ")
     }
 
     return AnalysisHistory(
         id = this.analysisId,
         isNormal = isNormal,
         behaviorText = joinedBehavior,
-        probability = this.confidence,
-        date = formattedDate
+        probability = probability,
+        date = formattedDate,
+        resultLabel = resultLabel
     )
 }

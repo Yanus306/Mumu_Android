@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/layout_check_list"
+        android:layout_width="0dp"
+        android:layout_height="490dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/bg_analysis_panel"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_analysis_header"
+            android:fontFamily="@font/pretendard_bold"
+            android:gravity="center"
+            android:text="검사목록"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_4" />
+
+        <TextView
+            style="@style/AnalysisChecklistItem"
+            android:layout_marginTop="36dp"
+            android:text="절뚝거림" />
+
+        <TextView
+            style="@style/AnalysisChecklistItem"
+            android:layout_marginTop="24dp"
+            android:text="뒷다리 끌기 혹은 비틀거림" />
+
+        <TextView
+            style="@style/AnalysisChecklistItem"
+            android:layout_marginTop="24dp"
+            android:text="특정 부위 지속 핥기" />
+
+        <TextView
+            style="@style/AnalysisChecklistItem"
+            android:layout_marginTop="24dp"
+            android:text="과도한 신체 긁기" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_capture"
+        android:layout_width="112dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_analysis_primary"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="촬영하기"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_5"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_upload"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_upload"
+        android:layout_width="112dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/bg_analysis_primary"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="파일업로드"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_5"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="@id/btn_capture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_capture" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

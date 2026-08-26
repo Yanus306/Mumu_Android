@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:id="@+id/layout_loading_icon"
+        android:layout_width="112dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/bg_analysis_secondary"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_analysis"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_loading_message"
+        android:layout_width="232dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_analysis_video"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:gravity="center"
+        android:text="mumu가 열심히 분석하고 있어요!..."
+        android:textColor="@color/mumugray_400"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_loading_icon" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_retry"
+        android:layout_width="216dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_analysis_primary"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="다시 시도"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_5"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_write_diary" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_write_diary"
+        android:layout_width="216dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/bg_analysis_primary"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="기다리는 동안 일기 작성"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_5"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_loading_message" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_later"
+        android:layout_width="216dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/bg_analysis_secondary"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="있다가 다시올게요!"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/body_5"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_write_diary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@ package kr.ac.anu.mumu.data.model
 data class BaseResponse<T>(
     val success: Boolean,
     val message: String,
-    val data: T
+    val data: T?
 )
 
 data class PaginatedData<T>(
@@ -20,6 +20,6 @@ data class AnalysisHistoryDto(
     val status: String,
     val resultLabel: String?,
     val suspectedItems: List<String>?,
-    val confidence: Int,
-    val analyzedAt: String
+    val confidence: Double?,
+    val analyzedAt: String?
 )
