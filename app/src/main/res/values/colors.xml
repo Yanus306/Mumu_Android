@@ -21,4 +21,7 @@
 
     <color name="mumured">#F44355</color>
     <color name="mumublue">#4B88FF</color>
+
+    <color name="cardred">#DF7171</color>
+    <color name="cardgreen">#88BA47</color>
 </resources>

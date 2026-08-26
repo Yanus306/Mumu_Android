@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_result"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="@dimen/radius_1"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/cardred"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_result_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="검사결과 : 비정상"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="2026.07.02"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_result_status" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="의심행동 : 자세 비정상, 발바닥 이상"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5"
+            app:layout_constraintStart_toStartOf="@id/tv_result_status"
+            app:layout_constraintTop_toBottomOf="@id/tv_result_status" />
+
+        <TextView
+            android:id="@+id/tv_probability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="확률 : 72%"
+            android:textColor="@color/mumugray_400"
+            android:textSize="@dimen/body_5"
+            app:layout_constraintStart_toStartOf="@id/tv_result_status"
+            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
