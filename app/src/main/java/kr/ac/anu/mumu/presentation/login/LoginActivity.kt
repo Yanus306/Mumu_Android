@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         val end = start + targetWord.length
 
         if (start != -1) {
-            val color = ContextCompat.getColor(this, R.color.mumumint_300)
+            val color = ContextCompat.getColor(this, R.color.mumu_300)
 
             spannable.setSpan(
                 ForegroundColorSpan(color),

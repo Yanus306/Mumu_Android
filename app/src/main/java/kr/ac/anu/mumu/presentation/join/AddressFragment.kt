@@ -65,7 +65,7 @@ class AddressFragment : Fragment() {
         val end = start + targetWord.length
 
         if (start != -1) {
-            val color = ContextCompat.getColor(requireContext(), R.color.mumumint_300)
+            val color = ContextCompat.getColor(requireContext(), R.color.mumu_300)
 
             spannable.setSpan(
                 ForegroundColorSpan(color),

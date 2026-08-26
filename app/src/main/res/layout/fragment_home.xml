@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/CircleImage"
-        app:strokeColor="@color/mumumint_300"
+        app:strokeColor="@color/mumu_300"
         app:strokeWidth="2dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/mumumint_300" />
+                app:tint="@color/mumu_300" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="내역"
-                android:textColor="@color/mumumint_300"
+                android:textColor="@color/mumu_300"
                 android:textSize="@dimen/body_5" />
         </LinearLayout>
 
@@ -117,7 +117,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_diary"
-                app:tint="@color/mumumint_300" />
+                app:tint="@color/mumu_300" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="일기"
-                android:textColor="@color/mumumint_300"
+                android:textColor="@color/mumu_300"
                 android:textSize="@dimen/body_5" />
         </LinearLayout>
 
@@ -215,7 +215,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:strokeColor="@color/mumumint_300"
+            app:strokeColor="@color/mumu_300"
             app:strokeWidth="2dp" />
 
         <TextView
@@ -288,7 +288,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:strokeColor="@color/mumumint_300"
+            app:strokeColor="@color/mumu_300"
             app:strokeWidth="2dp" />
 
         <TextView
@@ -361,7 +361,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:strokeColor="@color/mumumint_300"
+            app:strokeColor="@color/mumu_300"
             app:strokeWidth="2dp" />
 
         <TextView
