@@ -10,7 +10,7 @@ import kr.ac.anu.mumu.databinding.FragmentMyBinding
 
 @AndroidEntryPoint
 class MyFragment : Fragment() {
-    
+
     private var _binding: FragmentMyBinding? = null
     private val binding get() = _binding!!
 
