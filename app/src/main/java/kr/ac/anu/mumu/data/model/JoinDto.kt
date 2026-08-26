@@ -1,29 +1,23 @@
 package kr.ac.anu.mumu.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class JoinRequest(
-    val id: String,
+    val loginId: String,
     val password: String,
     val name: String,
     val phone: String,
-    val address: String,
-    @SerializedName("detail_address") val detailAddress: String,
-    @SerializedName("postal_code") val postalCode: String,
-    @SerializedName("terms_agreed") val termsAgreed: Boolean,
-    @SerializedName("privacy_agreed") val privacyAgreed: Boolean,
-    @SerializedName("marketing_agreed") val marketingAgreed: Boolean
+    val termsAgreed: Boolean,
+    val privacyAgreed: Boolean,
+    val marketingAgreed: Boolean
 )
 
 data class JoinResponse(
     val success: Boolean,
     val message: String,
-    val token: String?,
-    val user: UserDto?
+    val data: UserDto?
 ) {
     data class UserDto(
         val userId: Int,
-        val id: String,
+        val loginId: String,
         val name: String,
         val phone: String
     )

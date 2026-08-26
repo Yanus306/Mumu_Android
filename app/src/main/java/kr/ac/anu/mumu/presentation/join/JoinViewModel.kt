@@ -207,13 +207,10 @@ class JoinViewModel @Inject constructor(
 
         viewModelScope.launch {
             val request = JoinRequest(
-                id = inputId.value ?: "",
+                loginId = inputId.value ?: "",
                 password = inputPw.value ?: "",
                 name = inputName.value ?: "",
                 phone = inputPhoneNum.value ?: "",
-                address = inputAddress.value ?: "",
-                detailAddress = inputDetailAddress.value ?: "",
-                postalCode = inputPostalCode.value ?: "",
                 termsAgreed = isTermsAgreed.value ?: false,
                 privacyAgreed = isPrivacyAgreed.value ?: false,
                 marketingAgreed = isMarketingAgreed.value ?: false
