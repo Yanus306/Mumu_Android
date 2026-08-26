@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.ac.anu.mumu.data.datasource.AnalysisService
 import kr.ac.anu.mumu.data.datasource.AuthService
+import kr.ac.anu.mumu.data.datasource.CommunityService
 import kr.ac.anu.mumu.data.datasource.HistoryService
 import kr.ac.anu.mumu.data.datasource.JoinService
 import kr.ac.anu.mumu.data.datasource.PetService
@@ -78,5 +79,11 @@ object NetworkModule {
     @Singleton
     fun provideHistoryService(retrofit: Retrofit): HistoryService {
         return retrofit.create(HistoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommunityService(retrofit: Retrofit): CommunityService {
+        return retrofit.create(CommunityService::class.java)
     }
 }

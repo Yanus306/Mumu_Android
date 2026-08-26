@@ -13,8 +13,10 @@ import kr.ac.anu.mumu.data.model.AnalysisDetailDto
 import kr.ac.anu.mumu.domain.model.BehaviorAnalysisResult
 import kr.ac.anu.mumu.domain.repository.AnalysisRepository
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -42,7 +44,7 @@ class AnalysisRepositoryImpl @Inject constructor(
                         ?: error("서버가 분석 ID를 반환하지 않았습니다.")
                     pollResult(analysisId, videoUri)
                 } finally {
-                    videoPart.body().let { body ->
+                    videoPart.body.let { body ->
                         if (body is FileRequestBody) body.file.delete()
                     }
                 }
@@ -82,7 +84,7 @@ class AnalysisRepositoryImpl @Inject constructor(
                 error("영상은 100MB 이하만 업로드할 수 있습니다.")
             }
 
-            val mediaType = MediaType.parse(context.contentResolver.getType(uri) ?: "video/$extension")
+            val mediaType = (context.contentResolver.getType(uri) ?: "video/$extension").toMediaTypeOrNull()
             val requestBody = FileRequestBody(mediaType, temporaryFile)
             return MultipartBody.Part.createFormData("video", metadata.name, requestBody)
         } catch (error: Throwable) {
@@ -160,7 +162,7 @@ class AnalysisRepositoryImpl @Inject constructor(
         contentType: MediaType?,
         val file: File
     ) : RequestBody() {
-        private val delegate = RequestBody.create(contentType, file)
+        private val delegate = file.asRequestBody(contentType)
 
         override fun contentType(): MediaType? = delegate.contentType()
         override fun contentLength(): Long = delegate.contentLength()
