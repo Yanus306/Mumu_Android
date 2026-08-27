@@ -87,7 +87,7 @@ class AccountFragment : Fragment() {
 
         if (start != -1) {
             context?.let { ctx ->
-                val color = ContextCompat.getColor(ctx, R.color.mumumint_300)
+                val color = ContextCompat.getColor(ctx, R.color.mumu_300)
 
                 spannable.setSpan(
                     ForegroundColorSpan(color),

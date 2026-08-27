@@ -41,7 +41,7 @@ class FinishFragment : Fragment() {
 
         if (start != -1) {
             // requireContext()를 사용하여 안전하게 색상 가져오기
-            val color = ContextCompat.getColor(requireContext(), R.color.mumumint_300)
+            val color = ContextCompat.getColor(requireContext(), R.color.mumu_300)
 
             spannable.setSpan(
                 ForegroundColorSpan(color),

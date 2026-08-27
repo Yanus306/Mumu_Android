@@ -1,28 +1,20 @@
 package kr.ac.anu.mumu.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class LoginRequest(
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("password")
-    val pw: String
+    val loginId: String,
+    val password: String,
+    val deviceType: String = "android",
+    val deviceInfo: String? = null
 )
 
 data class LoginResponse(
     val success: Boolean,
     val message: String,
-    val token: String,
-    val user: UserDto
+    val data: TokenDto
 )
 
-data class UserDto(
-    @SerializedName("user_id")
-    val userId: Int,
-    val id: String,
-    val name: String,
-    val phone: String?,
-    @SerializedName("profile_image")
-    val profileImage: String?,
-    val role: String
+data class TokenDto(
+    val accessToken: String,
+    val refreshToken: String,
+    val tokenType: String
 )

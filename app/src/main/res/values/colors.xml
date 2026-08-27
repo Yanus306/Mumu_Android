@@ -3,12 +3,12 @@
     <color name="mumublack">#262626</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="mumumint_300">#80CBC4</color>
-    <color name="mumumint_250">#97D3CE</color>
-    <color name="mumumint_200">#AFDCD8</color>
-    <color name="mumumint_150">#C6E4E1</color>
-    <color name="mumumint_100">#DEEDEB</color>
-    <color name="mumumint_50">#E9F0F0</color>
+    <color name="mumu_300">#FFC13B</color>
+    <color name="mumu_250">#FDCB60</color>
+    <color name="mumu_200">#FBD685</color>
+    <color name="mumu_150">#F9E0AB</color>
+    <color name="mumu_100">#F7EBD0</color>
+    <color name="mumu_50">#F6EFE2</color>
 
     <color name="mumugray_50">#F5F5F5</color>
     <color name="mumugray_100">#E9E9EA</color>
@@ -21,4 +21,7 @@
 
     <color name="mumured">#F44355</color>
     <color name="mumublue">#4B88FF</color>
+
+    <color name="cardred">#DF7171</color>
+    <color name="cardgreen">#88BA47</color>
 </resources>

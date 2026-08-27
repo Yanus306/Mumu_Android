@@ -44,7 +44,7 @@
             android:text="전체 동의하기"
             android:textColor="@color/mumublack"
             android:textSize="@dimen/body_4"
-            app:buttonTint="@color/mumumint_300" app:layout_constraintStart_toStartOf="parent"
+            app:buttonTint="@color/mumu_300" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -65,7 +65,7 @@
             android:text="이용약관 (필수) "
             android:textColor="@color/mumugray_400"
             android:textSize="@dimen/body_4"
-            app:buttonTint="@color/mumumint_300"
+            app:buttonTint="@color/mumu_300"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_divider" />
 
@@ -99,7 +99,7 @@
             android:text="개인정보 취급방침 (필수)"
             android:textColor="@color/mumugray_400"
             android:textSize="@dimen/body_4"
-            app:buttonTint="@color/mumumint_300"
+            app:buttonTint="@color/mumu_300"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cb_terms" />
 
@@ -133,7 +133,7 @@
             android:text="마케팅 수신 동의 (선택)"
             android:textColor="@color/mumugray_400"
             android:textSize="@dimen/body_4"
-            app:buttonTint="@color/mumumint_300"
+            app:buttonTint="@color/mumu_300"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cb_privacy" />
 

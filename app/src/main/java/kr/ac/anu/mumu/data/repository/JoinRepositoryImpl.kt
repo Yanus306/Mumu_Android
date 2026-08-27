@@ -12,12 +12,12 @@ class JoinRepositoryImpl @Inject constructor(
     override suspend fun register(request: JoinRequest): Result<Unit> {
         return try {
             val response = joinService.registerUser(request)
-            if (response.isSuccessful) {
+            if (response.isSuccessful && response.body()?.success == true) {
                 Result.success(Unit)
             } else {
                 val errorString = response.errorBody()?.string()
                 val errorMessage = try {
-                    JSONObject(errorString ?: "").getString("error")
+                    JSONObject(errorString ?: "").optString("message", "회원가입에 실패했습니다.")
                 } catch (e: Exception) {
                     "회원가입에 실패했습니다."
                 }
