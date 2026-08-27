@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             R.id.analysisLoadingFragment,
             R.id.analysisResultFragment,
             R.id.analysisHistoryDetailFragment,
+            R.id.communityPostListFragment,
             R.id.communityDetailFragment,
             R.id.communityWriteFragment
         )
@@ -49,12 +50,19 @@ class MainActivity : AppCompatActivity() {
             navController.navigateUp()
         }
 
+        binding.btnCommunityWrite.setOnClickListener {
+            navController.navigate(R.id.communityWriteFragment)
+        }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val isDetailDestination = destination.id in detailDestinations
-            binding.btnBack.visibility = if (isDetailDestination) View.VISIBLE else View.GONE
-            binding.ivLogo.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
-            binding.tvMumu.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
-            binding.tvAnalysisMumu.visibility = if (isDetailDestination) View.VISIBLE else View.GONE
+            val isCommunityDestination = destination.id == R.id.communityFragment
+            val usesBackHeader = isDetailDestination
+            binding.btnBack.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
+            binding.ivLogo.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
+            binding.tvMumu.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
+            binding.tvAnalysisMumu.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
+            binding.btnCommunityWrite.visibility = if (isCommunityDestination) View.VISIBLE else View.GONE
             binding.bottomNav.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
         }
 

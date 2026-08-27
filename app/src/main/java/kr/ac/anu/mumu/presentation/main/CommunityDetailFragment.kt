@@ -69,10 +69,12 @@ class CommunityDetailFragment : Fragment() {
             is CommunityDetailUiState.Error -> binding.tvError.text = state.message
             is CommunityDetailUiState.Success -> {
                 val post = state.post
-                binding.tvCategory.text = post.category
+                binding.tvPostAuthor.text = "사용자 ${post.userId}"
+                binding.tvCategory.text = post.category.toCategoryLabel()
                 binding.tvTitle.text = post.title
                 binding.tvContent.text = post.content
-                binding.tvMeta.text = "조회 ${post.viewCount} · 댓글 ${post.commentCount} · ${post.createdAt.take(10)}"
+                binding.tvMeta.text =
+                    "${post.createdAt.take(10).replace('-', '.')} · 조회 ${post.viewCount} · 댓글 ${post.commentCount}"
                 binding.tvHashtags.text = post.hashtags.joinToString(" ") { "#$it" }
                 binding.tvHashtags.visibility = if (post.hashtags.isEmpty()) View.GONE else View.VISIBLE
                 binding.btnLike.text = if (state.liked) "♥ ${post.likeCount}" else "♡ ${post.likeCount}"
@@ -93,4 +95,13 @@ class CommunityDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+private fun String.toCategoryLabel(): String = when (uppercase()) {
+    "FREE" -> "자유"
+    "QUESTION" -> "질문"
+    "INFO" -> "정보"
+    "BRAG" -> "자랑"
+    "REVIEW" -> "후기"
+    else -> this
 }

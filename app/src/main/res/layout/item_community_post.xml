@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_community_card"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:minHeight="128dp"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tv_avatar"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/bg_community_avatar"
+        android:fontFamily="@font/pretendard_semibold"
+        android:gravity="center"
+        android:text="M"
+        android:textColor="@color/mumu_300"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textColor="@color/mumugray_400"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_date"
+        app:layout_constraintEnd_toStartOf="@id/tv_category"
+        app:layout_constraintStart_toEndOf="@id/tv_avatar"
+        app:layout_constraintTop_toTopOf="@id/tv_avatar"
+        tools:text="사용자 1" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textColor="@color/mumugray_200"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_avatar"
+        app:layout_constraintEnd_toStartOf="@id/tv_category"
+        app:layout_constraintStart_toEndOf="@id/tv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_author"
+        tools:text="2026.08.27" />
+
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:background="@drawable/bg_community_chip"
+        android:fontFamily="@font/pretendard_medium"
+        android:gravity="center"
+        android:minWidth="44dp"
+        android:paddingHorizontal="9dp"
+        android:textColor="@color/mumugray_350"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_avatar"
+        tools:text="자유" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_post_image"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/mumugray_50"
+        android:contentDescription="게시글 이미지"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_avatar"
+        app:shapeAppearanceOverlay="@style/RoundedImage"
+        tools:src="@drawable/dog" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/pretendard_semibold"
+        android:maxLines="1"
+        android:textColor="@color/mumugray_400"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/iv_post_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_avatar"
+        tools:text="게시글 제목" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/pretendard_regular"
+        android:lineSpacingExtra="2dp"
+        android:maxLines="2"
+        android:textColor="@color/mumugray_300"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@id/iv_post_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="반려동물과 함께한 소중한 이야기를 나눠보세요." />
+
+    <TextView
+        android:id="@+id/tv_hashtags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/pretendard_medium"
+        android:maxLines="1"
+        android:textColor="@color/mumu_300"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_heart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        tools:text="#강아지 #일상" />
+
+    <ImageView
+        android:id="@+id/iv_heart"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="좋아요"
+        android:src="@drawable/ic_community_heart"
+        app:layout_constraintBottom_toBottomOf="@id/tv_like_count"
+        app:layout_constraintEnd_toStartOf="@id/tv_like_count"
+        app:layout_constraintStart_toEndOf="@id/tv_hashtags"
+        app:layout_constraintTop_toTopOf="@id/tv_like_count" />
+
+    <TextView
+        android:id="@+id/tv_like_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textColor="@color/mumugray_150"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_hashtags"
+        app:layout_constraintEnd_toStartOf="@id/iv_post_image"
+        app:layout_constraintTop_toTopOf="@id/tv_hashtags"
+        tools:text="60" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

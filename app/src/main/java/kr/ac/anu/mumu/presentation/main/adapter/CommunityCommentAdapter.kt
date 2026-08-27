@@ -17,7 +17,8 @@ class CommunityCommentAdapter :
         fun bind(comment: CommunityComment) {
             binding.tvAuthor.text = "사용자 ${comment.userId}"
             binding.tvContent.text = comment.content
-            binding.tvMeta.text = "좋아요 ${comment.likeCount} · ${comment.createdAt.take(10)}"
+            binding.tvMeta.text =
+                "${comment.createdAt.take(10).replace('-', '.')} · 좋아요 ${comment.likeCount}"
         }
     }
 

@@ -34,6 +34,21 @@
         tools:layout="@layout/fragment_my" />
 
     <fragment
+        android:id="@+id/communityFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityFragment"
+        tools:layout="@layout/fragment_community" />
+
+    <fragment
+        android:id="@+id/communityPostListFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityPostListFragment"
+        tools:layout="@layout/fragment_community_post_list">
+        <argument
+            android:name="query"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/analysisStartFragment"
         android:name="kr.ac.anu.mumu.presentation.analysis.AnalysisStartFragment"
         tools:layout="@layout/fragment_analysis_start">

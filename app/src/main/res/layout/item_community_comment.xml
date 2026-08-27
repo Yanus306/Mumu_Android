@@ -1,34 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:paddingHorizontal="12dp"
-    android:paddingVertical="10dp">
+    android:paddingTop="12dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/tv_avatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_community_avatar"
+        android:fontFamily="@font/pretendard_semibold"
+        android:gravity="center"
+        android:text="M"
+        android:textColor="@color/mumu_300"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_author"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
         android:fontFamily="@font/pretendard_semibold"
         android:textColor="@color/mumugray_400"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_avatar"
+        app:layout_constraintTop_toTopOf="@id/tv_avatar"
+        tools:text="사용자 2" />
 
     <TextView
         android:id="@+id/tv_content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/pretendard_regular"
+        android:lineSpacingExtra="3dp"
         android:textColor="@color/mumugray_400"
-        android:textSize="14sp" />
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_author"
+        tools:text="정말 귀여워요! 다음 산책 이야기도 기대할게요." />
 
     <TextView
         android:id="@+id/tv_meta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="6dp"
         android:fontFamily="@font/pretendard_regular"
         android:textColor="@color/mumugray_200"
-        android:textSize="11sp" />
-</LinearLayout>
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@id/tv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        tools:text="2026.08.27 · 좋아요 2" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/mumugray_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_author"
+        app:layout_constraintTop_toBottomOf="@id/tv_meta" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
