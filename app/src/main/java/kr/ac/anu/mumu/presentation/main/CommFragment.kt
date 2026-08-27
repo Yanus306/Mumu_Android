@@ -27,5 +27,4 @@ class CommFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
