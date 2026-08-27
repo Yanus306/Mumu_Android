@@ -10,19 +10,22 @@ import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.ItemPostBinding
 import kr.ac.anu.mumu.domain.model.CommunityPost
 
-class PostAdapter : ListAdapter<CommunityPost, PostAdapter.PostViewHolder>(PostDiffCallback) {
+class PostAdapter(
+    private val onClick: (CommunityPost) -> Unit
+) : ListAdapter<CommunityPost, PostAdapter.PostViewHolder>(PostDiffCallback) {
 
     class PostViewHolder(
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(post: CommunityPost) {
+        fun bind(post: CommunityPost, onClick: (CommunityPost) -> Unit) {
             binding.ivPostImage.contentDescription = post.title
             if (post.thumbnailUrl.isNullOrBlank()) {
                 binding.ivPostImage.setImageResource(R.drawable.ic_diary)
             } else {
                 binding.ivPostImage.load(post.thumbnailUrl)
             }
+            binding.root.setOnClickListener { onClick(post) }
         }
     }
 
@@ -36,7 +39,7 @@ class PostAdapter : ListAdapter<CommunityPost, PostAdapter.PostViewHolder>(PostD
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onClick)
     }
 
     private object PostDiffCallback : DiffUtil.ItemCallback<CommunityPost>() {

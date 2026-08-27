@@ -34,13 +34,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
-        val analysisDestinations = setOf(
+        val detailDestinations = setOf(
             R.id.analysisStartFragment,
             R.id.analysisCaptureFragment,
             R.id.analysisUploadFragment,
             R.id.analysisLoadingFragment,
             R.id.analysisResultFragment,
-            R.id.analysisHistoryDetailFragment
+            R.id.analysisHistoryDetailFragment,
+            R.id.communityDetailFragment,
+            R.id.communityWriteFragment
         )
 
         binding.btnBack.setOnClickListener {
@@ -48,12 +50,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val isAnalysisDestination = destination.id in analysisDestinations
-            binding.btnBack.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
-            binding.ivLogo.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
-            binding.tvMumu.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
-            binding.tvAnalysisMumu.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
-            binding.bottomNav.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
+            val isDetailDestination = destination.id in detailDestinations
+            binding.btnBack.visibility = if (isDetailDestination) View.VISIBLE else View.GONE
+            binding.ivLogo.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
+            binding.tvMumu.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
+            binding.tvAnalysisMumu.visibility = if (isDetailDestination) View.VISIBLE else View.GONE
+            binding.bottomNav.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNav) { view, windowInsets ->

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeFragment_to_analysisStartFragment"
             app:destination="@id/analysisStartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_communityWriteFragment"
+            app:destination="@id/communityWriteFragment" />
     </fragment>
 
     <fragment
@@ -84,5 +87,19 @@
             android:name="analysisId"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/communityDetailFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityDetailFragment"
+        tools:layout="@layout/fragment_community_detail">
+        <argument
+            android:name="postId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityWriteFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityWriteFragment"
+        tools:layout="@layout/fragment_community_write" />
 
 </navigation>

@@ -49,6 +49,10 @@ class HomeFragment : Fragment() {
         binding.btnAnalyze.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_analysisStartFragment)
         }
+
+        binding.btnWrite.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_communityWriteFragment)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

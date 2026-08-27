@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentPostBinding
 import kr.ac.anu.mumu.presentation.main.adapter.PostAdapter
 import kr.ac.anu.mumu.presentation.main.adapter.PostGridSpacingDecoration
@@ -22,7 +24,12 @@ class PostFragment : Fragment() {
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PostViewModel by viewModels()
-    private val postAdapter = PostAdapter()
+    private val postAdapter = PostAdapter { post ->
+        findNavController().navigate(
+            R.id.communityDetailFragment,
+            Bundle().apply { putLong("postId", post.id) }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
