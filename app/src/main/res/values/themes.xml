@@ -11,6 +11,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="RoundedImage">
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <style name="AnalysisChecklistItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>

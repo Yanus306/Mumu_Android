@@ -18,6 +18,12 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private var isHistoryActive = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isHistoryActive = savedInstanceState?.getBoolean(KEY_HISTORY_ACTIVE) ?: isHistoryActive
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,23 +37,32 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            setTabActive(isPeedActive = true)
-            replaceFragment(PostFragment())
-        }
+        showTab(isHistory = isHistoryActive)
 
         binding.btnPeed.setOnClickListener {
-            setTabActive(isPeedActive = true)
-            replaceFragment(PostFragment())
+            showTab(isHistory = false)
         }
 
         binding.btnHistory.setOnClickListener {
-            setTabActive(isPeedActive = false)
-            replaceFragment(HistoryFragment())
+            showTab(isHistory = true)
         }
 
         binding.btnAnalyze.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_analysisStartFragment)
+        }
+
+        binding.btnWrite.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_communityWriteFragment)
+        }
+    }
+
+    private fun showTab(isHistory: Boolean) {
+        val current = childFragmentManager.findFragmentById(binding.fragmentContainer.id)
+        isHistoryActive = isHistory
+        setTabActive(isPeedActive = !isHistory)
+        val targetMatches = if (isHistory) current is HistoryFragment else current is PostFragment
+        if (!targetMatches) {
+            replaceFragment(if (isHistory) HistoryFragment() else PostFragment())
         }
     }
 
@@ -81,8 +96,17 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(KEY_HISTORY_ACTIVE, isHistoryActive)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val KEY_HISTORY_ACTIVE = "history_active"
     }
 }

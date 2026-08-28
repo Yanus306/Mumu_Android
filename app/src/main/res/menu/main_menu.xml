@@ -16,6 +16,7 @@
         android:title="홈" />
 
     <item
+        android:id="@+id/communityFragment"
         android:icon="@drawable/ic_message"
         android:title="커뮤" />
 

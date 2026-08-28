@@ -34,26 +34,36 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
-        val analysisDestinations = setOf(
+        val detailDestinations = setOf(
             R.id.analysisStartFragment,
             R.id.analysisCaptureFragment,
             R.id.analysisUploadFragment,
             R.id.analysisLoadingFragment,
             R.id.analysisResultFragment,
-            R.id.analysisHistoryDetailFragment
+            R.id.analysisHistoryDetailFragment,
+            R.id.communityPostListFragment,
+            R.id.communityDetailFragment,
+            R.id.communityWriteFragment
         )
 
         binding.btnBack.setOnClickListener {
             navController.navigateUp()
         }
 
+        binding.btnCommunityWrite.setOnClickListener {
+            navController.navigate(R.id.communityWriteFragment)
+        }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val isAnalysisDestination = destination.id in analysisDestinations
-            binding.btnBack.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
-            binding.ivLogo.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
-            binding.tvMumu.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
-            binding.tvAnalysisMumu.visibility = if (isAnalysisDestination) View.VISIBLE else View.GONE
-            binding.bottomNav.visibility = if (isAnalysisDestination) View.GONE else View.VISIBLE
+            val isDetailDestination = destination.id in detailDestinations
+            val isCommunityDestination = destination.id == R.id.communityFragment
+            val usesBackHeader = isDetailDestination
+            binding.btnBack.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
+            binding.ivLogo.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
+            binding.tvMumu.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
+            binding.tvAnalysisMumu.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
+            binding.btnCommunityWrite.visibility = if (isCommunityDestination) View.VISIBLE else View.GONE
+            binding.bottomNav.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNav) { view, windowInsets ->

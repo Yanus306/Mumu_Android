@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_search"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_community_search"
+        android:fontFamily="@font/pretendard_regular"
+        android:hint=""
+        android:imeOptions="actionSearch"
+        android:paddingStart="14dp"
+        android:paddingEnd="36dp"
+        android:singleLine="true"
+        android:textColor="@color/mumugray_400"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="검색"
+        android:src="@drawable/ic_community_search"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <LinearLayout
+        android:id="@+id/layout_quick_menu"
+        android:layout_width="328dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_community_feed_panel"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_search">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+            <include layout="@layout/item_community_quick_menu" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_guardian_ranking"
+        android:layout_width="142dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_quick_menu">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_community_feed_panel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:background="@color/white"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:text="이달의 보호자"
+            android:textColor="@color/mumugray_400"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp">
+
+            <include layout="@layout/item_community_guardian_rank" />
+            <include layout="@layout/item_community_guardian_rank" />
+            <include layout="@layout/item_community_guardian_rank" />
+            <include layout="@layout/item_community_guardian_rank" />
+            <include layout="@layout/item_community_guardian_rank" />
+            <include layout="@layout/item_community_guardian_rank" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_popular_pets"
+        android:layout_width="142dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toStartOf="@id/layout_guardian_ranking"
+        app:layout_constraintTop_toBottomOf="@id/layout_guardian_ranking">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_community_feed_panel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:background="@color/white"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:text="인기 아이는 ?"
+            android:textColor="@color/mumugray_400"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_more_pets"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:layout_gravity="top|end"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/pretendard_regular"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="더보기"
+            android:textAllCaps="false"
+            android:textColor="@color/mumugray_400"
+            android:textSize="8sp"
+            app:backgroundTint="@null" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start|top"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="77dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dog"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            app:strokeColor="@color/mumu_300"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_marginTop="115dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:text="280"
+            android:textColor="@color/mumugray_400"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="51dp"
+            android:layout_gravity="bottom|start"
+            android:background="@color/mumu_250"
+            android:fontFamily="@font/pretendard_semibold"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="52dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dog"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            app:strokeColor="@color/mumu_300"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="95dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:text="300"
+            android:textColor="@color/mumugray_400"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="71dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/mumu_200"
+            android:fontFamily="@font/pretendard_semibold"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="87dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dog"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            app:strokeColor="@color/mumu_300"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:text="250"
+            android:textColor="@color/mumugray_400"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="41dp"
+            android:layout_gravity="bottom|end"
+            android:background="@color/mumu_300"
+            android:fontFamily="@font/pretendard_semibold"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_popular_posts"
+        android:layout_width="170dp"
+        android:layout_height="365dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/layout_guardian_ranking"
+        app:layout_constraintTop_toTopOf="@id/layout_guardian_ranking">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="356dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_community_feed_panel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:background="@color/white"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:text="인기 게시글"
+            android:textColor="@color/mumugray_400"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_more_posts"
+            android:layout_width="48dp"
+            android:layout_height="28dp"
+            android:layout_gravity="top|end"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/pretendard_regular"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="더보기"
+            android:textAllCaps="false"
+            android:textColor="@color/mumugray_400"
+            android:textSize="8sp"
+            app:backgroundTint="@null" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_popular_posts"
+            android:layout_width="match_parent"
+            android:layout_height="333dp"
+            android:layout_gravity="bottom"
+            android:clipToPadding="false"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="8dp"
+            tools:listitem="@layout/item_community_popular_post" />
+
+        <TextView
+            android:id="@+id/tv_popular_posts_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/mumugray_250"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress_popular_posts"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/mumu_300"
+            android:visibility="gone"
+            tools:visibility="gone" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

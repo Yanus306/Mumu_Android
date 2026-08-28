@@ -23,12 +23,30 @@
         <action
             android:id="@+id/action_homeFragment_to_analysisStartFragment"
             app:destination="@id/analysisStartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_communityWriteFragment"
+            app:destination="@id/communityWriteFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/myFragment"
         android:name="kr.ac.anu.mumu.presentation.main.MyFragment"
         tools:layout="@layout/fragment_my" />
+
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityFragment"
+        tools:layout="@layout/fragment_community" />
+
+    <fragment
+        android:id="@+id/communityPostListFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityPostListFragment"
+        tools:layout="@layout/fragment_community_post_list">
+        <argument
+            android:name="query"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/analysisStartFragment"
@@ -83,6 +101,26 @@
         <argument
             android:name="analysisId"
             app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityDetailFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityDetailFragment"
+        tools:layout="@layout/fragment_community_detail">
+        <argument
+            android:name="postId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communityWriteFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.CommunityWriteFragment"
+        tools:layout="@layout/fragment_community_write">
+        <action
+            android:id="@+id/action_communityWriteFragment_to_communityDetailFragment"
+            app:destination="@id/communityDetailFragment"
+            app:popUpTo="@id/communityWriteFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
