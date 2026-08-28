@@ -76,8 +76,9 @@
         android:id="@+id/layout_guardian_ranking"
         android:layout_width="142dp"
         android:layout_height="179dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@id/layout_popular_posts"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_quick_menu">
 
@@ -264,6 +265,7 @@
         android:layout_width="170dp"
         android:layout_height="365dp"
         android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_guardian_ranking"
         app:layout_constraintTop_toTopOf="@id/layout_guardian_ranking">
 
