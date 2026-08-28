@@ -23,6 +23,15 @@ class CommunityRepositoryImpl @Inject constructor(
         body.data?.content.orEmpty().map { it.toDomain() }
     }
 
+    override suspend fun getBestPosts(): Result<List<CommunityPost>> = runCatching {
+        val response = communityService.getBestPosts()
+        val body = response.body()
+        if (!response.isSuccessful || body?.success != true) {
+            error(body?.message ?: "인기 게시글을 불러오지 못했습니다. (${response.code()})")
+        }
+        body.data.orEmpty().map { it.toDomain() }
+    }
+
     override suspend fun getPost(postId: Long): Result<CommunityPost> = runCatching {
         val response = communityService.getPost(postId)
         response.requireData("게시글을 불러오지 못했습니다.").toDomain()

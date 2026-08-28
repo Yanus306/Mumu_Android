@@ -22,6 +22,9 @@ interface CommunityService {
         @Query("size") size: Int = 50
     ): Response<BaseResponse<PaginatedData<CommunityPostDto>>>
 
+    @GET("/api/community/best")
+    suspend fun getBestPosts(): Response<BaseResponse<List<CommunityPostDto>>>
+
     @GET("/api/community/{communityId}")
     suspend fun getPost(
         @Path("communityId") communityId: Long

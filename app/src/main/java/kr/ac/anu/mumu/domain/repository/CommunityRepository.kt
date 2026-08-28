@@ -5,6 +5,7 @@ import kr.ac.anu.mumu.domain.model.CommunityPost
 
 interface CommunityRepository {
     suspend fun getPosts(): Result<List<CommunityPost>>
+    suspend fun getBestPosts(): Result<List<CommunityPost>>
     suspend fun getPost(postId: Long): Result<CommunityPost>
     suspend fun createPost(
         category: String,

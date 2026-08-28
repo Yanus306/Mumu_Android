@@ -24,7 +24,7 @@ class CommunityFragment : Fragment() {
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PostViewModel by viewModels()
+    private val viewModel: CommunityViewModel by viewModels()
     private val popularPostAdapter = CommunityPopularPostAdapter { post ->
         findNavController().navigate(
             R.id.communityDetailFragment,
@@ -50,6 +50,7 @@ class CommunityFragment : Fragment() {
             isNestedScrollingEnabled = false
         }
         binding.btnMorePosts.setOnClickListener { navigateToPostList() }
+        binding.tvPopularPostsState.setOnClickListener { viewModel.loadBestPosts() }
         binding.btnMorePets.setOnClickListener {
             Toast.makeText(requireContext(), "인기 아이 기능은 준비중이에요.", Toast.LENGTH_SHORT).show()
         }
@@ -69,16 +70,35 @@ class CommunityFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadBestPosts()
+    }
+
     private fun render(state: PostUiState) {
         binding.progressPopularPosts.visibility = if (state is PostUiState.Loading) View.VISIBLE else View.GONE
         when (state) {
-            PostUiState.Loading -> popularPostAdapter.submitList(emptyList())
-            is PostUiState.Success -> {
-                popularPostAdapter.submitList(
-                    state.posts.sortedByDescending { it.likeCount }.take(9)
-                )
+            PostUiState.Loading -> {
+                popularPostAdapter.submitList(emptyList())
+                binding.rvPopularPosts.visibility = View.GONE
+                binding.tvPopularPostsState.visibility = View.GONE
+                binding.tvPopularPostsState.isClickable = false
             }
-            is PostUiState.Error -> popularPostAdapter.submitList(emptyList())
+            is PostUiState.Success -> {
+                val posts = state.posts.take(9)
+                popularPostAdapter.submitList(posts)
+                binding.rvPopularPosts.visibility = if (posts.isEmpty()) View.GONE else View.VISIBLE
+                binding.tvPopularPostsState.visibility = if (posts.isEmpty()) View.VISIBLE else View.GONE
+                binding.tvPopularPostsState.text = "아직 인기 게시글이 없어요."
+                binding.tvPopularPostsState.isClickable = false
+            }
+            is PostUiState.Error -> {
+                popularPostAdapter.submitList(emptyList())
+                binding.rvPopularPosts.visibility = View.GONE
+                binding.tvPopularPostsState.visibility = View.VISIBLE
+                binding.tvPopularPostsState.text = "불러오지 못했어요.\n눌러서 다시 시도"
+                binding.tvPopularPostsState.isClickable = true
+            }
         }
     }
 

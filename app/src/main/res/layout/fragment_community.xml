@@ -309,6 +309,18 @@
             android:paddingBottom="8dp"
             tools:listitem="@layout/item_community_popular_post" />
 
+        <TextView
+            android:id="@+id/tv_popular_posts_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/mumugray_250"
+            android:textSize="10sp"
+            android:visibility="gone" />
+
         <ProgressBar
             android:id="@+id/progress_popular_posts"
             android:layout_width="28dp"
