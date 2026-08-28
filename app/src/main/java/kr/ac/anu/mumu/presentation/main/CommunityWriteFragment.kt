@@ -23,6 +23,7 @@ class CommunityWriteFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: CommunityWriteViewModel by viewModels()
     private val categories = listOf("FREE", "QUESTION", "INFO", "BRAG", "REVIEW")
+    private var hasPopulatedForm = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +36,20 @@ class CommunityWriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hasPopulatedForm = savedInstanceState != null
 
         binding.spinnerCategory.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
             listOf("자유", "질문", "정보", "자랑", "후기")
         )
+        binding.tvWriteTitle.text = if (viewModel.isEditMode) "이야기를 수정할까요?" else "어떤 이야기를 나눌까요?"
+        binding.tvWriteDescription.text = if (viewModel.isEditMode) {
+            "바꾸고 싶은 내용을 다듬은 뒤 저장해 주세요."
+        } else {
+            "반려생활의 질문과 순간을 자유롭게 남겨보세요."
+        }
+        binding.btnSubmit.text = if (viewModel.isEditMode) "수정 내용 저장하기" else "게시글 등록하기"
         binding.btnSubmit.setOnClickListener {
             viewModel.submit(
                 category = categories[binding.spinnerCategory.selectedItemPosition],
@@ -58,19 +67,36 @@ class CommunityWriteFragment : Fragment() {
     }
 
     private fun render(state: CommunityWriteUiState) {
-        binding.progressSubmit.visibility = if (state is CommunityWriteUiState.Loading) View.VISIBLE else View.GONE
-        binding.btnSubmit.isEnabled = state !is CommunityWriteUiState.Loading
+        val isBusy = state is CommunityWriteUiState.Loading || state is CommunityWriteUiState.Submitting
+        binding.progressSubmit.visibility = if (isBusy) View.VISIBLE else View.GONE
+        binding.btnSubmit.isEnabled = !isBusy
         binding.tvError.visibility = if (state is CommunityWriteUiState.Error) View.VISIBLE else View.GONE
 
         when (state) {
-            CommunityWriteUiState.Idle,
-            CommunityWriteUiState.Loading -> Unit
+            CommunityWriteUiState.Loading,
+            CommunityWriteUiState.Submitting -> Unit
+            is CommunityWriteUiState.Ready -> {
+                val post = state.post ?: return
+                if (!hasPopulatedForm) {
+                    binding.spinnerCategory.setSelection(
+                        categories.indexOf(post.category.uppercase()).coerceAtLeast(0)
+                    )
+                    binding.etTitle.setText(post.title)
+                    binding.etContent.setText(post.content)
+                    binding.etHashtags.setText(post.hashtags.joinToString(" ") { "#$it" })
+                    hasPopulatedForm = true
+                }
+            }
             is CommunityWriteUiState.Error -> binding.tvError.text = state.message
             is CommunityWriteUiState.Success -> {
-                findNavController().navigate(
-                    R.id.action_communityWriteFragment_to_communityDetailFragment,
-                    Bundle().apply { putLong("postId", state.postId) }
-                )
+                if (state.isEdit) {
+                    findNavController().popBackStack()
+                } else {
+                    findNavController().navigate(
+                        R.id.action_communityWriteFragment_to_communityDetailFragment,
+                        Bundle().apply { putLong("postId", state.postId) }
+                    )
+                }
             }
         }
     }

@@ -89,6 +89,45 @@
                         tools:text="자유" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/layout_post_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_edit_post"
+                        android:layout_width="64dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_community_action"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:text="수정"
+                        android:textAllCaps="false"
+                        android:textColor="@color/mumugray_350"
+                        android:textSize="11sp"
+                        app:backgroundTint="@null" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_delete_post"
+                        android:layout_width="64dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_community_action"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:text="삭제"
+                        android:textAllCaps="false"
+                        android:textColor="@color/mumured"
+                        android:textSize="11sp"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
@@ -228,6 +267,22 @@
                     android:textColor="@color/mumugray_400"
                     android:textColorHint="@color/mumugray_200"
                     android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_comment_cancel"
+                    android:layout_width="50dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_community_action"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="취소"
+                    android:textAllCaps="false"
+                    android:textColor="@color/mumugray_350"
+                    android:textSize="11sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_comment"

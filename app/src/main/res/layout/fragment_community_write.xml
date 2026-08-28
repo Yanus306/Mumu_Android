@@ -16,6 +16,7 @@
         android:paddingBottom="32dp">
 
         <TextView
+            android:id="@+id/tv_write_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_semibold"
@@ -24,6 +25,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_write_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
