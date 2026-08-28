@@ -115,6 +115,12 @@
     <fragment
         android:id="@+id/communityWriteFragment"
         android:name="kr.ac.anu.mumu.presentation.main.CommunityWriteFragment"
-        tools:layout="@layout/fragment_community_write" />
+        tools:layout="@layout/fragment_community_write">
+        <action
+            android:id="@+id/action_communityWriteFragment_to_communityDetailFragment"
+            app:destination="@id/communityDetailFragment"
+            app:popUpTo="@id/communityWriteFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

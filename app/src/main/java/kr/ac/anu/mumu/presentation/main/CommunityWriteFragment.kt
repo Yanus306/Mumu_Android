@@ -68,7 +68,7 @@ class CommunityWriteFragment : Fragment() {
             is CommunityWriteUiState.Error -> binding.tvError.text = state.message
             is CommunityWriteUiState.Success -> {
                 findNavController().navigate(
-                    R.id.communityDetailFragment,
+                    R.id.action_communityWriteFragment_to_communityDetailFragment,
                     Bundle().apply { putLong("postId", state.postId) }
                 )
             }
