@@ -51,3 +51,10 @@ data class BookmarkDto(
     val bookmarked: Boolean,
     val bookmarkCount: Int
 )
+
+data class UserProfileDto(
+    val userId: Long,
+    val loginId: String,
+    val name: String,
+    val phone: String
+)

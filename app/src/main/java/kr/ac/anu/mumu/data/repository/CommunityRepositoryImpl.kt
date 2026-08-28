@@ -49,6 +49,24 @@ class CommunityRepositoryImpl @Inject constructor(
         response.requireData("게시글을 등록하지 못했습니다.").toDomain()
     }
 
+    override suspend fun updatePost(
+        postId: Long,
+        category: String,
+        title: String,
+        content: String,
+        hashtags: List<String>,
+        petId: Long?
+    ): Result<CommunityPost> = runCatching {
+        communityService.updatePost(
+            postId,
+            CommunityRequestDto(category, title, content, hashtags, petId)
+        ).requireData("게시글을 수정하지 못했습니다.").toDomain()
+    }
+
+    override suspend fun deletePost(postId: Long): Result<Unit> = runCatching {
+        communityService.deletePost(postId).requireSuccess("게시글을 삭제하지 못했습니다.")
+    }
+
     override suspend fun toggleLike(postId: Long): Result<Pair<Boolean, Int>> = runCatching {
         val data = communityService.toggleLike(postId).requireData("좋아요 처리에 실패했습니다.")
         data.liked to data.likeCount
@@ -74,9 +92,28 @@ class CommunityRepositoryImpl @Inject constructor(
             .toDomain()
     }
 
+    override suspend fun updateComment(
+        postId: Long,
+        commentId: Long,
+        content: String
+    ): Result<CommunityComment> = runCatching {
+        communityService.updateComment(postId, commentId, CommentRequestDto(content))
+            .requireData("댓글을 수정하지 못했습니다.")
+            .toDomain()
+    }
+
+    override suspend fun deleteComment(postId: Long, commentId: Long): Result<Unit> = runCatching {
+        communityService.deleteComment(postId, commentId).requireSuccess("댓글을 삭제하지 못했습니다.")
+    }
+
+    override suspend fun getCurrentUserId(): Result<Long> = runCatching {
+        communityService.getMyProfile().requireData("사용자 정보를 불러오지 못했습니다.").userId
+    }
+
     private fun CommunityPostDto.toDomain() = CommunityPost(
         id = communityId,
         userId = userId,
+        petId = petId,
         title = title,
         content = content,
         category = category,
@@ -105,5 +142,14 @@ class CommunityRepositoryImpl @Inject constructor(
             error(body?.message ?: "$fallbackMessage (${code()})")
         }
         return body.data ?: error("서버 응답이 비어 있습니다.")
+    }
+
+    private fun <T> retrofit2.Response<kr.ac.anu.mumu.data.model.BaseResponse<T>>.requireSuccess(
+        fallbackMessage: String
+    ) {
+        val body = body()
+        if (!isSuccessful || body?.success != true) {
+            error(body?.message ?: "$fallbackMessage (${code()})")
+        }
     }
 }
