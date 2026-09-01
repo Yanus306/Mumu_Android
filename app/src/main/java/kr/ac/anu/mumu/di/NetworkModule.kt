@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.ac.anu.mumu.data.datasource.AuthService
 import kr.ac.anu.mumu.data.datasource.JoinService
+import kr.ac.anu.mumu.data.datasource.MyService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -32,5 +33,11 @@ object NetworkModule {
     @Singleton
     fun provideJoinService(retrofit: Retrofit): JoinService {
         return retrofit.create(JoinService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyService(retrofit: Retrofit): MyService {
+        return retrofit.create(MyService::class.java)
     }
 }

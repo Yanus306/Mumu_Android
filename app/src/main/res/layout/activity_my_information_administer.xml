@@ -89,7 +89,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_name_administer"
+            android:id="@+id/layout_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
@@ -131,13 +131,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_gender"
+            android:id="@+id/layout_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/layout_name_administer"
-            app:layout_constraintStart_toStartOf="@id/layout_name_administer"
-            app:layout_constraintTop_toBottomOf="@id/layout_name_administer">
+            app:layout_constraintEnd_toEndOf="@id/layout_id"
+            app:layout_constraintStart_toStartOf="@id/layout_id"
+            app:layout_constraintTop_toBottomOf="@id/layout_id">
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -173,16 +173,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_age_administer"
+            android:id="@+id/layout_phoneNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/layout_name_administer"
-            app:layout_constraintStart_toStartOf="@id/layout_name_administer"
-            app:layout_constraintTop_toBottomOf="@id/layout_gender">
+            app:layout_constraintEnd_toEndOf="@id/layout_id"
+            app:layout_constraintStart_toStartOf="@id/layout_id"
+            app:layout_constraintTop_toBottomOf="@id/layout_name">
 
             <TextView
-                android:id="@+id/tv_age_administer"
+                android:id="@+id/tv_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_start_line"
@@ -195,36 +195,36 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/et_age_administer"
+                android:id="@+id/et_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:background="@drawable/bg_gray200_stroke"
                 android:paddingStart="12dp"
                 android:textColor="@color/mumugray_400"
                 android:textSize="@dimen/body_5"
-                app:layout_constraintTop_toBottomOf="@id/tv_age_administer" />
+                app:layout_constraintTop_toBottomOf="@id/tv_phoneNumber" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_eidt"
-                app:layout_constraintBottom_toBottomOf="@id/et_age_administer"
+                app:layout_constraintBottom_toBottomOf="@id/et_phoneNumber"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/et_age_administer" />
+                app:layout_constraintTop_toTopOf="@id/et_phoneNumber" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_kind_administer"
+            android:id="@+id/layout_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/layout_name_administer"
-            app:layout_constraintStart_toStartOf="@id/layout_name_administer"
-            app:layout_constraintTop_toBottomOf="@id/layout_age_administer">
+            app:layout_constraintEnd_toEndOf="@id/layout_id"
+            app:layout_constraintStart_toStartOf="@id/layout_id"
+            app:layout_constraintTop_toBottomOf="@id/layout_phoneNumber">
 
             <TextView
-                android:id="@+id/tv_kind_administer"
+                android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_start_line"
@@ -237,23 +237,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/et_kind_administer"
+                android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:background="@drawable/bg_gray200_stroke"
                 android:paddingStart="12dp"
                 android:textColor="@color/mumugray_400"
                 android:textSize="@dimen/body_5"
-                app:layout_constraintTop_toBottomOf="@id/tv_kind_administer" />
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_eidt"
-                app:layout_constraintBottom_toBottomOf="@id/et_kind_administer"
+                app:layout_constraintBottom_toBottomOf="@id/et_address"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/et_kind_administer" />
+                app:layout_constraintTop_toTopOf="@id/et_address" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -267,9 +267,9 @@
             android:text="저장하기"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/body_5"
-            app:layout_constraintEnd_toEndOf="@id/layout_name_administer"
-            app:layout_constraintStart_toStartOf="@id/layout_name_administer"
-            app:layout_constraintTop_toBottomOf="@id/layout_kind_administer" />
+            app:layout_constraintEnd_toEndOf="@id/layout_id"
+            app:layout_constraintStart_toStartOf="@id/layout_id"
+            app:layout_constraintTop_toBottomOf="@id/layout_address" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_change_profile"
@@ -281,8 +281,8 @@
             android:text="프로필 교체"
             android:textColor="@color/mumugray_350"
             android:textSize="@dimen/body_5"
-            app:layout_constraintEnd_toEndOf="@id/layout_name_administer"
-            app:layout_constraintStart_toStartOf="@id/layout_name_administer"
+            app:layout_constraintEnd_toEndOf="@id/layout_id"
+            app:layout_constraintStart_toStartOf="@id/layout_id"
             app:layout_constraintTop_toBottomOf="@id/btn_save" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

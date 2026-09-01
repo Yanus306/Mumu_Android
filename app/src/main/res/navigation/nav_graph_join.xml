@@ -81,4 +81,10 @@
         android:label="FinishFragment"
         tools:layout="@layout/fragment_finish" />
 
+    <fragment
+        android:id="@+id/MumuLogoFragment"
+        android:name="kr.ac.anu.mumu.presentation.my.MumuLogoFragment"
+        android:label="MumuLogoFragment"
+        tools:layout="@layout/fragment_mumu_logo" />
+
 </navigation>

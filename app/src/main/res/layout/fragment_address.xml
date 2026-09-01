@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="@id/tv_postal_code" />
 
     <TextView
-        android:id="@+id/tv_kind_administer"
+        android:id="@+id/tv_address"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginTop="2dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_postal_code" />
 
     <EditText
-        android:id="@+id/et_kind_administer"
+        android:id="@+id/et_address"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginTop="2dp"
@@ -104,7 +104,7 @@
         android:textSize="@dimen/body_4"
         app:layout_constraintEnd_toEndOf="@id/btn_search"
         app:layout_constraintStart_toStartOf="@id/tv_postal_code"
-        app:layout_constraintTop_toBottomOf="@id/tv_kind_administer" />
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
