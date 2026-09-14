@@ -25,6 +25,7 @@ class HistoryFragment : Fragment() {
 
     private lateinit var historyAdapter: HistoryAdapter
     private val viewModel: HistoryViewModel by viewModels()
+    private var hasResumed = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +42,11 @@ class HistoryFragment : Fragment() {
         setupRecyclerView()
         observeHistory()
         binding.btnRetry.setOnClickListener { viewModel.loadHistory() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (hasResumed) viewModel.loadHistory() else hasResumed = true
     }
 
     private fun setupRecyclerView() {
