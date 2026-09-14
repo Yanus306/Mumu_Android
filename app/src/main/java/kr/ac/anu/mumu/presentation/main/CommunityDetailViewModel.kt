@@ -21,7 +21,9 @@ sealed interface CommunityDetailUiState {
     data class Success(
         val post: CommunityPost,
         val comments: List<CommunityComment>,
+        val commentError: String? = null,
         val currentUserId: Long? = null,
+        val profileError: Boolean = false,
         val liked: Boolean = false,
         val bookmarked: Boolean = false,
         val isProcessing: Boolean = false
@@ -46,7 +48,7 @@ class CommunityDetailViewModel @Inject constructor(
     val postId: Long = checkNotNull(savedStateHandle["postId"])
     private val _uiState = MutableStateFlow<CommunityDetailUiState>(CommunityDetailUiState.Loading)
     val uiState: StateFlow<CommunityDetailUiState> = _uiState.asStateFlow()
-    private val _events = MutableSharedFlow<CommunityDetailEvent>()
+    private val _events = MutableSharedFlow<CommunityDetailEvent>(extraBufferCapacity = 1)
     val events: SharedFlow<CommunityDetailEvent> = _events.asSharedFlow()
 
     init {
@@ -58,9 +60,16 @@ class CommunityDetailViewModel @Inject constructor(
             _uiState.value = CommunityDetailUiState.Loading
             repository.getPost(postId)
                 .onSuccess { post ->
-                    val comments = repository.getComments(postId).getOrDefault(emptyList())
-                    val currentUserId = repository.getCurrentUserId().getOrNull()
-                    _uiState.value = CommunityDetailUiState.Success(post, comments, currentUserId)
+                    val commentResult = repository.getComments(postId)
+                    val profileResult = repository.getCurrentUserId()
+                    _uiState.value = CommunityDetailUiState.Success(
+                        post = post,
+                        comments = commentResult.getOrDefault(emptyList()),
+                        commentError = commentResult.exceptionOrNull()?.message
+                            ?: if (commentResult.isFailure) "댓글을 불러오지 못했습니다." else null,
+                        currentUserId = profileResult.getOrNull(),
+                        profileError = profileResult.isFailure
+                    )
                 }
                 .onFailure { error ->
                     _uiState.value = CommunityDetailUiState.Error(
@@ -87,7 +96,10 @@ class CommunityDetailViewModel @Inject constructor(
     )
 
     fun addComment(content: String) {
-        if (content.isBlank()) return
+        CommunityInputValidator.validateComment(content)?.let { message ->
+            _events.tryEmit(CommunityDetailEvent.Message(message))
+            return
+        }
         mutate(
             action = { repository.createComment(postId, content.trim()) },
             update = { current, comment ->
@@ -102,7 +114,10 @@ class CommunityDetailViewModel @Inject constructor(
     }
 
     fun updateComment(commentId: Long, content: String) {
-        if (content.isBlank()) return
+        CommunityInputValidator.validateComment(content)?.let { message ->
+            _events.tryEmit(CommunityDetailEvent.Message(message))
+            return
+        }
         mutate(
             action = { repository.updateComment(postId, commentId, content.trim()) },
             update = { current, updated ->

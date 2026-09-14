@@ -57,6 +57,11 @@ class CommunityDetailFragment : Fragment() {
             isNestedScrollingEnabled = false
         }
         binding.btnRetry.setOnClickListener { viewModel.load() }
+        binding.tvCommentEmpty.setOnClickListener {
+            if ((viewModel.uiState.value as? CommunityDetailUiState.Success)?.commentError != null) {
+                viewModel.load()
+            }
+        }
         binding.btnLike.setOnClickListener { viewModel.toggleLike() }
         binding.btnBookmark.setOnClickListener { viewModel.toggleBookmark() }
         binding.btnEditPost.setOnClickListener {
@@ -73,11 +78,9 @@ class CommunityDetailFragment : Fragment() {
         }
         binding.btnComment.setOnClickListener {
             val content = binding.etComment.text?.toString().orEmpty()
-            if (content.isNotBlank()) {
-                editingCommentId?.let { commentId ->
-                    viewModel.updateComment(commentId, content)
-                } ?: viewModel.addComment(content)
-            }
+            editingCommentId?.let { commentId ->
+                viewModel.updateComment(commentId, content)
+            } ?: viewModel.addComment(content)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -119,6 +122,8 @@ class CommunityDetailFragment : Fragment() {
                 binding.btnLike.text = if (state.liked) "♥ ${post.likeCount}" else "♡ ${post.likeCount}"
                 binding.btnBookmark.text = if (state.bookmarked) "북마크됨" else "북마크 ${post.bookmarkCount}"
                 binding.layoutPostManage.visibility = if (state.isPostOwner) View.VISIBLE else View.GONE
+                binding.tvProfileNotice.visibility = if (state.profileError) View.VISIBLE else View.GONE
+                binding.tvProfileNotice.setOnClickListener { viewModel.load() }
                 binding.btnEditPost.isEnabled = !state.isProcessing
                 binding.btnDeletePost.isEnabled = !state.isProcessing
                 binding.btnLike.isEnabled = !state.isProcessing
@@ -134,6 +139,8 @@ class CommunityDetailFragment : Fragment() {
                 commentAdapter.setCurrentUserId(state.currentUserId)
                 commentAdapter.submitList(state.comments)
                 binding.tvCommentEmpty.visibility = if (state.comments.isEmpty()) View.VISIBLE else View.GONE
+                binding.tvCommentEmpty.text = state.commentError?.let { "$it 탭해서 다시 시도해 주세요." }
+                    ?: "아직 댓글이 없어요. 첫 댓글을 남겨보세요!"
             }
         }
     }

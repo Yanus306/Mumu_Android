@@ -26,6 +26,7 @@ class CommunityPostListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PostViewModel by viewModels()
     private var allPosts: List<CommunityPost> = emptyList()
+    private var hasResumed = false
     private val postAdapter = CommunityFeedAdapter { post ->
         findNavController().navigate(
             R.id.communityDetailFragment,
@@ -58,6 +59,11 @@ class CommunityPostListFragment : Fragment() {
                 viewModel.uiState.collect(::render)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (hasResumed) viewModel.loadPosts() else hasResumed = true
     }
 
     private fun render(state: PostUiState) {

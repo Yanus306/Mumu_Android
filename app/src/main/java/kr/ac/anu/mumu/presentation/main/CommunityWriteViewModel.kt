@@ -29,6 +29,7 @@ class CommunityWriteViewModel @Inject constructor(
     private val editingPostId = savedStateHandle.get<Long>("postId")?.takeIf { it > 0L }
     private var editingPost: CommunityPost? = null
     val isEditMode: Boolean = editingPostId != null
+    val needsEditPostLoad: Boolean get() = isEditMode && editingPost == null
 
     private val _uiState = MutableStateFlow<CommunityWriteUiState>(
         if (isEditMode) CommunityWriteUiState.Loading else CommunityWriteUiState.Ready()
@@ -39,8 +40,9 @@ class CommunityWriteViewModel @Inject constructor(
         if (isEditMode) loadPost()
     }
 
-    private fun loadPost() {
+    fun loadPost() {
         val postId = editingPostId ?: return
+        _uiState.value = CommunityWriteUiState.Loading
         viewModelScope.launch {
             repository.getPost(postId)
                 .onSuccess { post ->
@@ -56,9 +58,9 @@ class CommunityWriteViewModel @Inject constructor(
     }
 
     fun submit(category: String, title: String, content: String, hashtags: String) {
-        if (_uiState.value is CommunityWriteUiState.Submitting) return
-        if (title.isBlank() || content.isBlank()) {
-            _uiState.value = CommunityWriteUiState.Error("제목과 내용을 입력해 주세요.")
+        if (_uiState.value is CommunityWriteUiState.Submitting || needsEditPostLoad) return
+        CommunityInputValidator.validatePost(title, content)?.let { message ->
+            _uiState.value = CommunityWriteUiState.Error(message)
             return
         }
         val hashtagList = hashtags.split(',', ' ', '#')

@@ -132,6 +132,17 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_profile_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:text="내 정보를 불러오지 못했어요. 탭해서 다시 시도해 주세요."
+                    android:textColor="@color/mumugray_350"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

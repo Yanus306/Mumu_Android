@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -36,7 +37,7 @@ class CommunityWriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hasPopulatedForm = savedInstanceState != null
+        hasPopulatedForm = savedInstanceState?.getBoolean(KEY_FORM_POPULATED) ?: false
 
         binding.spinnerCategory.adapter = ArrayAdapter(
             requireContext(),
@@ -50,7 +51,14 @@ class CommunityWriteFragment : Fragment() {
             "반려생활의 질문과 순간을 자유롭게 남겨보세요."
         }
         binding.btnSubmit.text = if (viewModel.isEditMode) "수정 내용 저장하기" else "게시글 등록하기"
+        binding.etTitle.doAfterTextChanged { text ->
+            binding.tvTitleCount.text = "${text?.length ?: 0} / ${CommunityInputValidator.MAX_TITLE_LENGTH}"
+        }
         binding.btnSubmit.setOnClickListener {
+            if (viewModel.needsEditPostLoad) {
+                viewModel.loadPost()
+                return@setOnClickListener
+            }
             viewModel.submit(
                 category = categories[binding.spinnerCategory.selectedItemPosition],
                 title = binding.etTitle.text?.toString().orEmpty(),
@@ -70,6 +78,13 @@ class CommunityWriteFragment : Fragment() {
         val isBusy = state is CommunityWriteUiState.Loading || state is CommunityWriteUiState.Submitting
         binding.progressSubmit.visibility = if (isBusy) View.VISIBLE else View.GONE
         binding.btnSubmit.isEnabled = !isBusy
+        binding.btnSubmit.text = if (viewModel.needsEditPostLoad) {
+            "게시글 다시 불러오기"
+        } else if (viewModel.isEditMode) {
+            "수정 내용 저장하기"
+        } else {
+            "게시글 등록하기"
+        }
         binding.tvError.visibility = if (state is CommunityWriteUiState.Error) View.VISIBLE else View.GONE
 
         when (state) {
@@ -101,8 +116,17 @@ class CommunityWriteFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(KEY_FORM_POPULATED, hasPopulatedForm)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private companion object {
+        const val KEY_FORM_POPULATED = "form_populated"
     }
 }
