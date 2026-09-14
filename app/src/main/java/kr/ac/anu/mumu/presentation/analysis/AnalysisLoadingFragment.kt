@@ -39,7 +39,10 @@ class AnalysisLoadingFragment : Fragment() {
         viewModel.analyze(videoUri)
 
         binding.btnWriteDiary.setOnClickListener {
-            findNavController().navigate(R.id.diaryFragment)
+            findNavController().navigate(
+                R.id.diaryFragment,
+                Bundle().apply { putBoolean("compose", true) }
+            )
         }
         binding.btnLater.setOnClickListener {
             findNavController().popBackStack(R.id.homeFragment, false)
