@@ -37,3 +37,10 @@ data class DiaryDetailDto(
     val imageUrls: List<String>?,
     val analysisSummary: DiaryAnalysisSummaryDto?
 )
+
+data class DiaryCalendarDto(
+    val petId: Long,
+    val year: Int,
+    val month: Int,
+    val writtenDates: List<String>
+)

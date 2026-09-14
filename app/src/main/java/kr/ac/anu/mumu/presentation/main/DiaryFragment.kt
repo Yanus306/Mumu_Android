@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,6 +30,7 @@ import kr.ac.anu.mumu.databinding.FragmentDiaryBinding
 import kr.ac.anu.mumu.presentation.main.adapter.DiaryAdapter
 import kr.ac.anu.mumu.presentation.main.adapter.toMoodLabel
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.format.DateTimeParseException
 
 @AndroidEntryPoint
@@ -50,8 +54,14 @@ class DiaryFragment : Fragment() {
         autoCompose = savedInstanceState == null && arguments?.getBoolean("compose") == true
         binding.rvDiaries.adapter = adapter
         binding.rvDiaries.layoutManager = LinearLayoutManager(requireContext())
-        binding.btnWriteDiary.setOnClickListener { showForm(null) }
+        binding.btnWriteDiary.setOnClickListener {
+            val selected = (viewModel.uiState.value as? DiaryUiState.Ready)?.selectedDate
+            showForm(null, selected)
+        }
         binding.btnMoreDiaries.setOnClickListener { viewModel.loadMore() }
+        binding.btnPreviousMonth.setOnClickListener { viewModel.changeMonth(-1) }
+        binding.btnNextMonth.setOnClickListener { viewModel.changeMonth(1) }
+        binding.tvCalendarStatus.setOnClickListener { viewModel.retryCalendar() }
         binding.tvDiaryState.setOnClickListener {
             if (viewModel.uiState.value is DiaryUiState.Error) viewModel.load()
         }
@@ -105,8 +115,13 @@ class DiaryFragment : Fragment() {
             DiaryUiState.Loading -> ""
         }
         if (state is DiaryUiState.Ready) {
+            binding.layoutCalendar.visibility = if (state.petId == null) View.GONE else View.VISIBLE
             binding.tvDiaryPet.text = state.petName?.let { "${it}의 하루를 기록해 주세요." }
                 ?: "우리 아이의 하루를 기록해 주세요."
+            binding.btnWriteDiary.text = state.selectedDate?.let {
+                "${it.toString().replace('-', '.')} 일기 쓰기"
+            } ?: "+ 일기 쓰기"
+            renderCalendar(state)
             adapter.submitList(state.entries)
             binding.btnMoreDiaries.visibility = if (state.nextPage == null) View.GONE else View.VISIBLE
             binding.btnMoreDiaries.isEnabled = !state.isLoadingMore
@@ -117,12 +132,78 @@ class DiaryFragment : Fragment() {
                 showForm(null)
             }
         } else {
+            binding.layoutCalendar.visibility = View.GONE
             adapter.submitList(emptyList())
             binding.btnMoreDiaries.visibility = View.GONE
         }
     }
 
-    private fun showForm(diary: DiaryDetailDto?) {
+    private fun renderCalendar(state: DiaryUiState.Ready) {
+        binding.tvCalendarMonth.text = "${state.calendarMonth.year}년 ${state.calendarMonth.monthValue}월"
+        binding.btnNextMonth.isEnabled = state.calendarMonth.isBefore(YearMonth.now())
+        binding.tvCalendarStatus.visibility = if (state.isCalendarLoading || state.calendarError != null || state.writtenDates.isEmpty()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        binding.tvCalendarStatus.text = when {
+            state.isCalendarLoading -> "기록한 날짜를 불러오는 중…"
+            state.calendarError != null -> "${state.calendarError} · 탭해서 다시 시도"
+            state.writtenDates.isEmpty() -> "이 달에는 아직 기록한 날짜가 없어요."
+            else -> ""
+        }
+        binding.tvCalendarStatus.isClickable = state.calendarError != null
+
+        val density = resources.displayMetrics.density
+        val cellHeight = (46 * density).toInt()
+        binding.layoutCalendarDays.removeAllViews()
+        val header = LinearLayout(requireContext())
+        listOf("월", "화", "수", "목", "금", "토", "일").forEach { label ->
+            val headerLabel = TextView(requireContext()).apply {
+                text = label
+                textSize = 11f
+                gravity = android.view.Gravity.CENTER
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.mumugray_350))
+            }
+            header.addView(headerLabel, LinearLayout.LayoutParams(0, (25 * density).toInt(), 1f))
+        }
+        binding.layoutCalendarDays.addView(header)
+
+        state.calendarMonth.toCalendarCells().chunked(7).forEach { week ->
+            val row = LinearLayout(requireContext())
+            week.forEach { date ->
+                val cell = AppCompatButton(requireContext()).apply {
+                    minWidth = 0
+                    minHeight = 0
+                    isAllCaps = false
+                    textSize = 12f
+                    setPadding(0, 0, 0, 0)
+                    if (date == null) {
+                        visibility = View.INVISIBLE
+                    } else {
+                        val written = date in state.writtenDates
+                        text = if (written) "${date.dayOfMonth}\n•" else date.dayOfMonth.toString()
+                        contentDescription = "${date.monthValue}월 ${date.dayOfMonth}일" +
+                            if (written) ", 일기 있음" else ""
+                        isEnabled = !date.isAfter(LocalDate.now())
+                        val textColor = if (date == state.selectedDate) R.color.white else R.color.mumugray_400
+                        setTextColor(ContextCompat.getColor(requireContext(), textColor))
+                        when {
+                            date == state.selectedDate -> setBackgroundResource(R.drawable.bg_analysis_primary)
+                            written -> setBackgroundResource(R.drawable.bg_community_chip)
+                            else -> setBackgroundColor(android.graphics.Color.TRANSPARENT)
+                        }
+                        backgroundTintList = null
+                        setOnClickListener { viewModel.selectDate(date) }
+                    }
+                }
+                row.addView(cell, LinearLayout.LayoutParams(0, cellHeight, 1f))
+            }
+            binding.layoutCalendarDays.addView(row)
+        }
+    }
+
+    private fun showForm(diary: DiaryDetailDto?, selectedDate: LocalDate? = null) {
         val state = viewModel.uiState.value as? DiaryUiState.Ready ?: return
         val petId = state.petId ?: return
         val form = DialogDiaryFormBinding.inflate(layoutInflater)
@@ -132,7 +213,7 @@ class DiaryFragment : Fragment() {
             android.R.layout.simple_spinner_dropdown_item,
             listOf("행복", "보통", "속상")
         )
-        form.etDiaryDate.setText(diary?.diaryDate ?: LocalDate.now().toString())
+        form.etDiaryDate.setText(diary?.diaryDate ?: selectedDate?.toString() ?: LocalDate.now().toString())
         form.spinnerMood.setSelection(listOf("happy", "normal", "sad").indexOf(diary?.mood).coerceAtLeast(1))
         form.etDiaryTitle.setText(diary?.title)
         form.etDiaryContent.setText(diary?.content)

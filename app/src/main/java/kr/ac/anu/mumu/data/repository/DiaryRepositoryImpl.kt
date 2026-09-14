@@ -2,6 +2,7 @@ package kr.ac.anu.mumu.data.repository
 
 import kr.ac.anu.mumu.data.datasource.DiaryService
 import kr.ac.anu.mumu.data.model.BaseResponse
+import kr.ac.anu.mumu.data.model.DiaryCalendarDto
 import kr.ac.anu.mumu.data.model.DiaryDetailDto
 import kr.ac.anu.mumu.data.model.DiaryListDto
 import kr.ac.anu.mumu.data.model.DiaryRequestDto
@@ -13,6 +14,10 @@ import javax.inject.Inject
 class DiaryRepositoryImpl @Inject constructor(
     private val service: DiaryService
 ) : DiaryRepository {
+    override suspend fun getCalendar(petId: Long, year: Int, month: Int): Result<DiaryCalendarDto> = runCatching {
+        service.getCalendar(petId, year, month).requireData("일기 달력을 불러오지 못했습니다.")
+    }
+
     override suspend fun getDiaries(petId: Long, page: Int): Result<PaginatedData<DiaryListDto>> = runCatching {
         service.getDiaries(petId, page).requireData("일기를 불러오지 못했습니다.")
     }

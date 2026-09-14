@@ -15,6 +15,8 @@ import kr.ac.anu.mumu.data.model.DiaryRequestDto
 import kr.ac.anu.mumu.data.model.selectedPetId
 import kr.ac.anu.mumu.domain.repository.DiaryRepository
 import kr.ac.anu.mumu.domain.repository.PetRepository
+import java.time.LocalDate
+import java.time.YearMonth
 import javax.inject.Inject
 
 sealed interface DiaryUiState {
@@ -24,6 +26,11 @@ sealed interface DiaryUiState {
         val petName: String?,
         val entries: List<DiaryListDto>,
         val nextPage: Int?,
+        val calendarMonth: YearMonth = YearMonth.now(),
+        val writtenDates: Set<LocalDate> = emptySet(),
+        val selectedDate: LocalDate? = null,
+        val isCalendarLoading: Boolean = false,
+        val calendarError: String? = null,
         val isWorking: Boolean = false,
         val isLoadingMore: Boolean = false
     ) : DiaryUiState
@@ -51,6 +58,7 @@ class DiaryViewModel @Inject constructor(
 
     fun load() {
         viewModelScope.launch {
+            val previous = _uiState.value as? DiaryUiState.Ready
             _uiState.value = DiaryUiState.Loading
             petRepository.getPets()
                 .onSuccess { pets ->
@@ -59,14 +67,21 @@ class DiaryViewModel @Inject constructor(
                     if (petId == null) {
                         _uiState.value = DiaryUiState.Ready(null, null, emptyList(), null)
                     } else {
+                        val samePet = previous?.takeIf { it.petId == petId }
+                        val month = samePet?.calendarMonth ?: YearMonth.now()
+                        val selected = samePet?.selectedDate
                         repository.getDiaries(petId, 0)
                             .onSuccess { page ->
                                 _uiState.value = DiaryUiState.Ready(
                                     petId,
                                     petName,
                                     page.content,
-                                    if (page.page + 1 < page.totalPages) page.page + 1 else null
+                                    if (page.page + 1 < page.totalPages) page.page + 1 else null,
+                                    calendarMonth = month,
+                                    selectedDate = selected,
+                                    isCalendarLoading = true
                                 )
+                                loadCalendar(petId, month)
                             }
                             .onFailure {
                                 _uiState.value = DiaryUiState.Error(it.message ?: "일기를 불러오지 못했습니다.")
@@ -77,6 +92,55 @@ class DiaryViewModel @Inject constructor(
                     _uiState.value = DiaryUiState.Error(it.message ?: "반려동물을 불러오지 못했습니다.")
                 }
         }
+    }
+
+    fun changeMonth(offset: Long) {
+        val current = _uiState.value as? DiaryUiState.Ready ?: return
+        val petId = current.petId ?: return
+        val month = current.calendarMonth.plusMonths(offset)
+        _uiState.value = current.copy(
+            calendarMonth = month,
+            writtenDates = emptySet(),
+            selectedDate = null,
+            isCalendarLoading = true,
+            calendarError = null
+        )
+        viewModelScope.launch { loadCalendar(petId, month) }
+    }
+
+    fun selectDate(date: LocalDate) {
+        val current = _uiState.value as? DiaryUiState.Ready ?: return
+        if (current.petId == null || YearMonth.from(date) != current.calendarMonth || date.isAfter(LocalDate.now())) return
+        _uiState.value = current.copy(selectedDate = date)
+    }
+
+    fun retryCalendar() {
+        val current = _uiState.value as? DiaryUiState.Ready ?: return
+        val petId = current.petId ?: return
+        if (current.isCalendarLoading) return
+        _uiState.value = current.copy(isCalendarLoading = true, calendarError = null)
+        viewModelScope.launch { loadCalendar(petId, current.calendarMonth) }
+    }
+
+    private suspend fun loadCalendar(petId: Long, month: YearMonth) {
+        repository.getCalendar(petId, month.year, month.monthValue)
+            .onSuccess { response ->
+                val current = _uiState.value as? DiaryUiState.Ready ?: return@onSuccess
+                if (current.petId != petId || current.calendarMonth != month) return@onSuccess
+                _uiState.value = current.copy(
+                    writtenDates = response.writtenDates.mapNotNull { runCatching { LocalDate.parse(it) }.getOrNull() }.toSet(),
+                    isCalendarLoading = false,
+                    calendarError = null
+                )
+            }
+            .onFailure { error ->
+                val current = _uiState.value as? DiaryUiState.Ready ?: return@onFailure
+                if (current.petId != petId || current.calendarMonth != month) return@onFailure
+                _uiState.value = current.copy(
+                    isCalendarLoading = false,
+                    calendarError = error.message ?: "달력을 불러오지 못했습니다."
+                )
+            }
     }
 
     fun loadMore() {

@@ -1,6 +1,7 @@
 package kr.ac.anu.mumu.data.datasource
 
 import kr.ac.anu.mumu.data.model.BaseResponse
+import kr.ac.anu.mumu.data.model.DiaryCalendarDto
 import kr.ac.anu.mumu.data.model.DiaryDetailDto
 import kr.ac.anu.mumu.data.model.DiaryListDto
 import kr.ac.anu.mumu.data.model.DiaryRequestDto
@@ -15,6 +16,13 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface DiaryService {
+    @GET("/api/diaries/calendar")
+    suspend fun getCalendar(
+        @Query("petId") petId: Long,
+        @Query("year") year: Int,
+        @Query("month") month: Int
+    ): Response<BaseResponse<DiaryCalendarDto>>
+
     @GET("/api/diaries")
     suspend fun getDiaries(
         @Query("petId") petId: Long,
