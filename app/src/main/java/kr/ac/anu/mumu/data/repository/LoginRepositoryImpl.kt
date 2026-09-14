@@ -20,6 +20,7 @@ class LoginRepositoryImpl @Inject constructor(
                 val result = response.body()!!
 
                 if (result.success) {
+                    sessionManager.selectPet(null)
                     sessionManager.saveTokens(
                         accessToken = result.data.accessToken,
                         refreshToken = result.data.refreshToken,
