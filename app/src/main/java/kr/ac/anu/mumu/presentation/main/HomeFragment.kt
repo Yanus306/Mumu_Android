@@ -8,8 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import coil3.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentHomeBinding
 
@@ -18,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: HomeViewModel by viewModels()
     private var isHistoryActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +60,32 @@ class HomeFragment : Fragment() {
 
         binding.btnWrite.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_communityWriteFragment)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.petState.collect(::renderPet)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadPet()
+    }
+
+    private fun renderPet(state: HomePetUiState) {
+        val pet = (state as? HomePetUiState.Ready)?.pet
+        binding.tvSubTitleName.text = pet?.name ?: "반려동물을 등록해 주세요"
+        binding.tvPetName.text = pet?.name ?: "미등록"
+        binding.tvRepeat.text = (pet?.recordDays ?: 0).toString()
+        binding.tvPetAge.text = pet?.ageYears?.let { "${it}살" } ?: "나이 미상"
+        binding.tvHeart.text = (pet?.likeCount ?: 0).toString()
+        binding.btnAnalyze.isEnabled = pet != null
+        if (pet?.profileImageUrl.isNullOrBlank()) {
+            binding.ivPostProfile.setImageResource(R.drawable.dog)
+        } else {
+            binding.ivPostProfile.load(pet.profileImageUrl)
         }
     }
 

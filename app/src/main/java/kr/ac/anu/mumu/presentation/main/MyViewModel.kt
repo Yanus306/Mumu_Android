@@ -68,7 +68,19 @@ class MyViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = current.copy(isSaving = true)
             repository.savePet(petId, request)
-                .onSuccess {
+                .onSuccess { savedPet ->
+                    val pets = if (petId == null) {
+                        current.pets + savedPet
+                    } else {
+                        current.pets.map { if (it.petId == savedPet.petId) savedPet else it }
+                    }
+                    val selected = current.selectedPetId ?: savedPet.petId
+                    sessionManager.selectPet(selected)
+                    _uiState.value = current.copy(
+                        pets = pets.distinctBy { it.petId },
+                        selectedPetId = selected,
+                        isSaving = false
+                    )
                     _events.emit(MyEvent.Saved)
                     loadPets()
                 }

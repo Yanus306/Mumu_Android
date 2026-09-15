@@ -55,7 +55,12 @@ class DiaryViewModel @Inject constructor(
     private val _events = MutableSharedFlow<DiaryEvent>(extraBufferCapacity = 1)
     val events = _events.asSharedFlow()
 
-    init { load() }
+    init {
+        viewModelScope.launch {
+            sessionManager.selectedPetIdFlow
+                .collect { load() }
+        }
+    }
 
     fun load() {
         viewModelScope.launch {
