@@ -1,5 +1,6 @@
 package kr.ac.anu.mumu.presentation.analysis
 
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +9,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentAnalysisResultBinding
 import kr.ac.anu.mumu.domain.model.BehaviorAnalysisResult
@@ -59,8 +63,34 @@ class AnalysisResultFragment : Fragment() {
         binding.tvReason.text = "이유 : ${result.reason}\n\n추천 방향성 : ${result.recommendation}"
         binding.videoResult.setVideoURI(Uri.parse(result.videoUri))
         binding.videoResult.setOnPreparedListener { player ->
+            binding.ivResultThumbnail.visibility = View.GONE
             player.isLooping = true
             binding.videoResult.start()
+        }
+        binding.videoResult.setOnErrorListener { _, _, _ ->
+            binding.ivResultThumbnail.visibility = View.VISIBLE
+            true
+        }
+        loadVideoThumbnail(Uri.parse(result.videoUri))
+    }
+
+    private fun loadVideoThumbnail(uri: Uri) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val bitmap = runCatching {
+                val retriever = MediaMetadataRetriever()
+                try {
+                    retriever.setDataSource(requireContext(), uri)
+                    retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+                } finally {
+                    retriever.release()
+                }
+            }.getOrNull()
+            if (bitmap != null && isAdded) {
+                binding.ivResultThumbnail.post {
+                    binding.ivResultThumbnail.setImageBitmap(bitmap)
+                    binding.ivResultThumbnail.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
