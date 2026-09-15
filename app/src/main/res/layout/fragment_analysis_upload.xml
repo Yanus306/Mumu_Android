@@ -55,7 +55,9 @@
             <VideoView
                 android:id="@+id/video_preview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/iv_video_thumbnail"
