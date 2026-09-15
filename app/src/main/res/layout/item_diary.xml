@@ -7,7 +7,7 @@
         android:id="@+id/tv_diary_mood" android:layout_width="50dp" android:layout_height="50dp"
         android:fontFamily="sans" android:gravity="center" android:text="☺" android:textColor="@color/cardgreen" android:textSize="42sp" />
 
-    <View android:layout_width="1dp" android:layout_height="match_parent" android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:background="@color/mumugray_200" />
+    <View android:layout_width="1dp" android:layout_height="match_parent" android:layout_marginStart="1dp" android:layout_marginEnd="8dp" android:background="@color/mumugray_200" />
 
     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
         <TextView
@@ -17,7 +17,7 @@
             android:id="@+id/tv_diary_date" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="2dp" android:fontFamily="@font/pretendard_regular" android:textColor="@color/mumugray_200" android:textSize="10sp" />
         <ImageView
-            android:id="@+id/iv_diary_thumbnail" android:layout_width="200dp" android:layout_height="133dp"
+            android:id="@+id/iv_diary_thumbnail" android:layout_width="match_parent" android:layout_height="133dp"
             android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:contentDescription="일기 사진"
             android:scaleType="centerCrop" android:visibility="gone" />
         <TextView

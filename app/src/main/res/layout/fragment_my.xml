@@ -32,15 +32,24 @@
 
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28dp"
-            android:background="@drawable/bg_my_panel" android:orientation="vertical" android:paddingHorizontal="24dp" android:paddingVertical="16dp">
+            android:background="@drawable/bg_my_panel" android:orientation="vertical" android:paddingHorizontal="24dp" android:paddingTop="25dp" android:paddingBottom="24dp" android:minHeight="300dp">
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_regular" android:text="정보 수정" android:textColor="@color/mumublack" android:textSize="12sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_regular" android:text="ID / 이름 / 전화번호 / 주소 / 새 비밀번호" android:textColor="@color/mumugray_200" android:textSize="10sp" />
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:background="@color/mumu_100" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="18dp" android:background="@color/mumu_100" />
 
-            <TextView android:id="@+id/btn_pet_management" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:fontFamily="@font/pretendard_regular" android:paddingVertical="4dp" android:text="동물 프로필 관리  ›" android:textColor="@color/mumublack" android:textSize="12sp" />
+            <TextView android:id="@+id/btn_pet_management" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:fontFamily="@font/pretendard_regular" android:paddingVertical="4dp" android:text="동물 프로필 관리" android:textColor="@color/mumublack" android:textSize="12sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_regular" android:text="대표 아이 선택 / 동물 프로필 등록" android:textColor="@color/mumugray_200" android:textSize="10sp" />
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:background="@color/mumu_100" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="18dp" android:background="@color/mumu_100" />
+
+            <TextView
+                android:id="@+id/btn_my_info" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="18dp" android:fontFamily="@font/pretendard_regular"
+                android:text="내 정보 관리" android:textColor="@color/mumublack" android:textSize="12sp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:fontFamily="@font/pretendard_regular"
+                android:text="이름 / 성별 / 나이 / 종류" android:textColor="@color/mumugray_200" android:textSize="10sp" />
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="18dp" android:background="@color/mumu_100" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_pet" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="14dp"

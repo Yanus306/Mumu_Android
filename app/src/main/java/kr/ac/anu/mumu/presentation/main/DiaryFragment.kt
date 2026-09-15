@@ -51,6 +51,7 @@ class DiaryFragment : Fragment() {
     private var detailDialog: AlertDialog? = null
     private var hasResumed = false
     private var autoCompose = false
+    private var calendarExpanded = false
     private var selectedImageUri: Uri? = null
     private var activeForm: DialogDiaryFormBinding? = null
     private val pickDiaryImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -80,6 +81,10 @@ class DiaryFragment : Fragment() {
         }
         binding.btnMoreDiaries.setOnClickListener { viewModel.loadMore() }
         binding.btnPreviousMonth.setOnClickListener { viewModel.changeMonth(-1) }
+        binding.tvCalendarMonth.setOnClickListener {
+            calendarExpanded = !calendarExpanded
+            (viewModel.uiState.value as? DiaryUiState.Ready)?.let(::renderCalendar)
+        }
         binding.btnNextMonth.setOnClickListener { viewModel.changeMonth(1) }
         binding.tvCalendarStatus.setOnClickListener { viewModel.retryCalendar() }
         binding.tvDiaryState.setOnClickListener {
@@ -174,7 +179,7 @@ class DiaryFragment : Fragment() {
     }
 
     private fun renderCalendar(state: DiaryUiState.Ready) {
-        binding.tvCalendarMonth.text = "${state.calendarMonth.year}년 ${state.calendarMonth.monthValue}월"
+        binding.tvCalendarMonth.text = "${state.calendarMonth.year}년 ${state.calendarMonth.monthValue}월 ${if (calendarExpanded) "⌃" else "⌄"}"
         binding.btnNextMonth.isEnabled = state.calendarMonth.isBefore(YearMonth.now())
         binding.tvCalendarStatus.visibility = if (state.isCalendarLoading || state.calendarError != null || state.writtenDates.isEmpty()) {
             View.VISIBLE
@@ -190,7 +195,7 @@ class DiaryFragment : Fragment() {
         binding.tvCalendarStatus.isClickable = state.calendarError != null
 
         val density = resources.displayMetrics.density
-        val cellHeight = (46 * density).toInt()
+        val cellHeight = (59 * density).toInt()
         binding.layoutCalendarDays.removeAllViews()
         val header = LinearLayout(requireContext())
         listOf("월", "화", "수", "목", "금", "토", "일").forEach { label ->
@@ -204,7 +209,10 @@ class DiaryFragment : Fragment() {
         }
         binding.layoutCalendarDays.addView(header)
 
-        state.calendarMonth.toCalendarCells().chunked(7).forEach { week ->
+        val weeks = state.calendarMonth.toCalendarCells().chunked(7)
+        val focus = state.selectedDate ?: LocalDate.now()
+        val visibleWeeks = if (calendarExpanded) weeks else listOf(weeks.firstOrNull { focus in it } ?: weeks.first())
+        visibleWeeks.forEach { week ->
             val row = LinearLayout(requireContext())
             week.forEach { date ->
                 val cell = AppCompatButton(requireContext()).apply {
@@ -217,15 +225,19 @@ class DiaryFragment : Fragment() {
                         visibility = View.INVISIBLE
                     } else {
                         val written = date in state.writtenDates
-                        text = if (written) "${date.dayOfMonth}\n•" else date.dayOfMonth.toString()
+                        text = date.dayOfMonth.toString()
+                        val paw = ContextCompat.getDrawable(requireContext(), R.drawable.ic_foot)?.mutate()
+                        paw?.setBounds(0, 0, (22 * density).toInt(), (20 * density).toInt())
+                        paw?.setTint(ContextCompat.getColor(requireContext(), if (written) R.color.mumu_200 else R.color.mumugray_150))
+                        setCompoundDrawables(null, paw, null, null)
+                        compoundDrawablePadding = (3 * density).toInt()
                         contentDescription = "${date.monthValue}월 ${date.dayOfMonth}일" +
                             if (written) ", 일기 있음" else ""
                         isEnabled = !date.isAfter(LocalDate.now())
-                        val textColor = if (date == state.selectedDate) R.color.white else R.color.mumugray_400
+                        val textColor = if (written || date == state.selectedDate) R.color.mumu_300 else R.color.mumugray_200
                         setTextColor(ContextCompat.getColor(requireContext(), textColor))
                         when {
-                            date == state.selectedDate -> setBackgroundResource(R.drawable.bg_analysis_primary)
-                            written -> setBackgroundResource(R.drawable.bg_community_chip)
+                            date == state.selectedDate -> setBackgroundResource(R.drawable.bg_community_chip)
                             else -> setBackgroundColor(android.graphics.Color.TRANSPARENT)
                         }
                         backgroundTintList = null
