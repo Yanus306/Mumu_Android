@@ -140,52 +140,6 @@
                 android:textSize="13sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_community_input"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/bg_community_avatar"
-                android:fontFamily="@font/pretendard_semibold"
-                android:gravity="center"
-                android:text="+"
-                android:textColor="@color/mumu_300"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:text="사진 첨부"
-                    android:textColor="@color/mumugray_350"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/pretendard_regular"
-                    android:text="서버에 미디어 연결 필드가 추가되면 사용할 수 있어요."
-                    android:textColor="@color/mumugray_200"
-                    android:textSize="10sp" />
-            </LinearLayout>
-        </LinearLayout>
-
         <TextView
             android:id="@+id/tv_error"
             android:layout_width="match_parent"
