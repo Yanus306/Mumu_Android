@@ -26,6 +26,7 @@ class CommunityPostListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PostViewModel by viewModels()
     private var allPosts: List<CommunityPost> = emptyList()
+    private var hasResumed = false
     private val postAdapter = CommunityFeedAdapter { post ->
         findNavController().navigate(
             R.id.communityDetailFragment,
@@ -60,6 +61,11 @@ class CommunityPostListFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (hasResumed) viewModel.loadPosts() else hasResumed = true
+    }
+
     private fun render(state: PostUiState) {
         binding.progressPosts.visibility = if (state is PostUiState.Loading) View.VISIBLE else View.GONE
         binding.layoutError.visibility = if (state is PostUiState.Error) View.VISIBLE else View.GONE
@@ -90,7 +96,8 @@ class CommunityPostListFragment : Fragment() {
             allPosts.filter { post ->
                 post.title.contains(keyword, ignoreCase = true) ||
                     post.content.contains(keyword, ignoreCase = true) ||
-                    post.hashtags.any { it.contains(keyword.removePrefix("#"), ignoreCase = true) }
+                    post.hashtags.any { it.contains(keyword.removePrefix("#"), ignoreCase = true) } ||
+                    post.category.matchesCategory(keyword)
             }
         }
         postAdapter.submitList(filtered)
@@ -100,6 +107,18 @@ class CommunityPostListFragment : Fragment() {
         } else {
             "검색 결과가 없어요.\n다른 단어로 찾아보세요."
         }
+    }
+
+    private fun String.matchesCategory(keyword: String): Boolean {
+        val label = when (uppercase()) {
+            "FREE" -> "자유"
+            "QUESTION" -> "질문"
+            "INFO" -> "정보"
+            "BRAG" -> "자랑"
+            "REVIEW" -> "후기"
+            else -> this
+        }
+        return label.equals(keyword, ignoreCase = true)
     }
 
     override fun onDestroyView() {

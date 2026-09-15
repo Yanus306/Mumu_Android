@@ -17,5 +17,28 @@ data class AnalysisDetailDto(
 
 data class PetDto(
     val petId: Long,
-    val name: String?
+    val name: String?,
+    val species: String? = null,
+    val breed: String? = null,
+    val gender: String? = null,
+    val birthDate: String? = null,
+    val weight: Double? = null,
+    val neutered: Boolean = false,
+    val allergies: String? = null,
+    val chronicDiseases: String? = null,
+    val medications: String? = null,
+    val profileImageUrl: String? = null
+)
+
+data class PetRequestDto(
+    val name: String,
+    val species: String,
+    val breed: String?,
+    val gender: String?,
+    val birthDate: String?,
+    val weight: Double?,
+    val neutered: Boolean,
+    val allergies: String?,
+    val chronicDiseases: String?,
+    val medications: String?
 )

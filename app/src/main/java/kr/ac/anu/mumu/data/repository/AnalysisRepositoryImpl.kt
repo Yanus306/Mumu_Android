@@ -9,7 +9,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kr.ac.anu.mumu.data.datasource.AnalysisService
 import kr.ac.anu.mumu.data.datasource.PetService
+import kr.ac.anu.mumu.data.local.SessionManager
 import kr.ac.anu.mumu.data.model.AnalysisDetailDto
+import kr.ac.anu.mumu.data.model.selectedPetId
 import kr.ac.anu.mumu.domain.model.BehaviorAnalysisResult
 import kr.ac.anu.mumu.domain.repository.AnalysisRepository
 import okhttp3.MediaType
@@ -24,7 +26,8 @@ import kotlin.math.roundToInt
 class AnalysisRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val analysisService: AnalysisService,
-    private val petService: PetService
+    private val petService: PetService,
+    private val sessionManager: SessionManager
 ) : AnalysisRepository {
 
     override suspend fun analyzeBehavior(videoUri: String): Result<BehaviorAnalysisResult> {
@@ -58,7 +61,8 @@ class AnalysisRepositoryImpl @Inject constructor(
         if (!response.isSuccessful || body?.success != true) {
             error(body?.message ?: "반려동물 정보를 불러오지 못했습니다. (${response.code()})")
         }
-        return body.data?.firstOrNull()?.petId
+        val pets = body.data.orEmpty()
+        return pets.selectedPetId(sessionManager.selectedPetId)
             ?: error("분석할 반려동물을 먼저 등록해 주세요.")
     }
 

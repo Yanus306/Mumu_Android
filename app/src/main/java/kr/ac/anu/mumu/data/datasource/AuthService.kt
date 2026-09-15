@@ -2,6 +2,8 @@ package kr.ac.anu.mumu.data.datasource
 
 import kr.ac.anu.mumu.data.model.LoginRequest
 import kr.ac.anu.mumu.data.model.LoginResponse
+import kr.ac.anu.mumu.data.model.TokenRefreshRequest
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -9,4 +11,7 @@ import retrofit2.http.POST
 interface AuthService {
     @POST("/api/auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+
+    @POST("/api/auth/refresh")
+    fun refresh(@Body request: TokenRefreshRequest): Call<LoginResponse>
 }

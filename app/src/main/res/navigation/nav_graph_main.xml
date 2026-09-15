@@ -110,12 +110,19 @@
         <argument
             android:name="postId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_communityDetailFragment_to_communityWriteFragment"
+            app:destination="@id/communityWriteFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/communityWriteFragment"
         android:name="kr.ac.anu.mumu.presentation.main.CommunityWriteFragment"
         tools:layout="@layout/fragment_community_write">
+        <argument
+            android:name="postId"
+            android:defaultValue="-1L"
+            app:argType="long" />
         <action
             android:id="@+id/action_communityWriteFragment_to_communityDetailFragment"
             app:destination="@id/communityDetailFragment"

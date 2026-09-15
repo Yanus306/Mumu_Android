@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_community_card"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_pet_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textColor="@color/mumugray_400"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_pet_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textColor="@color/mumugray_350"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="end">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_select_pet"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_community_action"
+            android:text="대표로 선택"
+            android:textAllCaps="false"
+            android:textColor="@color/mumu_300"
+            app:backgroundTint="@null" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_edit_pet"
+            android:layout_width="68dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_community_action"
+            android:text="수정"
+            android:textAllCaps="false"
+            android:textColor="@color/mumugray_400"
+            app:backgroundTint="@null" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_delete_pet"
+            android:layout_width="68dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_community_action"
+            android:text="삭제"
+            android:textAllCaps="false"
+            android:textColor="@color/mumured"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+</LinearLayout>

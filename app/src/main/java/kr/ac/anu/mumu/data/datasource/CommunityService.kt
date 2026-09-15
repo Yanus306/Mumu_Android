@@ -1,5 +1,6 @@
 package kr.ac.anu.mumu.data.datasource
 
+import com.google.gson.JsonObject
 import kr.ac.anu.mumu.data.model.BaseResponse
 import kr.ac.anu.mumu.data.model.BookmarkDto
 import kr.ac.anu.mumu.data.model.CommentDto
@@ -8,10 +9,13 @@ import kr.ac.anu.mumu.data.model.CommunityPostDto
 import kr.ac.anu.mumu.data.model.CommunityRequestDto
 import kr.ac.anu.mumu.data.model.LikeDto
 import kr.ac.anu.mumu.data.model.PaginatedData
+import kr.ac.anu.mumu.data.model.UserProfileDto
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -35,6 +39,17 @@ interface CommunityService {
         @Body request: CommunityRequestDto
     ): Response<BaseResponse<CommunityPostDto>>
 
+    @PUT("/api/community/{communityId}")
+    suspend fun updatePost(
+        @Path("communityId") communityId: Long,
+        @Body request: CommunityRequestDto
+    ): Response<BaseResponse<CommunityPostDto>>
+
+    @DELETE("/api/community/{communityId}")
+    suspend fun deletePost(
+        @Path("communityId") communityId: Long
+    ): Response<BaseResponse<JsonObject>>
+
     @POST("/api/likes/community/{communityId}")
     suspend fun toggleLike(
         @Path("communityId") communityId: Long
@@ -55,4 +70,20 @@ interface CommunityService {
         @Path("communityId") communityId: Long,
         @Body request: CommentRequestDto
     ): Response<BaseResponse<CommentDto>>
+
+    @PUT("/api/community/{communityId}/comments/{commentId}")
+    suspend fun updateComment(
+        @Path("communityId") communityId: Long,
+        @Path("commentId") commentId: Long,
+        @Body request: CommentRequestDto
+    ): Response<BaseResponse<CommentDto>>
+
+    @DELETE("/api/community/{communityId}/comments/{commentId}")
+    suspend fun deleteComment(
+        @Path("communityId") communityId: Long,
+        @Path("commentId") commentId: Long
+    ): Response<BaseResponse<JsonObject>>
+
+    @GET("/api/users/profile")
+    suspend fun getMyProfile(): Response<BaseResponse<UserProfileDto>>
 }

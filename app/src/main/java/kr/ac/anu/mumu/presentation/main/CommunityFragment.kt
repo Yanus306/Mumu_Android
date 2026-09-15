@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,6 +52,7 @@ class CommunityFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             isNestedScrollingEnabled = false
         }
+        configureQuickMenus()
         binding.btnMorePosts.setOnClickListener { navigateToPostList() }
         binding.tvPopularPostsState.setOnClickListener { viewModel.loadBestPosts() }
         binding.btnMorePets.setOnClickListener {
@@ -67,6 +71,23 @@ class CommunityFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect(::render)
             }
+        }
+    }
+
+    private fun configureQuickMenus() {
+        val menus = buildList {
+            for (rowIndex in 0 until binding.layoutQuickMenu.childCount) {
+                val row = binding.layoutQuickMenu.getChildAt(rowIndex) as? LinearLayout ?: continue
+                for (itemIndex in 0 until row.childCount) add(row.getChildAt(itemIndex) as LinearLayout)
+            }
+        }
+        val labels = listOf("자유", "질문", "정보", "자랑", "후기", "강아지", "고양이", "건강", "산책", "일상")
+        menus.zip(labels).forEach { (menu, label) ->
+            (menu.getChildAt(0) as? ImageView)?.contentDescription = "$label 게시글 보기"
+            (menu.getChildAt(1) as? TextView)?.text = label
+            menu.isClickable = true
+            menu.isFocusable = true
+            menu.setOnClickListener { navigateToPostList(label) }
         }
     }
 

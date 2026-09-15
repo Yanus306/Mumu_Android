@@ -13,6 +13,8 @@ data class LoginResponse(
     val data: TokenDto
 )
 
+data class TokenRefreshRequest(val refreshToken: String)
+
 data class TokenDto(
     val accessToken: String,
     val refreshToken: String,

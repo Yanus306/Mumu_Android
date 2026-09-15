@@ -3,6 +3,7 @@ package kr.ac.anu.mumu.domain.model
 data class CommunityPost(
     val id: Long,
     val userId: Long,
+    val petId: Long?,
     val title: String,
     val content: String,
     val category: String,
