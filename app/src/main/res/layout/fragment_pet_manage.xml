@@ -8,4 +8,6 @@
         <LinearLayout android:id="@+id/layout_pets" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
     </ScrollView>
     <androidx.appcompat.widget.AppCompatButton android:id="@+id/btn_add_pet" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/bg_analysis_primary" android:text="추가하기" android:textAllCaps="false" android:textColor="@color/white" app:backgroundTint="@null" />
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/btn_save_selection" android:layout_width="match_parent" android:layout_height="44dp" android:layout_marginTop="8dp" android:background="@drawable/bg_analysis_primary" android:text="저장하기" android:textColor="@color/white" app:backgroundTint="@null" />
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/btn_edit_selection" android:layout_width="match_parent" android:layout_height="44dp" android:layout_marginTop="8dp" android:background="@drawable/bg_community_action" android:text="선택한 프로필 수정" android:textColor="@color/mumugray_400" app:backgroundTint="@null" />
 </LinearLayout>

@@ -3,13 +3,13 @@ package kr.ac.anu.mumu.presentation.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import kr.ac.anu.mumu.data.model.DiaryListDto
 import kr.ac.anu.mumu.databinding.ItemDiaryBinding
+import kr.ac.anu.mumu.presentation.main.bindDiaryMood
 
 class DiaryAdapter(
     private val onClick: (DiaryListDto) -> Unit
@@ -22,11 +22,7 @@ class DiaryAdapter(
 
     inner class ViewHolder(private val binding: ItemDiaryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DiaryListDto) {
-            val isHappy = item.mood.equals("happy", ignoreCase = true)
-            binding.tvDiaryMood.text = if (isHappy) "☺" else "☹"
-            binding.tvDiaryMood.setTextColor(
-                ContextCompat.getColor(binding.root.context, if (isHappy) kr.ac.anu.mumu.R.color.cardgreen else kr.ac.anu.mumu.R.color.cardred)
-            )
+            binding.tvDiaryMood.bindDiaryMood(item.mood)
             binding.tvDiaryDate.text = item.diaryDate.replace('-', '.')
             binding.tvDiaryTitle.text = item.title
             binding.tvDiaryPreview.text = item.contentPreview.orEmpty()

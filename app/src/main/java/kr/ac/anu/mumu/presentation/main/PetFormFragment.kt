@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,8 +14,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import coil3.load
+import coil3.request.error
+import coil3.request.placeholder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.data.model.PetDto
 import kr.ac.anu.mumu.data.model.PetRequestDto
 import kr.ac.anu.mumu.databinding.DialogPetFormBinding
@@ -37,6 +42,11 @@ class PetFormFragment : Fragment() {
         binding.tvFormTitle.text = if (petId() > 0) "동물 프로필 수정" else "동물 프로필 등록"
         binding.spinnerSpecies.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("강아지", "고양이", "기타"))
         binding.spinnerGender.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("성별 모름", "수컷", "암컷"))
+        binding.btnExtraInfo.setOnClickListener {
+            val expanded = binding.layoutExtraInfo.visibility == View.VISIBLE
+            binding.layoutExtraInfo.visibility = if (expanded) View.GONE else View.VISIBLE
+            binding.btnExtraInfo.text = if (expanded) "추가 정보 펼치기" else "추가 정보 접기"
+        }
         binding.etBirthDate.setOnClickListener { showDatePicker() }
         binding.btnCancel.setOnClickListener { findNavController().navigateUp() }
         binding.btnSavePet.setOnClickListener { save() }
@@ -44,6 +54,7 @@ class PetFormFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.uiState.collect { ui ->
+                        binding.btnSavePet.isEnabled = ui is MyUiState.Ready && !ui.isSaving && (petId() <= 0 || ui.pets.any { it.petId == petId() })
                         if (ui is MyUiState.Ready && pet == null && petId() > 0) {
                             ui.pets.firstOrNull { it.petId == petId() }?.let(::bind)
                         }
@@ -68,6 +79,11 @@ class PetFormFragment : Fragment() {
 
     private fun bind(value: PetDto) {
         pet = value
+        binding.ivPetProfile.scaleType = if (value.profileImageUrl.isNullOrBlank()) ImageView.ScaleType.CENTER_INSIDE else ImageView.ScaleType.CENTER_CROP
+        binding.ivPetProfile.load(value.profileImageUrl) {
+            placeholder(R.drawable.ic_foot)
+            error(R.drawable.ic_foot)
+        }
         binding.etPetName.setText(value.name)
         binding.spinnerSpecies.setSelection(listOf("DOG", "CAT", "OTHER").indexOf(value.species).coerceAtLeast(0))
         binding.etBreed.setText(value.breed)
@@ -86,6 +102,8 @@ class PetFormFragment : Fragment() {
     }
 
     private fun save() {
+        val ready = viewModel.uiState.value as? MyUiState.Ready ?: return
+        if (ready.isSaving || (petId() > 0 && pet == null)) return
         val name = binding.etPetName.text?.toString()?.trim().orEmpty()
         val date = binding.etBirthDate.text?.toString()?.takeIf(String::isNotBlank)
         val weightText = binding.etWeight.text?.toString()?.trim().orEmpty()

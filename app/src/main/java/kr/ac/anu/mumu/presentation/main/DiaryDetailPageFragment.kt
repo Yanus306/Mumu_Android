@@ -74,7 +74,7 @@ class DiaryDetailPageFragment : Fragment() {
         binding.tvDetailDate.text = value.diaryDate.replace('-', '.')
         binding.tvDetailTitle.text = value.title
         binding.tvDetailContent.text = value.content
-        binding.tvDetailMood.text = if (value.mood.equals("happy", true)) "☺" else "☹"
+        binding.tvDetailMood.bindDiaryMood(value.mood)
         value.imageUrls?.firstOrNull()?.let {
             binding.ivDetailImage.visibility = View.VISIBLE
             binding.ivDetailImage.load(it)

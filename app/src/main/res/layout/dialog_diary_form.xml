@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fillViewport="true">
+    android:orientation="vertical">
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,31 +24,41 @@
             android:textColor="@color/mumugray_400"
             android:textSize="20sp" />
 
+
+
+        <LinearLayout android:id="@+id/layout_moods" android:layout_width="match_parent" android:layout_height="64dp" android:layout_marginBottom="0dp" android:gravity="center" android:orientation="horizontal">
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/mood_sad" android:layout_width="0dp" android:layout_height="64dp" android:layout_weight="1" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="속상" android:text="" android:textColor="@color/mumugray_350" app:backgroundTint="@null" />
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/mood_normal" android:layout_width="0dp" android:layout_height="64dp" android:layout_weight="1" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="보통" android:text="보통" android:textColor="@color/mumugray_350" app:backgroundTint="@null" />
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/mood_happy" android:layout_width="0dp" android:layout_height="64dp" android:layout_weight="1" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="행복" android:text="" android:textColor="@color/mumugray_350" app:backgroundTint="@null" />
+</LinearLayout>
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_diary_date"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_community_input"
+            android:layout_height="24dp"
+            android:layout_marginTop="0dp"
+            android:textSize="12sp"
+            android:background="@android:color/transparent"
+            android:gravity="end|center_vertical"
             android:focusable="false"
             android:hint="날짜"
             android:paddingHorizontal="12dp" />
-
-        <Spinner
+<Spinner android:visibility="gone"
             android:id="@+id/spinner_mood"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_community_input"
+            android:background="@drawable/bg_diary_card"
             android:paddingHorizontal="12dp" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_diary_title"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_community_input"
-            android:hint="제목"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_diary_card"
+            android:hint="제목을 입력해주세요"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendard_regular"
             android:maxLength="200"
             android:paddingHorizontal="12dp"
             android:singleLine="true" />
@@ -56,19 +67,23 @@
             android:id="@+id/et_diary_content"
             android:layout_width="match_parent"
             android:layout_height="360dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_community_input"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_diary_card"
             android:gravity="top|start"
-            android:hint="오늘의 이야기를 남겨 주세요."
+            android:hint="내용을 입력해주세요"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendard_regular"
+            android:inputType="textMultiLine|textCapSentences"
             android:padding="12dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_pick_diary_image"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="46dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_community_action"
-            android:text="사진 첨부"
+            android:text="파일선택"
+            android:textSize="12sp"
             android:textAllCaps="false"
             android:textColor="@color/mumugray_400"
             app:backgroundTint="@null" />
@@ -101,15 +116,19 @@
             android:textSize="12sp"
             android:visibility="gone" />
 
+    </LinearLayout>
+</ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"
+                android:visibility="gone"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_community_action"
                 android:text="파일선택"
@@ -120,8 +139,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save_diary"
                 android:layout_width="0dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_analysis_primary"
                 android:text="등록하기"
@@ -129,5 +147,4 @@
                 android:textColor="@color/white"
                 app:backgroundTint="@null" />
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

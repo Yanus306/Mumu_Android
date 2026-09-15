@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import coil3.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.data.model.DiaryDetailDto
 import kr.ac.anu.mumu.data.model.DiaryRequestDto
 import kr.ac.anu.mumu.databinding.DialogDiaryFormBinding
@@ -31,6 +33,7 @@ class DiaryEditorFragment : Fragment() {
     private var detail: DiaryDetailDto? = null
     private var imageUri: Uri? = null
     private var requestedDetail = false
+    private var selectedMood = "normal"
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri ?: return@registerForActivityResult
         imageUri = uri
@@ -45,9 +48,16 @@ class DiaryEditorFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, state: Bundle?) {
+        binding.root.addOnLayoutChangeListener { _, _, top, _, bottom, _, _, _, _ ->
+            binding.fitContentHeight(bottom - top)
+        }
         binding.tvFormTitle.visibility = View.GONE
         binding.btnCancel.visibility = View.GONE
         binding.spinnerMood.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("속상", "보통", "행복"))
+        listOf(binding.moodSad, binding.moodNormal, binding.moodHappy).forEachIndexed { index, button ->
+            button.setOnClickListener { selectMood(listOf("sad", "normal", "happy")[index]) }
+        }
+        selectMood("normal")
         binding.etDiaryDate.setText(requireArguments().getString("diaryDate").orEmpty().ifBlank { LocalDate.now().toString() })
         binding.etDiaryDate.setOnClickListener { showDatePicker() }
         binding.btnPickDiaryImage.setOnClickListener { pickImage.launch("image/*") }
@@ -89,7 +99,7 @@ class DiaryEditorFragment : Fragment() {
     private fun bindDetail(value: DiaryDetailDto) {
         detail = value
         binding.etDiaryDate.setText(value.diaryDate)
-        binding.spinnerMood.setSelection(listOf("sad", "normal", "happy").indexOf(value.mood).coerceAtLeast(1))
+        selectMood(value.mood)
         binding.etDiaryTitle.setText(value.title)
         binding.etDiaryContent.setText(value.content)
         value.imageUrls?.firstOrNull()?.let {
@@ -97,6 +107,30 @@ class DiaryEditorFragment : Fragment() {
             binding.ivDiaryPreview.load(it)
         }
         binding.btnSaveDiary.text = "수정하기"
+    }
+
+    private fun selectMood(mood: String) {
+        selectedMood = mood.takeIf { it in listOf("sad", "normal", "happy") } ?: "normal"
+        listOf(binding.moodSad, binding.moodNormal, binding.moodHappy).forEachIndexed { index, button ->
+            val value = listOf("sad", "normal", "happy")[index]
+            button.bindDiaryMood(value)
+            button.isSelected = value == selectedMood
+            val color = if (button.isSelected) {
+                when (value) {
+                    "happy" -> R.color.cardgreen
+                    "sad" -> R.color.cardred
+                    else -> R.color.mumu_300
+                }
+            } else {
+                R.color.mumugray_200
+            }
+            button.compoundDrawables[1]?.mutate()?.let { drawable ->
+                if (value != "normal") drawable.setTint(ContextCompat.getColor(requireContext(), color))
+            }
+            button.alpha = 1f
+            button.contentDescription = "${button.contentDescription}, ${if (button.isSelected) "선택됨" else "선택 안 됨"}"
+            button.setBackgroundResource(if (button.isSelected) R.drawable.bg_community_action else android.R.color.transparent)
+        }
     }
 
     private fun showDatePicker() {
@@ -126,8 +160,8 @@ class DiaryEditorFragment : Fragment() {
         viewModel.saveDiary(
             detail?.diaryId,
             DiaryRequestDto(
-                petId = petId,
-                mood = listOf("sad", "normal", "happy")[binding.spinnerMood.selectedItemPosition],
+                petId = detail?.petId ?: petId,
+                mood = selectedMood,
                 title = title,
                 content = content,
                 diaryDate = date,

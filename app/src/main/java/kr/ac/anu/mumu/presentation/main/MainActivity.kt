@@ -66,14 +66,16 @@ class MainActivity : AppCompatActivity() {
             val isDetailDestination = destination.id in detailDestinations
             val isCommunityDestination = destination.id == R.id.communityFragment
             val isDiaryDestination = destination.id == R.id.diaryFragment
-            val usesBackHeader = isDetailDestination
+            val isPetDestination = destination.id == R.id.petFormFragment || destination.id == R.id.petManageFragment
+            val usesBackHeader = isDetailDestination && !isPetDestination
             binding.btnBack.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
             binding.ivLogo.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
             binding.tvMumu.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
             binding.tvAnalysisMumu.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
             binding.btnCommunityWrite.visibility = if (isCommunityDestination || isDiaryDestination) View.VISIBLE else View.GONE
             binding.btnCommunityWrite.contentDescription = if (isDiaryDestination) "일기 작성" else "게시글 작성"
-            binding.bottomNav.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
+            binding.bottomNav.visibility = if (isDetailDestination && !isPetDestination) View.GONE else View.VISIBLE
+            if (isPetDestination) binding.bottomNav.menu.findItem(R.id.myFragment).isChecked = true
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNav) { view, windowInsets ->
