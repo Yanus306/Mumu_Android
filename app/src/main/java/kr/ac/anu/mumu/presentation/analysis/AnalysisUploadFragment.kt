@@ -1,6 +1,7 @@
 package kr.ac.anu.mumu.presentation.analysis
 
 import android.database.Cursor
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -10,7 +11,10 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentAnalysisUploadBinding
 
@@ -54,15 +58,41 @@ class AnalysisUploadFragment : Fragment() {
 
     private fun showVideo(uri: Uri) {
         selectedVideoUri = uri
-        binding.videoPreview.visibility = View.VISIBLE
+        binding.videoPreviewContainer.visibility = View.VISIBLE
         binding.videoPreview.setVideoURI(uri)
         binding.videoPreview.setOnPreparedListener { player ->
+            binding.ivVideoThumbnail.visibility = View.GONE
             player.isLooping = true
             binding.videoPreview.start()
         }
+        binding.videoPreview.setOnErrorListener { _, _, _ ->
+            binding.ivVideoThumbnail.visibility = View.VISIBLE
+            true
+        }
+        loadVideoThumbnail(uri)
         binding.tvSelectedFile.text = getDisplayName(uri) ?: "선택한 영상"
         binding.btnSelectVideo.text = "다른 영상 선택"
         binding.btnAnalyzeVideo.visibility = View.VISIBLE
+    }
+
+    private fun loadVideoThumbnail(uri: Uri) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val bitmap = runCatching {
+                val retriever = MediaMetadataRetriever()
+                try {
+                    retriever.setDataSource(requireContext(), uri)
+                    retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+                } finally {
+                    retriever.release()
+                }
+            }.getOrNull()
+            if (bitmap != null && isAdded) {
+                binding.ivVideoThumbnail.post {
+                    binding.ivVideoThumbnail.setImageBitmap(bitmap)
+                    binding.ivVideoThumbnail.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun getDisplayName(uri: Uri): String? {
