@@ -43,7 +43,10 @@ class MainActivity : AppCompatActivity() {
             R.id.analysisHistoryDetailFragment,
             R.id.communityPostListFragment,
             R.id.communityDetailFragment,
-            R.id.communityWriteFragment
+            R.id.communityWriteFragment,
+            R.id.diaryEditorFragment,
+            R.id.diaryDetailPageFragment,
+            R.id.petFormFragment
         )
 
         binding.btnBack.setOnClickListener {

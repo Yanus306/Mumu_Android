@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil3.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +41,12 @@ class DiaryFragment : Fragment() {
     private var _binding: FragmentDiaryBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DiaryViewModel by viewModels()
-    private val adapter = DiaryAdapter { viewModel.openDiary(it.diaryId) }
+    private val adapter = DiaryAdapter { diary ->
+        findNavController().navigate(
+            R.id.diaryDetailPageFragment,
+            Bundle().apply { putLong("diaryId", diary.diaryId) }
+        )
+    }
     private var formDialog: AlertDialog? = null
     private var detailDialog: AlertDialog? = null
     private var hasResumed = false
@@ -70,7 +76,7 @@ class DiaryFragment : Fragment() {
         binding.rvDiaries.layoutManager = LinearLayoutManager(requireContext())
         binding.btnWriteDiary.setOnClickListener {
             val selected = (viewModel.uiState.value as? DiaryUiState.Ready)?.selectedDate
-            showForm(null, selected)
+            navigateToEditor(selected)
         }
         binding.btnMoreDiaries.setOnClickListener { viewModel.loadMore() }
         binding.btnPreviousMonth.setOnClickListener { viewModel.changeMonth(-1) }
@@ -85,7 +91,7 @@ class DiaryFragment : Fragment() {
                 launch {
                     viewModel.events.collect { event ->
                         when (event) {
-                            is DiaryEvent.Open -> showDetail(event.diary)
+                            is DiaryEvent.Open -> Unit
                             DiaryEvent.Saved -> {
                                 formDialog?.dismiss()
                                 formDialog = null
@@ -114,7 +120,14 @@ class DiaryFragment : Fragment() {
 
     fun openComposer() {
         val state = viewModel.uiState.value as? DiaryUiState.Ready ?: return
-        if (state.petId != null && !state.isWorking) showForm(null, state.selectedDate)
+        if (state.petId != null && !state.isWorking) navigateToEditor(state.selectedDate)
+    }
+
+    private fun navigateToEditor(selectedDate: LocalDate? = null) {
+        findNavController().navigate(
+            R.id.diaryEditorFragment,
+            Bundle().apply { putString("diaryDate", selectedDate?.toString().orEmpty()) }
+        )
     }
 
     private fun render(state: DiaryUiState) {
@@ -151,7 +164,7 @@ class DiaryFragment : Fragment() {
             if (autoCompose && state.petId != null) {
                 autoCompose = false
                 arguments?.putBoolean("compose", false)
-                showForm(null)
+                navigateToEditor()
             }
         } else {
             binding.layoutCalendar.visibility = View.GONE

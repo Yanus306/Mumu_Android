@@ -2,13 +2,18 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="16dp"
+        android:paddingTop="42dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/tv_form_title"
@@ -22,7 +27,7 @@
             android:id="@+id/et_diary_date"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/bg_community_input"
             android:focusable="false"
             android:hint="날짜"
@@ -50,7 +55,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_diary_content"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="360dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_community_input"
             android:gravity="top|start"
@@ -107,7 +112,7 @@
                 android:layout_height="46dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_community_action"
-                android:text="취소"
+                android:text="파일선택"
                 android:textAllCaps="false"
                 android:textColor="@color/mumugray_400"
                 app:backgroundTint="@null" />
@@ -119,7 +124,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_analysis_primary"
-                android:text="저장"
+                android:text="등록하기"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:backgroundTint="@null" />

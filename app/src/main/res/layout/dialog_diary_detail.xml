@@ -2,13 +2,29 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="16dp"
+        android:paddingTop="32dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/tv_detail_mood"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="end"
+            android:fontFamily="sans"
+            android:gravity="center"
+            android:text="☺"
+            android:textColor="@color/cardgreen"
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/tv_detail_date"
@@ -22,7 +38,7 @@
             android:id="@+id/tv_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="-56dp"
             android:fontFamily="@font/pretendard_semibold"
             android:textColor="@color/mumugray_400"
             android:textSize="20sp" />
@@ -30,8 +46,10 @@
         <ImageView
             android:id="@+id/iv_detail_image"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_diary_card"
+            android:padding="8dp"
             android:contentDescription="일기 사진"
             android:scaleType="centerCrop"
             android:visibility="gone" />
@@ -41,6 +59,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/bg_diary_card"
+            android:minHeight="120dp"
+            android:padding="14dp"
             android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/mumugray_400"
             android:textSize="14sp" />

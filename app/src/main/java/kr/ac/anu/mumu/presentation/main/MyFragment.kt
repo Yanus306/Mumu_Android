@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import coil3.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -131,6 +132,14 @@ class MyFragment : Fragment() {
     }
 
     private fun showPetForm(pet: PetDto?) {
+        findNavController().navigate(
+            R.id.petFormFragment,
+            Bundle().apply { putLong("petId", pet?.petId ?: -1L) }
+        )
+    }
+
+    @Suppress("unused")
+    private fun showPetFormDialog(pet: PetDto?) {
         val form = DialogPetFormBinding.inflate(layoutInflater)
         val species = listOf("강아지", "고양이", "기타")
         val genders = listOf("성별 모름", "수컷", "암컷")

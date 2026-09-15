@@ -15,6 +15,21 @@
         android:name="kr.ac.anu.mumu.presentation.main.DiaryFragment"
         tools:layout="@layout/fragment_diary" />
 
+    <fragment
+        android:id="@+id/diaryEditorFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.DiaryEditorFragment"
+        tools:layout="@layout/dialog_diary_form">
+        <argument android:name="diaryId" android:defaultValue="-1L" app:argType="long" />
+        <argument android:name="diaryDate" android:defaultValue="" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diaryDetailPageFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.DiaryDetailPageFragment"
+        tools:layout="@layout/dialog_diary_detail">
+        <argument android:name="diaryId" app:argType="long" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/homeFragment"
@@ -32,6 +47,13 @@
         android:id="@+id/myFragment"
         android:name="kr.ac.anu.mumu.presentation.main.MyFragment"
         tools:layout="@layout/fragment_my" />
+
+    <fragment
+        android:id="@+id/petFormFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.PetFormFragment"
+        tools:layout="@layout/dialog_pet_form">
+        <argument android:name="petId" android:defaultValue="-1L" app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/communityFragment"
