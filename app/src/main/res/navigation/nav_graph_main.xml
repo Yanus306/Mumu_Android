@@ -121,7 +121,7 @@
         tools:layout="@layout/fragment_community_write">
         <argument
             android:name="postId"
-            android:defaultValue="-1"
+            android:defaultValue="-1L"
             app:argType="long" />
         <action
             android:id="@+id/action_communityWriteFragment_to_communityDetailFragment"
