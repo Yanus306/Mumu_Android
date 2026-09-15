@@ -23,6 +23,11 @@ class CommunityRepositoryImpl @Inject constructor(
         body.data?.content.orEmpty().map { it.toDomain() }
     }
 
+    override suspend fun getMyPosts(): Result<List<CommunityPost>> = runCatching {
+        val currentUserId = getCurrentUserId().getOrThrow()
+        getPosts().getOrThrow().filter { it.userId == currentUserId }
+    }
+
     override suspend fun getBestPosts(): Result<List<CommunityPost>> = runCatching {
         val response = communityService.getBestPosts()
         val body = response.body()

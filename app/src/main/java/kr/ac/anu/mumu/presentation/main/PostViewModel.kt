@@ -32,11 +32,11 @@ class PostViewModel @Inject constructor(
     fun loadPosts() {
         viewModelScope.launch {
             _uiState.value = PostUiState.Loading
-            communityRepository.getPosts()
+            communityRepository.getMyPosts()
                 .onSuccess { posts -> _uiState.value = PostUiState.Success(posts) }
                 .onFailure { error ->
                     _uiState.value = PostUiState.Error(
-                        error.message ?: "게시글을 불러오지 못했습니다."
+                        error.message ?: "내 게시글을 불러오지 못했습니다."
                     )
                 }
         }
