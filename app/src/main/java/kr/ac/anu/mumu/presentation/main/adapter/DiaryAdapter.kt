@@ -1,10 +1,12 @@
 package kr.ac.anu.mumu.presentation.main.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil3.load
 import kr.ac.anu.mumu.data.model.DiaryListDto
 import kr.ac.anu.mumu.databinding.ItemDiaryBinding
 
@@ -22,6 +24,12 @@ class DiaryAdapter(
             binding.tvDiaryDate.text = "${item.diaryDate.replace('-', '.')} · ${item.mood.toMoodLabel()}"
             binding.tvDiaryTitle.text = item.title
             binding.tvDiaryPreview.text = item.contentPreview.orEmpty()
+            binding.ivDiaryThumbnail.visibility = if (item.thumbnailUrl.isNullOrBlank()) View.GONE else View.VISIBLE
+            if (item.thumbnailUrl.isNullOrBlank()) {
+                binding.ivDiaryThumbnail.setImageDrawable(null)
+            } else {
+                binding.ivDiaryThumbnail.load(item.thumbnailUrl)
+            }
             binding.root.setOnClickListener { onClick(item) }
         }
     }
