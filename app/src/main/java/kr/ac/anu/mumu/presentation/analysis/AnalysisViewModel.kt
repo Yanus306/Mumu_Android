@@ -22,7 +22,6 @@ class AnalysisViewModel @Inject constructor(
     fun analyze(videoUri: String) {
         val currentState = _uiState.value
         if (currentState is AnalysisUiState.Loading && currentState.videoUri == videoUri) return
-        if (currentState is AnalysisUiState.Success && currentState.result.videoUri == videoUri) return
 
         viewModelScope.launch {
             _uiState.value = AnalysisUiState.Loading(videoUri)
@@ -49,5 +48,9 @@ class AnalysisViewModel @Inject constructor(
                 recommendation = "같은 행동이 반복되면 가까운 동물병원에서 상담해 주세요."
             )
         )
+    }
+
+    fun startDemo(videoUri: String) {
+        _uiState.value = AnalysisUiState.Loading(videoUri)
     }
 }

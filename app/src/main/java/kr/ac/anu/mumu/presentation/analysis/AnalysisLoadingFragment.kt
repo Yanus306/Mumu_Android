@@ -38,6 +38,7 @@ class AnalysisLoadingFragment : Fragment() {
         val videoUri = requireArguments().getString(ARG_VIDEO_URI).orEmpty()
         require(videoUri.isNotBlank()) { "분석할 영상 URI가 필요합니다." }
         if (AnalysisConfig.DEMO_MODE) {
+            viewModel.startDemo(videoUri)
             viewLifecycleOwner.lifecycleScope.launch {
                 delay(AnalysisConfig.DEMO_LOADING_MILLIS)
                 if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
