@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class HospitalRepositoryImpl @Inject constructor(private val service: HospitalService) : HospitalRepository {
     override suspend fun search(keyword: String?, page: Int): Result<PaginatedData<HospitalListDto>> = runCatching {
-        service.search(SEOUL_LAT, SEOUL_LNG, keyword = keyword, page = page).requireData("병원을 찾지 못했습니다.")
+        service.search(ANDONG_LAT, ANDONG_LNG, keyword = keyword, page = page).requireData("병원을 찾지 못했습니다.")
     }
 
     override suspend fun getDetail(hospitalId: Long): Result<HospitalDetailDto> = runCatching {
@@ -35,7 +35,7 @@ class HospitalRepositoryImpl @Inject constructor(private val service: HospitalSe
     }
 
     private companion object {
-        const val SEOUL_LAT = 37.5665
-        const val SEOUL_LNG = 126.9780
+        const val ANDONG_LAT = 36.568188
+        const val ANDONG_LNG = 128.730261
     }
 }
