@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil3.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
@@ -100,6 +101,15 @@ class MyFragment : Fragment() {
         }
         binding.layoutPets.removeAllViews()
         if (state is MyUiState.Ready) {
+            val selectedPet = state.pets.firstOrNull { it.petId == state.selectedPetId }
+            binding.tvMyName.text = selectedPet?.name ?: "반려동물 미등록"
+            binding.tvMyActivity.text = "활동내역 ${selectedPet?.recordDays ?: 0}"
+            binding.tvMyLikes.text = "좋아요 ${selectedPet?.likeCount ?: 0}"
+            if (selectedPet?.profileImageUrl.isNullOrBlank()) {
+                binding.ivMyProfile.setImageResource(R.drawable.dog)
+            } else {
+                binding.ivMyProfile.load(selectedPet.profileImageUrl)
+            }
             state.pets.forEach { pet ->
                 val row = ItemPetProfileBinding.inflate(layoutInflater, binding.layoutPets, false)
                 row.tvPetName.text = pet.name.orEmpty()

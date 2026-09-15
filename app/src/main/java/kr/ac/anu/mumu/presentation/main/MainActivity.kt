@@ -51,18 +51,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnCommunityWrite.setOnClickListener {
-            navController.navigate(R.id.communityWriteFragment)
+            if (navController.currentDestination?.id == R.id.diaryFragment) {
+                (navHostFragment.childFragmentManager.primaryNavigationFragment as? DiaryFragment)?.openComposer()
+            } else {
+                navController.navigate(R.id.communityWriteFragment)
+            }
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val isDetailDestination = destination.id in detailDestinations
             val isCommunityDestination = destination.id == R.id.communityFragment
+            val isDiaryDestination = destination.id == R.id.diaryFragment
             val usesBackHeader = isDetailDestination
             binding.btnBack.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
             binding.ivLogo.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
             binding.tvMumu.visibility = if (usesBackHeader) View.GONE else View.VISIBLE
             binding.tvAnalysisMumu.visibility = if (usesBackHeader) View.VISIBLE else View.GONE
-            binding.btnCommunityWrite.visibility = if (isCommunityDestination) View.VISIBLE else View.GONE
+            binding.btnCommunityWrite.visibility = if (isCommunityDestination || isDiaryDestination) View.VISIBLE else View.GONE
+            binding.btnCommunityWrite.contentDescription = if (isDiaryDestination) "일기 작성" else "게시글 작성"
             binding.bottomNav.visibility = if (isDetailDestination) View.GONE else View.VISIBLE
         }
 

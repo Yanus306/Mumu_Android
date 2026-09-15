@@ -112,6 +112,11 @@ class DiaryFragment : Fragment() {
         if (hasResumed) viewModel.load() else hasResumed = true
     }
 
+    fun openComposer() {
+        val state = viewModel.uiState.value as? DiaryUiState.Ready ?: return
+        if (state.petId != null && !state.isWorking) showForm(null, state.selectedDate)
+    }
+
     private fun render(state: DiaryUiState) {
         binding.progressDiaries.visibility = if (state is DiaryUiState.Loading) View.VISIBLE else View.GONE
         binding.btnWriteDiary.isEnabled = state is DiaryUiState.Ready && state.petId != null && !state.isWorking
