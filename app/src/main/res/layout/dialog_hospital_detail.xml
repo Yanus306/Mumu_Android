@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+        <TextView android:id="@+id/tv_detail_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_semibold" android:textColor="@color/mumugray_400" android:textSize="21sp" />
+        <TextView android:id="@+id/tv_detail_meta" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/mumu_300" android:textSize="13sp" />
+        <TextView android:id="@+id/tv_detail_contact" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textColor="@color/mumugray_350" android:textSize="13sp" />
+        <TextView android:id="@+id/tv_detail_specialties" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/mumugray_350" android:textSize="13sp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:fontFamily="@font/pretendard_semibold" android:text="진료비 안내" android:textColor="@color/mumugray_400" android:textSize="16sp" />
+        <TextView android:id="@+id/tv_detail_prices" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/mumugray_350" android:textSize="13sp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:fontFamily="@font/pretendard_semibold" android:text="최근 리뷰" android:textColor="@color/mumugray_400" android:textSize="16sp" />
+        <TextView android:id="@+id/tv_detail_reviews" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/mumugray_350" android:textSize="13sp" />
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/btn_close" android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginTop="20dp" android:background="@drawable/bg_analysis_primary" android:text="닫기" android:textAllCaps="false" android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>

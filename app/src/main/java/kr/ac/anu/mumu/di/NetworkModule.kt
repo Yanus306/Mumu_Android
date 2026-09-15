@@ -9,6 +9,7 @@ import kr.ac.anu.mumu.data.datasource.AuthService
 import kr.ac.anu.mumu.data.datasource.CommunityService
 import kr.ac.anu.mumu.data.datasource.DiaryService
 import kr.ac.anu.mumu.data.datasource.HistoryService
+import kr.ac.anu.mumu.data.datasource.HospitalService
 import kr.ac.anu.mumu.data.datasource.JoinService
 import kr.ac.anu.mumu.data.datasource.PetService
 import kr.ac.anu.mumu.data.local.SessionAuthenticator
@@ -98,6 +99,10 @@ object NetworkModule {
     fun provideHistoryService(retrofit: Retrofit): HistoryService {
         return retrofit.create(HistoryService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideHospitalService(retrofit: Retrofit): HospitalService = retrofit.create(HospitalService::class.java)
 
     @Provides
     @Singleton
