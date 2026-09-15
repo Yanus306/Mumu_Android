@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentAnalysisLoadingBinding
@@ -36,7 +37,16 @@ class AnalysisLoadingFragment : Fragment() {
 
         val videoUri = requireArguments().getString(ARG_VIDEO_URI).orEmpty()
         require(videoUri.isNotBlank()) { "분석할 영상 URI가 필요합니다." }
-        viewModel.analyze(videoUri)
+        if (AnalysisConfig.DEMO_MODE) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(AnalysisConfig.DEMO_LOADING_MILLIS)
+                if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                    viewModel.showDemoResult(videoUri)
+                }
+            }
+        } else {
+            viewModel.analyze(videoUri)
+        }
 
         binding.btnWriteDiary.setOnClickListener {
             findNavController().navigate(
@@ -53,7 +63,14 @@ class AnalysisLoadingFragment : Fragment() {
             binding.btnWriteDiary.visibility = View.VISIBLE
             binding.btnLater.visibility = View.VISIBLE
             binding.tvLoadingMessage.text = "mumu가 열심히 분석하고 있어요!..."
-            viewModel.analyze(videoUri)
+            if (AnalysisConfig.DEMO_MODE) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(AnalysisConfig.DEMO_LOADING_MILLIS)
+                    viewModel.showDemoResult(videoUri)
+                }
+            } else {
+                viewModel.analyze(videoUri)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
