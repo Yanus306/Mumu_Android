@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,11 +27,20 @@ class NameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.etName.setText(viewModel.inputName.value.orEmpty())
         viewModel.checkNameStep()
 
         binding.etName.addTextChangedListener { text ->
             viewModel.inputName.value = text.toString()
             viewModel.checkNameStep()
+        }
+        binding.etName.setOnEditorActionListener { _, action, _ ->
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onNextClick()
+                true
+            } else {
+                false
+            }
         }
     }
 

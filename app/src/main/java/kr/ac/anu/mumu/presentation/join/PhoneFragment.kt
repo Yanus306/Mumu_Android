@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import kr.ac.anu.mumu.R
@@ -28,11 +29,14 @@ class PhoneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.etPhoneNum.setText(formatPhoneNumber(viewModel.inputPhoneNum.value.orEmpty()))
+        binding.etCheckNum.setText(viewModel.inputCheckNum.value.orEmpty())
         viewModel.checkPhoneStep()
 
         viewModel.isVerificationVisible.observe(viewLifecycleOwner) { isVisible ->
             android.transition.TransitionManager.beginDelayedTransition(binding.root as ViewGroup)
             binding.groupStepCheckNum.visibility = if (isVisible) View.VISIBLE else View.GONE
+            if (isVisible && binding.etCheckNum.text.isNullOrBlank()) binding.etCheckNum.requestFocus()
         }
 
         binding.etPhoneNum.addTextChangedListener(object : TextWatcher {
@@ -84,6 +88,23 @@ class PhoneFragment : Fragment() {
                 viewModel.checkPhoneButtonEnabled()
             }
         })
+        binding.etPhoneNum.setOnEditorActionListener { _, action, _ ->
+            if (action == EditorInfo.IME_ACTION_NEXT) {
+                viewModel.checkPhoneStep()
+                binding.etCheckNum.requestFocus()
+                true
+            } else {
+                false
+            }
+        }
+        binding.etCheckNum.setOnEditorActionListener { _, action, _ ->
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onNextClick()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun formatPhoneNumber(raw: String): String {

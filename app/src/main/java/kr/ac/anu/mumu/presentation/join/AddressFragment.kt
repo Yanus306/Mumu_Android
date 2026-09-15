@@ -7,6 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -33,6 +34,7 @@ class AddressFragment : Fragment() {
 
         viewSet()
 
+        binding.etAddress.setText(viewModel.inputDetailAddress.value.orEmpty())
         viewModel.checkAddressStep()
 
         viewModel.inputPostalCode.observe(viewLifecycleOwner) { postal ->
@@ -53,6 +55,14 @@ class AddressFragment : Fragment() {
             viewModel.inputDetailAddress.value = text.toString()
 
             viewModel.checkAddressStep()
+        }
+        binding.etAddress.setOnEditorActionListener { _, action, _ ->
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onNextClick()
+                true
+            } else {
+                false
+            }
         }
     }
 

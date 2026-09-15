@@ -36,6 +36,7 @@ class JoinActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
+                R.id.accountFragment -> viewModel.restoreAccountStep()
                 R.id.nameFragment -> viewModel.setStep(3)
                 R.id.phoneFragment -> viewModel.setStep(4)
                 R.id.addressFragment -> viewModel.setStep(5)
@@ -104,6 +105,14 @@ class JoinActivity : AppCompatActivity() {
 
         viewModel.joinErrorMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.returnToAccount.observe(this) { shouldReturn ->
+            if (shouldReturn) {
+                navController.popBackStack(R.id.accountFragment, false)
+                viewModel.restoreAccountStep()
+                viewModel.doneReturnToAccount()
+            }
         }
     }
 }

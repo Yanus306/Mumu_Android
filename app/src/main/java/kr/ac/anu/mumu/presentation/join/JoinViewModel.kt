@@ -36,6 +36,7 @@ class JoinViewModel @Inject constructor(
 
     // 에러 메시지 표시 여부
     val isIdErrorVisible = MutableLiveData(false)
+    val idErrorMessage = MutableLiveData("아이디는 영문·숫자 7~12자로 입력해 주세요.")
     val isPwErrorVisible = MutableLiveData(false)
     val isPwCheckErrorVisible = MutableLiveData(false)
     val isCheckNumErrorVisible = MutableLiveData(false)
@@ -53,6 +54,9 @@ class JoinViewModel @Inject constructor(
 
     private val _joinErrorMessage = MutableLiveData<String>()
     val joinErrorMessage: LiveData<String> get() = _joinErrorMessage
+
+    private val _returnToAccount = MutableLiveData(false)
+    val returnToAccount: LiveData<Boolean> get() = _returnToAccount
 
     // 정규식
     private val ID_REGEX = Regex("^[a-zA-Z0-9]{7,12}\$")
@@ -95,6 +99,7 @@ class JoinViewModel @Inject constructor(
             _accountStep.value = 1
             checkButtonEnabled()
         } else {
+            idErrorMessage.value = "아이디는 영문·숫자 7~12자로 입력해 주세요."
             isIdErrorVisible.value = true
         }
     }
@@ -112,10 +117,14 @@ class JoinViewModel @Inject constructor(
     }
 
     private fun checkPwCheckStep() {
+        val id = inputId.value ?: ""
         val pw = inputPw.value ?: ""
         val pwCheck = inputPwCheck.value ?: ""
 
-        if (pw == pwCheck && pw.isNotBlank()) {
+        if (!ID_REGEX.matches(id)) {
+            idErrorMessage.value = "아이디는 영문·숫자 7~12자로 입력해 주세요."
+            isIdErrorVisible.value = true
+        } else if (pw == pwCheck && pw.isNotBlank()) {
             isPwCheckErrorVisible.value = false
             _moveToNextPage.value = true
         } else {
@@ -223,7 +232,13 @@ class JoinViewModel @Inject constructor(
                     _moveToNextPage.value = true
                 },
                 onFailure = { error ->
-                    _joinErrorMessage.value = error.message ?: "네트워크 오류가 발생했습니다."
+                    val message = error.message ?: "네트워크 오류가 발생했습니다."
+                    _joinErrorMessage.value = message
+                    if (message.isDuplicateIdError()) {
+                        idErrorMessage.value = "이미 사용 중인 아이디입니다. 다른 아이디를 입력해 주세요."
+                        isIdErrorVisible.value = true
+                        _returnToAccount.value = true
+                    }
                     _isButtonEnabled.value = true
                 }
             )
@@ -235,5 +250,29 @@ class JoinViewModel @Inject constructor(
 
     fun setStep(step: Int) {
         _accountStep.value = step
+        when (step) {
+            3 -> checkNameStep()
+            4 -> checkPhoneButtonEnabled()
+            5 -> checkAddressStep()
+            6 -> checkAgreementStep()
+            7 -> _isButtonEnabled.value = true
+        }
+    }
+
+    fun restoreAccountStep() {
+        _accountStep.value = when {
+            !inputPwCheck.value.isNullOrBlank() -> 2
+            !inputPw.value.isNullOrBlank() -> 1
+            else -> 0
+        }
+        checkButtonEnabled()
+    }
+
+    fun doneReturnToAccount() { _returnToAccount.value = false }
+
+    private fun String.isDuplicateIdError(): Boolean {
+        val normalized = lowercase()
+        return (contains("중복") || contains("이미")) && (contains("아이디") || contains("로그인")) ||
+            normalized.contains("duplicate") || normalized.contains("already exists")
     }
 }
