@@ -57,6 +57,36 @@
             android:hint="오늘의 이야기를 남겨 주세요."
             android:padding="12dp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_pick_diary_image"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_community_action"
+            android:text="사진 첨부"
+            android:textAllCaps="false"
+            android:textColor="@color/mumugray_400"
+            app:backgroundTint="@null" />
+
+        <ImageView
+            android:id="@+id/iv_diary_preview"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="첨부한 일기 사진 미리보기"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_remove_diary_image"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:text="선택한 사진 제거"
+            android:textAllCaps="false"
+            android:textColor="@color/mumured"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_form_error"
             android:layout_width="match_parent"

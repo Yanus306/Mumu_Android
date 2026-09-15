@@ -6,16 +6,24 @@ import kr.ac.anu.mumu.data.model.DiaryDetailDto
 import kr.ac.anu.mumu.data.model.DiaryListDto
 import kr.ac.anu.mumu.data.model.DiaryRequestDto
 import kr.ac.anu.mumu.data.model.PaginatedData
+import kr.ac.anu.mumu.data.model.UploadResponseDto
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface DiaryService {
+    @Multipart
+    @POST("/api/upload/diary")
+    suspend fun uploadDiaryImage(@Part file: MultipartBody.Part): Response<BaseResponse<UploadResponseDto>>
+
     @GET("/api/diaries/calendar")
     suspend fun getCalendar(
         @Query("petId") petId: Long,

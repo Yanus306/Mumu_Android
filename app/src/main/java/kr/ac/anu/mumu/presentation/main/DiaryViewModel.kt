@@ -1,5 +1,6 @@
 package kr.ac.anu.mumu.presentation.main
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -172,12 +173,20 @@ class DiaryViewModel @Inject constructor(
         }
     }
 
-    fun saveDiary(diaryId: Long?, request: DiaryRequestDto) {
+    fun saveDiary(diaryId: Long?, request: DiaryRequestDto, imageUri: Uri? = null) {
         val current = _uiState.value as? DiaryUiState.Ready ?: return
         if (current.isWorking || current.petId != request.petId) return
         viewModelScope.launch {
             _uiState.value = current.copy(isWorking = true)
-            repository.saveDiary(diaryId, request)
+            val imageKey = imageUri?.let { uri ->
+                repository.uploadDiaryImage(uri).getOrElse {
+                    _uiState.value = current
+                    _events.emit(DiaryEvent.Message(it.message ?: "사진을 업로드하지 못했습니다."))
+                    return@launch
+                }
+            }
+            val savedRequest = if (imageKey == null) request else request.copy(imageKeys = listOf(imageKey))
+            repository.saveDiary(diaryId, savedRequest)
                 .onSuccess {
                     _events.emit(DiaryEvent.Saved)
                     load()

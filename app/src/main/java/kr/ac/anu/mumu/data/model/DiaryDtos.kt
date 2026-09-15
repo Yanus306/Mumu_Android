@@ -1,5 +1,7 @@
 package kr.ac.anu.mumu.data.model
 
+data class UploadResponseDto(val key: String?, val url: String?)
+
 data class DiaryRequestDto(
     val petId: Long,
     val mood: String,

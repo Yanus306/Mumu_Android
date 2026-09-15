@@ -1,6 +1,7 @@
 package kr.ac.anu.mumu.presentation.main
 
 import android.app.DatePickerDialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -43,6 +45,18 @@ class DiaryFragment : Fragment() {
     private var detailDialog: AlertDialog? = null
     private var hasResumed = false
     private var autoCompose = false
+    private var selectedImageUri: Uri? = null
+    private var activeForm: DialogDiaryFormBinding? = null
+    private val pickDiaryImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri != null) {
+            selectedImageUri = uri
+            activeForm?.ivDiaryPreview?.apply {
+                visibility = View.VISIBLE
+                load(uri)
+            }
+            activeForm?.btnRemoveDiaryImage?.visibility = View.VISIBLE
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDiaryBinding.inflate(inflater, container, false)
@@ -80,7 +94,10 @@ class DiaryFragment : Fragment() {
                                 Toast.makeText(requireContext(), "일기를 저장했습니다.", Toast.LENGTH_SHORT).show()
                             }
                             is DiaryEvent.Message -> {
-                                formDialog?.findViewById<AppCompatButton>(R.id.btn_save_diary)?.isEnabled = true
+                                formDialog?.findViewById<AppCompatButton>(R.id.btn_save_diary)?.apply {
+                                    isEnabled = true
+                                    text = "저장"
+                                }
                                 Toast.makeText(requireContext(), event.text, Toast.LENGTH_SHORT).show()
                             }
                         }
@@ -207,6 +224,20 @@ class DiaryFragment : Fragment() {
         val state = viewModel.uiState.value as? DiaryUiState.Ready ?: return
         val petId = state.petId ?: return
         val form = DialogDiaryFormBinding.inflate(layoutInflater)
+        selectedImageUri = null
+        activeForm = form
+        form.btnPickDiaryImage.visibility = if (diary == null) View.VISIBLE else View.GONE
+        form.btnPickDiaryImage.setOnClickListener { pickDiaryImage.launch("image/*") }
+        form.btnRemoveDiaryImage.setOnClickListener {
+            selectedImageUri = null
+            form.ivDiaryPreview.setImageDrawable(null)
+            form.ivDiaryPreview.visibility = View.GONE
+            form.btnRemoveDiaryImage.visibility = View.GONE
+        }
+        diary?.imageUrls?.firstOrNull()?.let {
+            form.ivDiaryPreview.visibility = View.VISIBLE
+            form.ivDiaryPreview.load(it)
+        }
         form.tvFormTitle.text = if (diary == null) "일기 쓰기" else "일기 수정"
         form.spinnerMood.adapter = ArrayAdapter(
             requireContext(),
@@ -247,6 +278,7 @@ class DiaryFragment : Fragment() {
                 return@setOnClickListener
             }
             form.btnSaveDiary.isEnabled = false
+            form.btnSaveDiary.text = if (selectedImageUri == null) "저장 중…" else "사진 업로드 중…"
             val linkedAnalysis = diary?.analysisSummary
             viewModel.saveDiary(
                 diary?.diaryId,
@@ -262,10 +294,17 @@ class DiaryFragment : Fragment() {
                         ?.takeIf { linkedAnalysis.type.equals("sound", ignoreCase = true) },
                     foodSafetyAnalysisId = linkedAnalysis?.analysisId
                         ?.takeIf { linkedAnalysis.type.equals("food_safety", ignoreCase = true) }
-                )
+                ),
+                selectedImageUri
             )
         }
-        dialog.setOnDismissListener { if (formDialog == dialog) formDialog = null }
+        dialog.setOnDismissListener {
+            if (formDialog == dialog) {
+                formDialog = null
+                activeForm = null
+                selectedImageUri = null
+            }
+        }
         dialog.show()
     }
 
