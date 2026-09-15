@@ -57,6 +57,8 @@ class AnalysisCaptureFragment : Fragment() {
         }
         binding.btnAnalyzeVideo.setOnClickListener {
             selectedVideoUri?.let { uri ->
+                binding.btnAnalyzeVideo.isEnabled = false
+                binding.btnRetake.isEnabled = false
                 findNavController().navigate(
                     R.id.action_analysisCaptureFragment_to_analysisLoadingFragment,
                     bundleOf(ARG_VIDEO_URI to uri.toString())
@@ -90,6 +92,9 @@ class AnalysisCaptureFragment : Fragment() {
         binding.btnRecord.visibility = View.INVISIBLE
         binding.btnRetake.visibility = View.VISIBLE
         binding.btnAnalyzeVideo.visibility = View.VISIBLE
+        binding.btnRecord.isEnabled = false
+        binding.btnRetake.isEnabled = true
+        binding.btnAnalyzeVideo.isEnabled = true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

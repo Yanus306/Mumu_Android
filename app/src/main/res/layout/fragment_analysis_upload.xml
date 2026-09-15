@@ -80,7 +80,9 @@
                 android:text="영상 선택"
                 android:textAllCaps="false"
                 android:textColor="@color/mumugray_400"
-                android:textSize="@dimen/body_5"
+            android:textSize="@dimen/body_5"
+            android:minWidth="0dp"
+            android:paddingHorizontal="8dp"
                 app:backgroundTint="@null" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -94,6 +96,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/body_5"
+                android:minWidth="0dp"
+                android:paddingHorizontal="8dp"
                 android:visibility="gone"
                 app:backgroundTint="@null" />
         </LinearLayout>
