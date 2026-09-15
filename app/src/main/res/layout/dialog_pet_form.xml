@@ -3,32 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fillViewport="true">
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="24dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/tv_form_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_pill_yellow"
+                android:contentDescription="반려동물"
+                android:padding="9dp"
+                android:src="@drawable/dog_foot" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_form_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="@color/mumugray_400"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:text="우리 아이의 정보를 알려주세요"
+                    android:textColor="@color/mumugray_200"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/pretendard_semibold"
-            android:textColor="@color/mumugray_400"
-            android:textSize="20sp" />
+            android:text="기본 정보"
+            android:textColor="@color/mumu_300"
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_pet_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_community_input"
             android:hint="이름 (필수)"
             android:maxLength="50"
             android:paddingHorizontal="12dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <Spinner
             android:id="@+id/spinner_species"
@@ -36,7 +83,8 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_community_input"
-            android:paddingHorizontal="12dp" />
+            android:paddingHorizontal="12dp"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_breed"
@@ -47,7 +95,8 @@
             android:hint="품종 (선택)"
             android:maxLength="100"
             android:paddingHorizontal="12dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <Spinner
             android:id="@+id/spinner_gender"
@@ -55,7 +104,8 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_community_input"
-            android:paddingHorizontal="12dp" />
+            android:paddingHorizontal="12dp"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_birth_date"
@@ -65,7 +115,8 @@
             android:background="@drawable/bg_community_input"
             android:focusable="false"
             android:hint="생년월일 (선택)"
-            android:paddingHorizontal="12dp" />
+            android:paddingHorizontal="12dp"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_weight"
@@ -75,15 +126,26 @@
             android:background="@drawable/bg_community_input"
             android:hint="몸무게 kg (선택)"
             android:inputType="numberDecimal"
-            android:paddingHorizontal="12dp" />
+            android:paddingHorizontal="12dp"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_neutered"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard_regular"
             android:text="중성화했어요"
             android:textColor="@color/mumugray_400" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:text="건강 정보"
+            android:textColor="@color/mumu_300"
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_allergies"
@@ -93,7 +155,8 @@
             android:background="@drawable/bg_community_input"
             android:hint="알레르기 (선택)"
             android:paddingHorizontal="12dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_chronic_diseases"
@@ -103,7 +166,8 @@
             android:background="@drawable/bg_community_input"
             android:hint="만성질환 (선택)"
             android:paddingHorizontal="12dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_medications"
@@ -113,13 +177,15 @@
             android:background="@drawable/bg_community_input"
             android:hint="복용 중인 약 (선택)"
             android:paddingHorizontal="12dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:fontFamily="@font/pretendard_regular" />
 
         <TextView
             android:id="@+id/tv_form_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/mumured"
             android:textSize="12sp"
             android:visibility="gone" />
@@ -136,6 +202,7 @@
                 android:layout_height="46dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_community_action"
+                android:fontFamily="@font/pretendard_medium"
                 android:text="취소"
                 android:textAllCaps="false"
                 android:textColor="@color/mumugray_400"
@@ -148,6 +215,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_analysis_primary"
+                android:fontFamily="@font/pretendard_medium"
                 android:text="저장"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

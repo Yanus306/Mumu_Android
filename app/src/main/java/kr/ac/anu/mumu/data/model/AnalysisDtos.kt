@@ -27,7 +27,11 @@ data class PetDto(
     val allergies: String? = null,
     val chronicDiseases: String? = null,
     val medications: String? = null,
-    val profileImageUrl: String? = null
+    val profileImageUrl: String? = null,
+    val ageYears: Int? = null,
+    val recordDays: Int? = null,
+    val speciesLabel: String? = null,
+    val likeCount: Long? = null
 )
 
 data class PetRequestDto(
