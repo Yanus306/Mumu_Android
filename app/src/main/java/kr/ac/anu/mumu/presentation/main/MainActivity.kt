@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
             R.id.communityWriteFragment,
             R.id.diaryEditorFragment,
             R.id.diaryDetailPageFragment,
-            R.id.petFormFragment
+            R.id.petFormFragment,
+            R.id.petManageFragment
         )
 
         binding.btnBack.setOnClickListener {

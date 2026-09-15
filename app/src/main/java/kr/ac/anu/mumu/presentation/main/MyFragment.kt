@@ -53,6 +53,7 @@ class MyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnAddPet.setOnClickListener { showPetForm(null) }
+        binding.btnPetManagement.setOnClickListener { findNavController().navigate(R.id.petManageFragment) }
         binding.tvPetsState.setOnClickListener {
             if (viewModel.uiState.value is MyUiState.Error) viewModel.loadPets()
         }

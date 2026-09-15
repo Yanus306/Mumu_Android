@@ -56,6 +56,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/petManageFragment"
+        android:name="kr.ac.anu.mumu.presentation.main.PetManageFragment"
+        tools:layout="@layout/fragment_pet_manage" />
+
+    <fragment
         android:id="@+id/communityFragment"
         android:name="kr.ac.anu.mumu.presentation.main.CommunityFragment"
         tools:layout="@layout/fragment_community" />

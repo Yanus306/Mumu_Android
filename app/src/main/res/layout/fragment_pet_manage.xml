@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginHorizontal="9dp"
+    android:background="@drawable/bg_my_surface" android:orientation="vertical" android:padding="32dp">
+    <ProgressBar android:id="@+id/progress_pets" android:layout_width="36dp" android:layout_height="36dp" android:layout_gravity="center" android:indeterminateTint="@color/mumu_300" />
+    <TextView android:id="@+id/tv_pets_state" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textColor="@color/mumugray_350" android:visibility="gone" />
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:scrollbars="none">
+        <LinearLayout android:id="@+id/layout_pets" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    </ScrollView>
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/btn_add_pet" android:layout_width="match_parent" android:layout_height="44dp" android:background="@drawable/bg_analysis_primary" android:text="추가하기" android:textAllCaps="false" android:textColor="@color/white" app:backgroundTint="@null" />
+</LinearLayout>

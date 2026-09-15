@@ -38,14 +38,14 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_regular" android:text="ID / 이름 / 전화번호 / 주소 / 새 비밀번호" android:textColor="@color/mumugray_200" android:textSize="10sp" />
             <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:background="@color/mumu_100" />
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:fontFamily="@font/pretendard_regular" android:text="동물 프로필 관리" android:textColor="@color/mumublack" android:textSize="12sp" />
+            <TextView android:id="@+id/btn_pet_management" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:fontFamily="@font/pretendard_regular" android:paddingVertical="4dp" android:text="동물 프로필 관리  ›" android:textColor="@color/mumublack" android:textSize="12sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="@font/pretendard_regular" android:text="대표 아이 선택 / 동물 프로필 등록" android:textColor="@color/mumugray_200" android:textSize="10sp" />
             <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="10dp" android:background="@color/mumu_100" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_pet" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="14dp"
                 android:background="@drawable/bg_analysis_primary" android:fontFamily="@font/pretendard_medium" android:text="+ 반려동물 등록"
-                android:textAllCaps="false" android:textColor="@color/white" android:textSize="13sp" app:backgroundTint="@null" />
+                android:textAllCaps="false" android:textColor="@color/white" android:textSize="13sp" android:visibility="gone" app:backgroundTint="@null" />
 
             <ProgressBar
                 android:id="@+id/progress_pets" android:layout_width="36dp" android:layout_height="36dp"
@@ -56,7 +56,7 @@
                 android:textColor="@color/mumugray_350" android:textSize="12sp" android:visibility="gone" />
             <LinearLayout
                 android:id="@+id/layout_pets" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="14dp" android:orientation="vertical" />
+                android:layout_marginTop="14dp" android:orientation="vertical" android:visibility="gone" />
 
             <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="4dp" android:background="@color/mumu_100" />
             <androidx.appcompat.widget.AppCompatButton
