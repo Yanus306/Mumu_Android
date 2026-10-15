@@ -10,8 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.ac.anu.mumu.R
 import kr.ac.anu.mumu.databinding.FragmentAnalysisLoadingBinding
@@ -37,22 +37,21 @@ class AnalysisLoadingFragment : Fragment() {
 
         val videoUri = requireArguments().getString(ARG_VIDEO_URI).orEmpty()
         require(videoUri.isNotBlank()) { "분석할 영상 URI가 필요합니다." }
-        if (AnalysisConfig.DEMO_MODE) {
-            viewModel.startDemo(videoUri)
-            viewLifecycleOwner.lifecycleScope.launch {
-                delay(AnalysisConfig.DEMO_LOADING_MILLIS)
-                if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                    viewModel.showDemoResult(videoUri)
-                }
+        val requestId = requireArguments().getString(ARG_ANALYSIS_REQUEST_ID)
+            ?: java.util.UUID.randomUUID().toString().also {
+                requireArguments().putString(ARG_ANALYSIS_REQUEST_ID, it)
             }
-        } else {
-            viewModel.analyze(videoUri)
-        }
+        viewModel.analyze(videoUri, requestId)
 
         binding.btnWriteDiary.setOnClickListener {
             findNavController().navigate(
                 R.id.diaryFragment,
-                Bundle().apply { putBoolean("compose", true) }
+                Bundle().apply { putBoolean("compose", true) },
+                navOptions {
+                    // Keep the running job, but discard the analysis screens before entering a main tab.
+                    popUpTo(R.id.homeFragment) { inclusive = false }
+                    launchSingleTop = true
+                }
             )
         }
         binding.btnLater.setOnClickListener {
@@ -64,19 +63,13 @@ class AnalysisLoadingFragment : Fragment() {
             binding.btnWriteDiary.visibility = View.VISIBLE
             binding.btnLater.visibility = View.VISIBLE
             binding.tvLoadingMessage.text = "mumu가 열심히 분석하고 있어요!..."
-            if (AnalysisConfig.DEMO_MODE) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    delay(AnalysisConfig.DEMO_LOADING_MILLIS)
-                    viewModel.showDemoResult(videoUri)
-                }
-            } else {
-                viewModel.analyze(videoUri)
-            }
+            viewModel.analyze(videoUri, requestId, retry = true)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
+                    if (!viewModel.isCurrentRequest(requestId)) return@collect
                     when (state) {
                         is AnalysisUiState.Loading -> {
                             binding.progressAnalysis.visibility = View.VISIBLE

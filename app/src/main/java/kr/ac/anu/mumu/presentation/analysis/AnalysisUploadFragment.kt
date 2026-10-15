@@ -48,7 +48,10 @@ class AnalysisUploadFragment : Fragment() {
             selectedVideoUri?.let { uri ->
                 findNavController().navigate(
                     R.id.action_analysisUploadFragment_to_analysisLoadingFragment,
-                    bundleOf(ARG_VIDEO_URI to uri.toString())
+                    bundleOf(
+                        ARG_VIDEO_URI to uri.toString(),
+                        ARG_ANALYSIS_REQUEST_ID to java.util.UUID.randomUUID().toString()
+                    )
                 )
             }
         }

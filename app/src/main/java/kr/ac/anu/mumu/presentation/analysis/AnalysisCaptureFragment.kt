@@ -61,7 +61,10 @@ class AnalysisCaptureFragment : Fragment() {
                 binding.btnRetake.isEnabled = false
                 findNavController().navigate(
                     R.id.action_analysisCaptureFragment_to_analysisLoadingFragment,
-                    bundleOf(ARG_VIDEO_URI to uri.toString())
+                    bundleOf(
+                        ARG_VIDEO_URI to uri.toString(),
+                        ARG_ANALYSIS_REQUEST_ID to java.util.UUID.randomUUID().toString()
+                    )
                 )
             }
         }
